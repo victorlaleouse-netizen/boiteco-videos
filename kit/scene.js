@@ -352,7 +352,7 @@ function addPlant(scene, x, y, z, s) {
 }
 
 // ---------- assemble ----------
-export function buildWorld(renderer, holoCfg) {
+export function buildWorld(renderer, holoCfg, cast = []) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0b0d12);
   scene.fog = new THREE.Fog(0x0b0d12, 7, 16);
@@ -405,5 +405,77 @@ export function buildWorld(renderer, holoCfg) {
   camera.position.set(-0.2, 3.0, 5.0);
   camera.lookAt(0.0, 1.5, -0.4);
 
-  return { scene, camera, boss, bot, holo, beam, holoApi, chair };
+  const extras = {};
+  cast.slice(0, 2).forEach((id, i) => {
+    if (!CAST[id]) return;
+    const p = buildPerson(CAST[id]); const sl = SLOTS[i];
+    p.position.set(...sl.pos); p.rotation.y = sl.rotY; p.visible = false;
+    p.userData.slot = sl; scene.add(p); extras[id] = p;
+  });
+  return { scene, camera, boss, bot, holo, beam, holoApi, chair, extras };
+}
+
+// ---------- Secondary cast (optional, only when an episode lists them in "cast") ----------
+export const CAST = {
+  sandrine: { skin: 0xd99a74, hair: 0x7a2e1c, top: 0x2f7d74, under: 0xefe6d8, pants: 0x2b2f3a, style: 'bun', glasses: true },
+  leo:      { skin: 0xc68a63, hair: 0x1e1712, top: 0x4a5a78, under: 0xd8d8d8, pants: 0x30343c, style: 'short', glasses: false, hoodie: true },
+  claire:   { skin: 0xf0c09c, hair: 0xd9b26a, top: 0x8a3b4a, under: 0xf3e3c8, pants: 0x2a2a30, style: 'long', glasses: false, scarf: true },
+};
+// two standing spots, visible in the wide shot (R = behind the boss's right shoulder, L = behind Claude)
+export const SLOTS = [
+  { pos: [1.4, 0, -1.85], rotY: -0.5, side: 1 },
+  { pos: [-1.05, 0, -1.8], rotY: 0.5, side: -1 },
+];
+
+export function buildPerson(o) {
+  const g = new THREE.Group();
+  const skin = clay(o.skin), hair = clay(o.hair, 0.95), top = clay(o.top), under = clay(o.under), pants = clay(o.pants);
+  const dark = flat(0x1a1a1a);
+  const up = new THREE.Group(); up.position.y = 0.42; g.add(up);   // standing: upper body raised
+  up.add(mesh(rbox(0.66, 0.8, 0.42, 0.17, 6), top, { y: 1.15 }));
+  up.add(mesh(rbox(0.18, 0.5, 0.04, 0.02), under, { y: 1.3, z: 0.205 }));
+  if (o.hoodie) up.add(mesh(new THREE.TorusGeometry(0.17, 0.06, 10, 20), top, { y: 1.55, z: -0.02, rx: Math.PI / 2 }));
+  if (o.scarf) up.add(mesh(new THREE.TorusGeometry(0.15, 0.07, 10, 20), clay(0xe8c45a), { y: 1.56, rx: Math.PI / 2 }));
+  up.add(mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.14, 16), skin, { y: 1.6 }));
+  const head = new THREE.Group(); head.position.set(0, 1.84, 0.02);
+  head.add(mesh(rbox(0.46, 0.5, 0.44, 0.2, 6), skin));
+  head.add(mesh(new THREE.SphereGeometry(0.055, 14, 10), skin, { x: -0.24, y: -0.02 }));
+  head.add(mesh(new THREE.SphereGeometry(0.055, 14, 10), skin, { x: 0.24, y: -0.02 }));
+  head.add(mesh(new THREE.SphereGeometry(0.06, 16, 12), skin, { y: -0.03, z: 0.23 }));
+  head.add(mesh(new THREE.SphereGeometry(0.03, 14, 10), dark, { x: -0.1, y: 0.06, z: 0.215 }));
+  head.add(mesh(new THREE.SphereGeometry(0.03, 14, 10), dark, { x: 0.1, y: 0.06, z: 0.215 }));
+  if (o.glasses) {
+    const gm = flat(0x222222);
+    for (const s of [-1, 1]) head.add(mesh(new THREE.TorusGeometry(0.06, 0.009, 8, 24), gm, { x: 0.1 * s, y: 0.06, z: 0.232, cast: false }));
+    head.add(mesh(rbox(0.08, 0.012, 0.012, 0.004), gm, { y: 0.07, z: 0.232, cast: false }));
+  }
+  const browL = mesh(rbox(0.1, 0.025, 0.025, 0.01), hair, { x: -0.1, y: 0.15, z: 0.22, rz: 0.1 });
+  const browR = mesh(rbox(0.1, 0.025, 0.025, 0.01), hair, { x: 0.1, y: 0.15, z: 0.22, rz: -0.1 });
+  head.add(browL, browR);
+  const smile = mesh(new THREE.TorusGeometry(0.04, 0.009, 8, 20, Math.PI * 0.8), dark, { y: -0.14, z: 0.222, rz: Math.PI * 1.1 });
+  const mouth = mesh(new THREE.CircleGeometry(0.048, 24, Math.PI, Math.PI), flat(0x3a1410), { y: -0.12, z: 0.226, cast: false });
+  mouth.visible = false; head.add(smile, mouth);
+  // hair styles
+  const cap = (r = 0.27) => { const c = mesh(new THREE.SphereGeometry(r, 20, 14, 0, Math.PI * 2, 0, Math.PI * 0.55), hair, { y: 0.06, z: -0.02 }); c.scale.set(0.95, 0.85, 0.95); return c; };
+  if (o.style === 'bun') { head.add(cap()); head.add(mesh(new THREE.SphereGeometry(0.11, 16, 12), hair, { y: 0.28, z: -0.16 })); }
+  if (o.style === 'long') { head.add(cap(0.28)); head.add(mesh(rbox(0.52, 0.62, 0.14, 0.06), hair, { y: -0.12, z: -0.2 }));
+    for (const s of [-1, 1]) head.add(mesh(rbox(0.09, 0.5, 0.2, 0.04), hair, { x: 0.25 * s, y: -0.08, z: -0.04 })); }
+  if (o.style === 'short') { head.add(cap(0.26));
+    for (let i = 0; i < 6; i++) head.add(mesh(new THREE.SphereGeometry(0.08, 12, 10), hair, { x: -0.16 + i * 0.065, y: 0.25 + (i % 2) * 0.03, z: 0.08 - (i % 3) * 0.09 })); }
+  up.add(head);
+  for (const s of [-1, 1]) {
+    const arm = new THREE.Group(); arm.position.set(0.37 * s, 1.42, 0);
+    arm.add(mesh(capsule(0.085, 0.28), top, { y: -0.2 }));
+    const fore = new THREE.Group(); fore.position.y = -0.38;
+    fore.add(mesh(capsule(0.08, 0.24), top, { z: 0.16, rx: Math.PI / 2 }));
+    fore.add(mesh(new THREE.SphereGeometry(0.075, 14, 10), skin, { z: 0.38 }));
+    fore.rotation.x = 1.25; arm.add(fore); arm.rotation.z = 0.1 * s;
+    up.add(arm); g.userData['arm' + (s < 0 ? 'L' : 'R')] = arm;
+  }
+  for (const s of [-1, 1]) {
+    g.add(mesh(capsule(0.11, 0.62), pants, { x: 0.15 * s, y: 0.55 }));
+    g.add(mesh(rbox(0.17, 0.09, 0.28, 0.04), clay(0x2a2420), { x: 0.15 * s, y: 0.06, z: 0.06 }));
+  }
+  Object.assign(g.userData, { head, browL, browR, smile, mouth, browY: 0.15 });
+  return g;
 }

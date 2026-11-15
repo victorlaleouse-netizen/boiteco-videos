@@ -4,7 +4,7 @@ import { buildWorld } from './scene.js';
 
 const W = 1080, H = 1920;
 const COL = { claude: '#f2701e', boss: '#e0a93a' };
-const SUB = { claude: '#ffa24f', boss: '#ffffff' };
+const SUB = { claude: '#ffa24f', boss: '#ffffff', sandrine: '#8fe3d0', leo: '#a9c8ff', claire: '#ffc2d1' };
 const NAME = { claude: 'CLAUDE', boss: 'LE PATRON' };
 
 const SHOTS = {
@@ -25,8 +25,8 @@ export async function setup(timelineUrl) {
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  const w = buildWorld(renderer, tl.holo);
-  const { scene, camera, bot, boss, holo, beam, holoApi } = w;
+  const w = buildWorld(renderer, tl.holo, tl.cast || []);
+  const { scene, camera, bot, boss, holo, beam, holoApi, extras } = w;
   if (tl.holo) { /* rows come from scene defaults; custom rows supported via makeHolo in scene */ }
 
   const comp = document.createElement('canvas'); comp.width = W; comp.height = H;
@@ -58,6 +58,35 @@ export async function setup(timelineUrl) {
     return 1e9;
   }
   const tHolo = holoShowTime();
+  // secondary cast: enters (slides in) just before its first line, or at a line with "enter": "<id>"
+  const extraIn = {};
+  for (const id of Object.keys(extras || {})) {
+    const l = lines.find((x) => x.who === id || x.enter === id);
+    extraIn[id] = l ? l.start - 0.7 : 1e9;
+  }
+  function animExtra(id, p, t, ln, speaking, env) {
+    const sl = p.userData.slot, ud = p.userData, head = ud.head;
+    const k = (t - extraIn[id]) / 0.7;
+    p.visible = k > 0;
+    if (!p.visible) return;
+    const e = ease(k);
+    p.position.set(sl.pos[0] + sl.side * 1.6 * (1 - e), Math.abs(Math.sin(k * 9)) * 0.03 * (1 - e), sl.pos[2]);
+    const talk = speaking === id;
+    const emo = ln && ln.who === id && t < ln.start + ln.dur + 0.6 ? ln.emo : null;
+    head.rotation.set(talk ? env * 0.08 - 0.02 : Math.sin(t * 0.7 + 1) * 0.02, talk ? 0 : -sl.side * 0.25 + 0.1 * Math.sin(t * 0.4), 0);
+    ud.browL.position.y = ud.browR.position.y = ud.browY; ud.browL.rotation.z = 0.1; ud.browR.rotation.z = -0.1;
+    ud.armL.rotation.set(0, 0, -0.1); ud.armR.rotation.set(0, 0, 0.1);
+    if (talk) ud.armR.rotation.x = -0.4 - Math.sin(t * 5) * 0.15 * (0.4 + env);
+    if (emo === 'surprised' || emo === 'shocked') { ud.browL.position.y += 0.04; ud.browR.position.y += 0.04; head.rotation.x -= 0.1; }
+    if (emo === 'triumph') { ud.armR.rotation.x = -2.4; ud.armR.rotation.z = 0.3; }
+    if (emo === 'awkward') { head.rotation.y += 0.4; }
+    if (emo === 'sad' || emo === 'touched') { head.rotation.z = 0.15; ud.browL.rotation.z = -0.25; ud.browR.rotation.z = 0.25; }
+    if (emo === 'rage') { ud.armL.rotation.x = ud.armR.rotation.x = -2.5; ud.browL.rotation.z = -0.4; ud.browR.rotation.z = 0.4; }
+    p.rotation.y = sl.rotY + (talk ? 0 : -sl.side * 0.1);
+    const open = (talk && env > 0.06) || emo === 'shocked';
+    ud.mouth.visible = open; ud.smile.visible = !open && emo !== 'sad';
+    if (open) ud.mouth.scale.set(0.85 + env * 0.25, 0.3 + env * 1.0, 1);
+  }
 
   function wrap(text, maxW) {
     const words = text.split(' '); const out = []; let cur = '';
@@ -174,6 +203,9 @@ export async function setup(timelineUrl) {
     ud.mouth.visible = bossOpen; ud.smile.visible = !bossOpen && emo !== 'sad';
     if (bossOpen) ud.mouth.scale.set(0.85 + env * 0.25, Math.max(0.3 + env * 1.0, emo === 'shocked' && !bossTalk ? 0.8 : 0), 1);
 
+    // ---- secondary cast ----
+    for (const [id, p] of Object.entries(extras || {})) animExtra(id, p, t, ln, speaking, env);
+
     // ---- holo ----
     const st = holoState(li);
     const hs = st.show ? ease((t - tHolo) / 0.35) : 0;
@@ -186,7 +218,12 @@ export async function setup(timelineUrl) {
     let shot = 'wide';
     if (t >= tl.intro && ln) shot = ln.shot || 'wide';
     if (t >= tl.outro_start - 0.2) shot = 'wide';
-    const S = SHOTS[shot];
+    let S = SHOTS[shot];
+    if (!S && extras && extras[shot]) {   // close shot on a secondary character
+      const sl = extras[shot].userData.slot;
+      S = { pos: [sl.pos[0] + sl.side * 0.2, 2.95, sl.pos[2] + 4.3], look: [sl.pos[0] - sl.side * 0.1, 2.0, sl.pos[2]] };
+    }
+    if (!S) S = SHOTS.wide;
     const t0 = ln && t >= tl.intro ? ln.start : 0;
     const k = Math.min(1, (t - t0) / 4);
     const p = v3(S.pos), l = v3(S.look);

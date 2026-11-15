@@ -76,10 +76,17 @@ Chaque histoire = un **contexte** (moment + enjeu humain) + **un vrai usage de l
 - **L'anniversaire de la boîte** (ou d'un salarié) : tout le monde a oublié sauf Claude… qui n'a pas le droit de commander un gâteau sans validation. Chute tendre.
 - **La nouveauté de la semaine** (actu du jour) : vécue dans une scène concrète, jamais expliquée comme une fiche produit.
 - **Le patron qui ne se rend pas compte** : il se plaint de « tout faire tout seul » ; Claude lui montre la liste de tout ce qui tourne déjà sans lui.
-Contraintes du kit actuel : seuls le patron et Claude sont à l'écran ; les autres (stagiaire, employée, conjoint, client) existent par ce qu'en disent les personnages, par un message affiché sur l'hologramme (ex. « Sandrine : 3 erreurs corrigées »), ou ne sont pas montrés.
+Le stagiaire (Léo), l'employée (Sandrine) et la femme du patron (Claire) peuvent apparaître à l'écran (voir « Personnages secondaires ») ; les autres (clients, fournisseurs) existent par les dialogues ou un message sur l'hologramme.
+
+### Personnages secondaires (optionnels : seulement quand l'histoire en a besoin, pas à chaque épisode — en gros 1 épisode sur 3 au plus)
+Ajouter `"cast": ["sandrine"]` (1 ou 2 noms max) au JSON de l'épisode ; sans `cast`, seuls le patron et Claude sont là. Un personnage du cast entre dans le décor (il glisse depuis le côté) juste avant sa première réplique, ou à la réplique qui porte `"enter": "<id>"` s'il doit être là avant de parler. Le 1er nom du cast se place derrière le patron (à droite), le 2e derrière Claude (à gauche) ; tous deux sont visibles en plan `wide`.
+- `sandrine` : l'employée (compta, admin, qualité), la quarantaine, chignon roux et lunettes, pull vert. Pince-sans-rire, c'est elle qui vérifie et rattrape les erreurs. Voix `1TLYDjqJQ2RtnaajKcoY` (Charlotte, accent du Sud). Sous-titres vert d'eau.
+- `leo` : le stagiaire, la vingtaine, sweat à capuche gris-bleu. Débrouillard, il a souvent déjà automatisé des choses sans rien dire. Voix `Ayvd8fDj52DfUWXZeAFe` (Nathan, détendu). Sous-titres bleu clair.
+- `claire` : la femme du patron, cheveux blonds longs, manteau bordeaux et écharpe (elle passe au bureau). Tendre et lucide, pour les épisodes « vie perso / heure tardive ». Voix `NEjemlRxgWmL5ZGJetsB` (Claire, chaleureuse). Sous-titres rose clair.
+Dans `lines` : `"who": "sandrine"` (etc.), `"shot": "sandrine"` pour un plan sur elle, `emo` ∈ surprised, shocked, triumph, awkward, sad, touched, rage. Les autres plans (`boss`, `bot`, `holo`, `wide`) restent disponibles ; mettre au moins un `wide` quand un secondaire est présent pour montrer tout le monde.
 
 ## 4. Voix (connecteur ElevenLabs, modèle `eleven_v4`)
-- Claude : `SFB33nwu9KAKT7Dy3QNg` (Lucien). Patron : `3Tp5mYhT9wrfnry9pzvV` (Hugo).
+- Claude : `SFB33nwu9KAKT7Dy3QNg` (Lucien). Patron : `3Tp5mYhT9wrfnry9pzvV` (Hugo). Secondaires : voir « Personnages secondaires ».
 - `creative_create_flow` (nom = titre), puis `creative_generate_speech` une fois par réplique avec `prompt = say` et **`generations_count: 1`** (une seule prise par réplique : choix explicite de Victor pour économiser les crédits ; ne jamais relancer une génération réussie).
 - `creative_get_flow_run_status` avec la 1re session_id de chaque réplique → `content_url` de la prise.
 - Télécharger dans l'ordre : `curl -sS -o audio/NN.mp3 "<content_url>"` (dossier `kit/audio_epNNN/`).
