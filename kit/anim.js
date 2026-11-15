@@ -8,10 +8,10 @@ const SUB = { claude: '#ffa24f', boss: '#ffffff' };
 const NAME = { claude: 'CLAUDE', boss: 'LE PATRON' };
 
 const SHOTS = {
-  wide: { pos: [-0.2, 3.0, 5.0], look: [0, 1.5, -0.4] },
-  bot:  { pos: [-0.05, 1.95, 2.35], look: [-0.62, 1.52, 0.1] },
-  boss: { pos: [0.1, 2.2, 1.75], look: [0.55, 1.8, -1.0] },
-  holo: { pos: [-0.1, 2.5, 2.7], look: [-0.05, 2.3, -0.55] },
+  wide: { pos: [-0.2, 3.1, 6.3], look: [0, 1.6, -0.4] },
+  bot:  { pos: [-0.4, 2.35, 4.0], look: [-0.35, 1.8, -0.2] },
+  boss: { pos: [0.3, 2.65, 3.4], look: [0.5, 1.95, -0.9] },
+  holo: { pos: [-0.1, 2.55, 3.9], look: [-0.05, 2.15, -0.5] },
 };
 
 const ease = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
@@ -193,7 +193,7 @@ export async function setup(timelineUrl) {
     const dir = l.clone().sub(p);
     p.addScaledVector(dir, 0.06 * ease(k));               // slow push-in
     const kc = ln && t >= ln.start ? (t - ln.start) : 9;
-    p.addScaledVector(dir, -0.18 * (1 - ease(kc / 0.28)));  // snap-in at each cut
+    p.addScaledVector(dir, -0.10 * (1 - ease(kc / 0.28)));  // snap-in at each cut
     p.x += Math.sin(t * 0.9) * 0.015; p.y += Math.sin(t * 1.3) * 0.01;
     if (t < tl.intro) p.addScaledVector(dir, -0.12 * (1 - ease(t / tl.intro)));
     if (emo === 'rage') { p.x += (Math.random() - 0.5) * 0.03; p.y += (Math.random() - 0.5) * 0.03; }
