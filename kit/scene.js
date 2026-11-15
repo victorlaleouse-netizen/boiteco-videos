@@ -456,12 +456,12 @@ export function buildPerson(o) {
   const mouth = mesh(new THREE.CircleGeometry(0.048, 24, Math.PI, Math.PI), flat(0x3a1410), { y: -0.12, z: 0.226, cast: false });
   mouth.visible = false; head.add(smile, mouth);
   // hair styles
-  const cap = (r = 0.27) => { const c = mesh(new THREE.SphereGeometry(r, 20, 14, 0, Math.PI * 2, 0, Math.PI * 0.55), hair, { y: 0.06, z: -0.02 }); c.scale.set(0.95, 0.85, 0.95); return c; };
-  if (o.style === 'bun') { head.add(cap()); head.add(mesh(new THREE.SphereGeometry(0.11, 16, 12), hair, { y: 0.28, z: -0.16 })); }
+  const cap = (r = 0.27) => { const c = mesh(new THREE.SphereGeometry(r, 20, 14, 0, Math.PI * 2, 0, Math.PI * 0.5), hair, { y: 0.17, z: -0.04 }); c.scale.set(0.98, 0.7, 0.98); return c; };
+  if (o.style === 'bun') { head.add(cap()); head.add(mesh(new THREE.SphereGeometry(0.11, 16, 12), hair, { y: 0.33, z: -0.16 })); }
   if (o.style === 'long') { head.add(cap(0.28)); head.add(mesh(rbox(0.52, 0.62, 0.14, 0.06), hair, { y: -0.12, z: -0.2 }));
-    for (const s of [-1, 1]) head.add(mesh(rbox(0.09, 0.5, 0.2, 0.04), hair, { x: 0.255 * s, y: -0.1, z: -0.12 })); }
+    for (const s of [-1, 1]) head.add(mesh(rbox(0.09, 0.5, 0.2, 0.04), hair, { x: 0.255 * s, y: -0.02, z: -0.14 })); }
   if (o.style === 'short') { head.add(cap(0.26));
-    for (let i = 0; i < 6; i++) head.add(mesh(new THREE.SphereGeometry(0.08, 12, 10), hair, { x: -0.16 + i * 0.065, y: 0.25 + (i % 2) * 0.03, z: 0.08 - (i % 3) * 0.09 })); }
+    for (let i = 0; i < 6; i++) head.add(mesh(new THREE.SphereGeometry(0.08, 12, 10), hair, { x: -0.16 + i * 0.065, y: 0.3 + (i % 2) * 0.03, z: 0.04 - (i % 3) * 0.09 })); }
   up.add(head);
   for (const s of [-1, 1]) {
     const arm = new THREE.Group(); arm.position.set(0.37 * s, 1.42, 0);
