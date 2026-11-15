@@ -60,6 +60,8 @@ Inspirations narratives (référence : compte @system_ia, analysé le 15/11) :
 - **Escalade par paliers** : « Et de deux… Et de trois… Sept. » L'hologramme se remplit à chaque palier (une ligne de plus par réplique `holo`).
 - **Du concret ultra-précis** : des prénoms d'employés de la boîte (fictifs : Sandrine, Thomas, Inès…), des heures et des chiffres exacts (« 210 commandes traitées à 6 h 12 », « 44 119 € »). Ça rend l'histoire crédible.
 - **Une question humaine avant la fin** (« Et le vrai Thomas, il fait quoi ? », « Et les cent agents, ils deviennent quoi ? ») et une **chute tendre ou ironique qui donne le beau rôle à un humain** (« Pour Sandrine, qui a tout vérifié. »), pas seulement une colère du patron.
+- **Varier les registres**, pas que la comédie : certains épisodes sont tendres. Ex. (@system_ia) : minuit, le patron veut finir le devis Ferreira, sa femme vient le chercher ; on découvre que Claude lui écrit depuis 22 h « Va te coucher, ta femme t'attend », programme les relances pour 8 h (tâche planifiée) et conclut : « Demain soir, il est à vous. » L'IA est du côté de la vie de l'humain.
+- **Rythme lent → rapide → lent** (leçon motion design @troiscoups) : poser la situation calmement, accélérer pendant l'escalade (répliques de 2-4 mots, plans qui s'enchaînent), ralentir pour la chute (une pause `pause_after` de 0,6 à 0,9 s juste avant la dernière réplique).
 - **Moins de cris** : ton plus posé, chuchoté, pince-sans-rire ; `[il crie, outré]` au plus une fois par épisode, souvent zéro. Répliques encore plus courtes quand c'est possible (2 à 8 mots).
 
 ## 4. Voix (connecteur ElevenLabs, modèle `eleven_v4`)

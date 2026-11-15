@@ -75,6 +75,24 @@ for ln in ep['lines']:
         envw = np.sin(np.linspace(0, np.pi, n)) ** 2
         i = max(0, int((ln['start'] - 0.12) * SR)); mix[i:i + n] += noise * envw * 0.12
     prev = ln.get('shot')
+# UI blip each time the hologram reveals a new row (or appears)
+vis = 0
+for ln in ep['lines']:
+    h = ln.get('holo') or {}
+    v = h.get('visible', vis) if (h.get('show') or vis or h) else vis
+    if v > vis:
+        n = int(0.09 * SR); tt = np.arange(n) / SR
+        blip = np.sin(2 * np.pi * (1400 + 600 * tt / 0.09) * tt) * np.exp(-tt * 45)
+        i = int((ln['start'] + 0.05) * SR); mix[i:i + n] += blip.astype(np.float32) * 0.10
+    vis = v
+# night ambience: soft low room tone + very quiet warm drone (A minor-ish), fades in/out
+L = len(mix); tt = np.arange(L) / SR
+room = rng.standard_normal(L).astype(np.float32)
+room = np.convolve(room, np.ones(200) / 200, mode='same') * 0.9
+drone = sum(np.sin(2 * np.pi * f * tt + k) * a for k, (f, a) in enumerate([(110, 1.0), (164.8, 0.6), (220, 0.35), (261.6, 0.25)]))
+drone *= 0.6 + 0.4 * np.sin(2 * np.pi * 0.07 * tt)
+fade = np.clip(tt / 1.5, 0, 1) * np.clip((total - tt) / 2.0, 0, 1)
+mix += (room * 0.010 + drone.astype(np.float32) * 0.008) * fade.astype(np.float32)
 mix = np.clip(mix * 0.98, -1, 1)
 (np.int16(mix * 32767)).tofile(os.path.join(out, 'voice.raw'))
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 's16le', '-ar', str(SR), '-ac', '1', '-i', os.path.join(out, 'voice.raw'),
