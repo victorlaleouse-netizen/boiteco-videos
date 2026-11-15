@@ -1,0 +1,164 @@
+{
+ "title": "Le rapport du lundi",
+ "episode": 1,
+ "hook": "Mon IA gère ma boîte. Voilà son rapport.",
+ "holo": {
+  "title": "Rapport du lundi",
+  "sub": "Semaine 46",
+  "rows": [
+   [
+    "✔",
+    "Factures envoyées",
+    "42",
+    "#6ee7a0"
+   ],
+   [
+    "✔",
+    "Mails triés",
+    "318",
+    "#6ee7a0"
+   ],
+   [
+    "⚠",
+    "Devis en retard",
+    "3",
+    "#ffb74d"
+   ],
+   [
+    "✖",
+    "Café commandé",
+    "0",
+    "#ff6b6b"
+   ]
+  ]
+ },
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "claude",
+   "text": "Bonjour patron. Rapport de la semaine ?",
+   "shot": "wide",
+   "act": "wave"
+  },
+  {
+   "f": "02.mp3",
+   "who": "boss",
+   "text": "Vas-y, mais fais court.",
+   "shot": "boss"
+  },
+  {
+   "f": "03.mp3",
+   "who": "claude",
+   "text": "42 factures envoyées. 318 mails triés. Et j'ai répondu à tous les clients en moins de deux minutes.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "visible": 2,
+    "hi": -1
+   }
+  },
+  {
+   "f": "04.mp3",
+   "who": "boss",
+   "text": "Tous ? Même madame Garnier ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "05.mp3",
+   "who": "claude",
+   "text": "Même madame Garnier. Elle m'a dit merci. Deux fois.",
+   "shot": "bot"
+  },
+  {
+   "f": "06.mp3",
+   "who": "boss",
+   "text": "Elle m'a jamais dit merci, à moi.",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "07.mp3",
+   "who": "claude",
+   "text": "Par contre, trois devis sont en retard.",
+   "shot": "holo",
+   "holo": {
+    "visible": 3,
+    "hi": 2
+   }
+  },
+  {
+   "f": "08.mp3",
+   "who": "boss",
+   "text": "Ah ! Donc tu fais des erreurs.",
+   "shot": "boss",
+   "emo": "triumph"
+  },
+  {
+   "f": "09.mp3",
+   "who": "claude",
+   "text": "Non. J'attends votre signature depuis mardi.",
+   "shot": "bot"
+  },
+  {
+   "f": "10.mp3",
+   "who": "boss",
+   "text": "Hmm… Passons.",
+   "shot": "boss",
+   "emo": "awkward",
+   "pause_after": 0.6
+  },
+  {
+   "f": "11.mp3",
+   "who": "boss",
+   "text": "Franchement, tu fais tout. À quoi je sers, moi ?",
+   "shot": "wide",
+   "emo": "sad"
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Vous décidez. Moi, je propose. C'est vous qui savez où va la boîte.",
+   "shot": "bot"
+  },
+  {
+   "f": "13.mp3",
+   "who": "boss",
+   "text": "Oh… C'est beau ce que tu dis.",
+   "shot": "boss",
+   "emo": "touched"
+  },
+  {
+   "f": "14.mp3",
+   "who": "claude",
+   "text": "Merci. Du coup, vous signez les devis ?",
+   "shot": "bot",
+   "pause_after": 0.5
+  },
+  {
+   "f": "15.mp3",
+   "who": "boss",
+   "text": "Et pourquoi y a plus de café ?",
+   "shot": "holo",
+   "holo": {
+    "visible": 4,
+    "hi": 3
+   }
+  },
+  {
+   "f": "16.mp3",
+   "who": "claude",
+   "text": "Vous avez dit « fais court ». J'ai coupé les dépenses inutiles.",
+   "shot": "bot"
+  },
+  {
+   "f": "17.mp3",
+   "who": "boss",
+   "text": "LE CAFÉ N'EST PAS INUTILE !",
+   "shot": "wide",
+   "emo": "rage",
+   "act": "jump"
+  }
+ ],
+ "outro_q": "Et toi, tu laisserais une IA gérer ta boîte ?"
+}
