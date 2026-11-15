@@ -423,7 +423,7 @@ export const CAST = {
 };
 // two standing spots, visible in the wide shot (R = behind the boss's right shoulder, L = behind Claude)
 export const SLOTS = [
-  { pos: [1.4, 0, -1.85], rotY: -0.5, side: 1 },
+  { pos: [1.25, 0, -1.85], rotY: -0.5, side: 1 },
   { pos: [-1.05, 0, -1.8], rotY: 0.5, side: -1 },
 ];
 
@@ -459,7 +459,7 @@ export function buildPerson(o) {
   const cap = (r = 0.27) => { const c = mesh(new THREE.SphereGeometry(r, 20, 14, 0, Math.PI * 2, 0, Math.PI * 0.55), hair, { y: 0.06, z: -0.02 }); c.scale.set(0.95, 0.85, 0.95); return c; };
   if (o.style === 'bun') { head.add(cap()); head.add(mesh(new THREE.SphereGeometry(0.11, 16, 12), hair, { y: 0.28, z: -0.16 })); }
   if (o.style === 'long') { head.add(cap(0.28)); head.add(mesh(rbox(0.52, 0.62, 0.14, 0.06), hair, { y: -0.12, z: -0.2 }));
-    for (const s of [-1, 1]) head.add(mesh(rbox(0.09, 0.5, 0.2, 0.04), hair, { x: 0.25 * s, y: -0.08, z: -0.04 })); }
+    for (const s of [-1, 1]) head.add(mesh(rbox(0.09, 0.5, 0.2, 0.04), hair, { x: 0.255 * s, y: -0.1, z: -0.12 })); }
   if (o.style === 'short') { head.add(cap(0.26));
     for (let i = 0; i < 6; i++) head.add(mesh(new THREE.SphereGeometry(0.08, 12, 10), hair, { x: -0.16 + i * 0.065, y: 0.25 + (i % 2) * 0.03, z: 0.08 - (i % 3) * 0.09 })); }
   up.add(head);
