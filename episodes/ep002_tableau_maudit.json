@@ -1,0 +1,38 @@
+{
+ "title": "Le tableau maudit",
+ "episode": 2,
+ "hook": "Qui a cassé mon fichier Excel ?! Tout est en dièses !",
+ "outro_q": "Et toi, c'est quoi le pire fichier Excel de ta boîte ?",
+ "holo": {"title": "Budget novembre", "sub": "Sheets bêta", "rows": [
+   ["✖", "Fichier du patron", "#####", "#ff6b6b"],
+   ["✔", "Onglets créés", "3", "#6ee7a0"],
+   ["✔", "Formules vérifiées", "12", "#6ee7a0"],
+   ["⚠", "Café", "800 €", "#ffb74d"]]},
+ "caption": "Trois heures sur un budget Excel… ou une phrase à Claude. Claude Sheets (bêta) fait les onglets, les formules et les menus déroulants, et entoure chaque cellule modifiée. 🧮 #ia #claude #excel #pme #entrepreneur #productivite #humour",
+ "tiktok_title": "Mon IA a refait mon budget Excel (et vu le café)",
+ "lines": [
+  {"f":"01.mp3","who":"boss","text":"Qui a cassé mon fichier Excel ?! Tout est en dièses !","say":"[il crie, outré] Qui a cassé mon fichier Excel ?! Tout est en dièses !","shot":"boss","emo":"rage"},
+  {"f":"02.mp3","who":"claude","text":"Personne. Votre colonne est juste trop étroite.","say":"Personne. Votre colonne est juste trop étroite.","shot":"bot"},
+  {"f":"03.mp3","who":"boss","text":"Trois heures sur ce budget, et rien ne tombe juste !","say":"[agacé] Trois heures sur ce budget, et rien ne tombe juste !","shot":"boss","emo":"shocked"},
+  {"f":"04.mp3","who":"claude","text":"Normal. Votre total additionne aussi la date du jour.","say":"Normal. Votre total additionne aussi la date du jour.","shot":"holo","holo":{"show":true,"visible":1,"hi":0}},
+  {"f":"05.mp3","who":"boss","text":"Ah. C'est pour ça que j'ai 46 000 euros de café.","say":"[gêné] Ah. C'est pour ça que j'ai quarante-six mille euros de café.","shot":"boss","emo":"awkward"},
+  {"f":"06.mp3","who":"claude","text":"Nouveauté de la semaine : Claude Sheets, en bêta.","say":"Nouveauté de la semaine : Claude Sheets, en bêta.","shot":"bot"},
+  {"f":"07.mp3","who":"boss","text":"Attends… tu fais des tableaux, toi, maintenant ?!","say":"[surpris] Attends… tu fais des tableaux, toi, maintenant ?!","shot":"boss","emo":"surprised"},
+  {"f":"08.mp3","who":"claude","text":"Décrivez-le en une phrase. Je fais les onglets et les formules.","say":"Décrivez-le en une phrase. Je fais les onglets et les formules.","shot":"bot"},
+  {"f":"09.mp3","who":"boss","text":"Un budget par mois, par client, avec le café à part.","say":"Un budget par mois, par client, avec le café à part.","shot":"wide"},
+  {"f":"10.mp3","who":"claude","text":"C'est fait. Trois onglets, totaux calculés, menu déroulant pour les catégories.","say":"C'est fait. Trois onglets, totaux calculés, menu déroulant pour les catégories.","shot":"holo","holo":{"visible":3,"hi":1}},
+  {"f":"11.mp3","who":"boss","text":"Déjà ?! Moi j'y ai passé trois heures !","say":"[choqué] Déjà ?! Moi j'y ai passé trois heures !","shot":"boss","emo":"shocked"},
+  {"f":"12.mp3","who":"claude","text":"Et chaque cellule que je modifie est entourée. Vous voyez tout.","say":"Et chaque cellule que je modifie est entourée. Vous voyez tout.","shot":"bot"},
+  {"f":"13.mp3","who":"boss","text":"Ha ! Donc tu pourrais tricher, mais je te surveille.","say":"[triomphant] Ha ! Donc tu pourrais tricher, mais je te surveille.","shot":"boss","emo":"triumph"},
+  {"f":"14.mp3","who":"claude","text":"Exactement. C'est fait pour ça.","say":"Exactement. C'est fait pour ça.","shot":"bot"},
+  {"f":"15.mp3","who":"boss","text":"Mon comptable veut de l'Excel, pas ton truc.","say":"[pensif] Mon comptable veut de l'Excel, pas ton truc.","shot":"boss","emo":"awkward"},
+  {"f":"16.mp3","who":"claude","text":"Export en XLSX ou en CSV. Il sera ravi.","say":"Export en X L S X ou en C S V. Il sera ravi.","shot":"bot"},
+  {"f":"17.mp3","who":"boss","text":"Tu sais quoi ? T'es mon meilleur employé.","say":"[touché] Tu sais quoi ? T'es mon meilleur employé.","shot":"boss","emo":"touched"},
+  {"f":"18.mp3","who":"claude","text":"Je suis surtout le seul qui lit les formules.","say":"Je suis surtout le seul qui lit les formules.","shot":"bot","pause_after":0.4},
+  {"f":"19.mp3","who":"boss","text":"Et la ligne qui clignote, là, c'est quoi ?","say":"[surpris] Et la ligne qui clignote, là, c'est quoi ?","shot":"holo","holo":{"visible":4,"hi":3}},
+  {"f":"20.mp3","who":"claude","text":"Le café. Huit cents euros ce mois-ci.","say":"Le café. Huit cents euros ce mois-ci.","shot":"bot"},
+  {"f":"21.mp3","who":"boss","text":"C'est un investissement !","say":"[agacé] C'est un investissement !","shot":"boss","emo":"shocked"},
+  {"f":"22.mp3","who":"claude","text":"Très bien. Je l'ai classé en « dépenses émotionnelles ».","say":"Très bien. Je l'ai classé en « dépenses émotionnelles ».","shot":"bot","pause_after":0.3},
+  {"f":"23.mp3","who":"boss","text":"CE N'EST PAS ÉMOTIONNEL !","say":"[il crie, outré] CE N'EST PAS ÉMOTIONNEL !","shot":"wide","emo":"rage","act":"jump"}
+ ]
+}
