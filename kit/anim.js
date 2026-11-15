@@ -76,38 +76,32 @@ export async function setup(timelineUrl) {
     cx.restore();
 
     // intro hook
-    if (t < tl.intro + 0.4) {
-      const a = ease(t / 0.35) * (1 - ease((t - tl.intro) / 0.4));
-      const s = 0.8 + 0.2 * ease(t / 0.35);
-      cx.save(); cx.globalAlpha = a; cx.translate(W / 2, 470); cx.scale(s, s);
-      cx.font = 'bold 74px "DejaVu Sans", sans-serif'; cx.textAlign = 'center';
-      const hl = wrap(tl.hook, 900);
-      const bh = hl.length * 92 + 60;
-      cx.fillStyle = 'rgba(15,15,20,0.78)'; rr(-490, -bh / 2, 980, bh, 40); cx.fill();
-      hl.forEach((l, i) => { cx.fillStyle = i === hl.length - 1 ? COL.claude : '#fff'; cx.fillText(l, 0, -bh / 2 + 100 + i * 92); });
+    if (t < (tl.hook_dur || 3.2)) {
+      const hd = tl.hook_dur || 3.2; const a = ease(t / 0.2) * (1 - ease((t - hd + 0.3) / 0.3));
+      const s = 0.7 + 0.3 * ease(t / 0.25) + 0.03 * Math.sin(t * 8);
+      cx.save(); cx.globalAlpha = a; cx.translate(W / 2, 400); cx.scale(s, s);
+      cx.font = 'bold 82px "DejaVu Sans", sans-serif'; cx.textAlign = 'center';
+      const hl = wrap(tl.hook, 920);
+      const bh = hl.length * 100 + 60;
+      cx.fillStyle = '#ffd23f'; rr(-500, -bh / 2, 1000, bh, 40); cx.fill();
+      hl.forEach((l, i) => { cx.fillStyle = '#111'; cx.fillText(l, 0, -bh / 2 + 108 + i * 100); });
       cx.restore();
     }
 
-    // subtitles
+    // subtitles: short word chunks synced to speech
     if (li >= 0 && t < tl.outro_start) {
       const ln = lines[li];
-      const k = (t - ln.start);
-      if (k < ln.dur + 0.4) {
-        const pop = ease(k / 0.12);
-        cx.save(); cx.textAlign = 'center';
-        cx.font = 'bold 60px "DejaVu Sans", sans-serif';
-        const ls = wrap(ln.text, 900);
-        const y0 = 1240;
-        cx.globalAlpha = pop;
-        cx.translate(W / 2, y0); cx.scale(0.92 + 0.08 * pop, 0.92 + 0.08 * pop);
-        cx.font = 'bold 60px "DejaVu Sans", sans-serif';
-        const bw = Math.max(...ls.map((l) => cx.measureText(l).width)) + 70;
-        cx.fillStyle = 'rgba(12,12,18,0.88)'; rr(-bw / 2, -22, bw, ls.length * 76 + 34, 28); cx.fill();
-        ls.forEach((l, i) => {
-          const y = 40 + i * 76;
-          cx.lineWidth = 8; cx.strokeStyle = 'rgba(0,0,0,0.85)'; cx.lineJoin = 'round'; cx.strokeText(l, 0, y);
-          cx.fillStyle = SUB[ln.who]; cx.fillText(l, 0, y);
-        });
+      const k = t - ln.start;
+      if (k >= 0 && k < ln.dur + 0.15 && ln.chunks) {
+        let ci = 0; for (let i = 0; i < ln.chunks.length; i++) if (k >= ln.chunks[i].t) ci = i;
+        const ch = ln.chunks[ci];
+        const pop = 1 + 0.18 * (1 - ease((k - ch.t) / 0.12));
+        cx.save(); cx.textAlign = 'center'; cx.translate(W / 2, 1330); cx.scale(pop, pop);
+        cx.font = 'bold 76px "DejaVu Sans", sans-serif';
+        const tw = cx.measureText(ch.w).width;
+        cx.fillStyle = 'rgba(10,10,16,0.82)'; rr(-tw / 2 - 26, -66, tw + 52, 92, 22); cx.fill();
+        cx.lineWidth = 9; cx.strokeStyle = '#000'; cx.lineJoin = 'round'; cx.strokeText(ch.w, 0, 0);
+        cx.fillStyle = SUB[ln.who]; cx.fillText(ch.w, 0, 0);
         cx.restore();
       }
     }
@@ -143,8 +137,9 @@ export async function setup(timelineUrl) {
     const blinkPh = (t % 3.3);
     bot.userData.eyes.scale.y = blinkPh > 3.15 ? 0.15 : 1;
     bot.userData.eyes.position.y = blinkPh > 3.15 ? 0.47 : 0;
-    const bm = speaking === 'claude' ? 0.08 + env * 0.95 : 0.01;
-    bot.userData.mouth.scale.y = bm; bot.userData.smile.visible = bm < 0.25;
+    const botOpen = speaking === 'claude' && env > 0.06;
+    bot.userData.mouth.visible = botOpen; bot.userData.smile.visible = !botOpen;
+    if (botOpen) bot.userData.mouth.scale.set(0.85 + env * 0.25, 0.3 + env * 0.95, 1);
     const armR = bot.userData.armR, armL = bot.userData.armL;
     if (ln && ln.act === 'wave' && t < ln.start + ln.dur + 0.3) armR.rotation.z = -0.55 + Math.sin(t * 12) * 0.35;
     else if (speaking === 'claude') armR.rotation.z = -0.9 + Math.sin(t * 5) * 0.25 * (0.4 + env);
@@ -175,8 +170,9 @@ export async function setup(timelineUrl) {
     }
     boss.position.set(bossBase.x, bossBase.y + hop + Math.sin(t * 1.3) * 0.006, bossBase.z);
     boss.rotation.y = bossRotY + (bossTalk ? 0.12 : 0);
-    const om = bossTalk ? 0.06 + env * 1.0 : 0.01;
-    ud.mouth.scale.y = om; ud.smile.visible = om < 0.25 && emo !== 'sad' && emo !== 'rage';
+    const bossOpen = (bossTalk && env > 0.06) || emo === 'rage' || emo === 'shocked';
+    ud.mouth.visible = bossOpen; ud.smile.visible = !bossOpen && emo !== 'sad';
+    if (bossOpen) ud.mouth.scale.set(0.85 + env * 0.25, Math.max(0.3 + env * 1.0, emo === 'shocked' && !bossTalk ? 0.8 : 0), 1);
 
     // ---- holo ----
     const st = holoState(li);
@@ -196,6 +192,8 @@ export async function setup(timelineUrl) {
     const p = v3(S.pos), l = v3(S.look);
     const dir = l.clone().sub(p);
     p.addScaledVector(dir, 0.06 * ease(k));               // slow push-in
+    const kc = ln && t >= ln.start ? (t - ln.start) : 9;
+    p.addScaledVector(dir, -0.18 * (1 - ease(kc / 0.28)));  // snap-in at each cut
     p.x += Math.sin(t * 0.9) * 0.015; p.y += Math.sin(t * 1.3) * 0.01;
     if (t < tl.intro) p.addScaledVector(dir, -0.12 * (1 - ease(t / tl.intro)));
     if (emo === 'rage') { p.x += (Math.random() - 0.5) * 0.03; p.y += (Math.random() - 0.5) * 0.03; }

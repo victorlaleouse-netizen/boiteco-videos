@@ -40,8 +40,8 @@ export function buildBot() {
   const smile = mesh(new THREE.TorusGeometry(0.06, 0.009, 8, 24, Math.PI * 0.75), flat(0x151515),
     { x: 0.01, y: 0.47, z: 0.213, rz: Math.PI + Math.PI * 0.125, cast: false });
   g.add(smile);
-  const mouth = mesh(new THREE.CircleGeometry(0.045, 24), flat(0x2a0f08), { x: 0.01, y: 0.455, z: 0.2135, cast: false });
-  mouth.scale.set(1, 0.01, 1); g.add(mouth);
+  const mouth = mesh(new THREE.CircleGeometry(0.062, 28, Math.PI, Math.PI), flat(0x2a0f08), { x: 0.01, y: 0.49, z: 0.2135, cast: false });
+  mouth.visible = false; g.add(mouth);
   g.userData.smile = smile; g.userData.mouth = mouth;
 
   // legs + feet
@@ -120,8 +120,8 @@ export function buildBoss() {
   // mouth
   const bsmile = mesh(new THREE.TorusGeometry(0.045, 0.01, 8, 20, Math.PI * 0.8), dark, { y: -0.16, z: 0.228, rz: Math.PI * 1.1 });
   head.add(bsmile);
-  const bmouth = mesh(new THREE.CircleGeometry(0.05, 20), flat(0x3a1410), { y: -0.17, z: 0.232, cast: false });
-  bmouth.scale.set(1, 0.01, 1); head.add(bmouth);
+  const bmouth = mesh(new THREE.CircleGeometry(0.055, 24, Math.PI, Math.PI), flat(0x3a1410), { y: -0.14, z: 0.232, cast: false });
+  bmouth.visible = false; head.add(bmouth);
   g.userData.smile = bsmile; g.userData.mouth = bmouth;
   // hair: wavy top
   const hairTop = new THREE.Group();

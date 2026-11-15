@@ -5,10 +5,10 @@ import json, subprocess, sys, os
 import numpy as np
 
 FPS = 30
-INTRO = 2.6     # seconds of hook card before first line
-GAP = 0.45      # silence between lines
-OUTRO = 4.2     # end card
-MIN_TOTAL = 62.0
+INTRO = 0.25    # dialogue starts almost immediately; hook text is overlaid
+GAP = 0.18      # tight pacing between lines
+OUTRO = 3.2     # end card
+MIN_TOTAL = 61.0
 
 ep_path, adir, out = sys.argv[1], sys.argv[2], sys.argv[3]
 os.makedirs(out, exist_ok=True)
@@ -35,6 +35,24 @@ for ln in ep['lines']:
     m = max(env) or 1
     env = [round(min(1.0, (e / m) ** 0.7), 3) for e in env]
     ln['start'] = round(t, 3); ln['dur'] = round(dur, 3); ln['env'] = env
+    # word chunks (<=3 words, <=16 chars) timed on voiced frames
+    words = ln['text'].split()
+    chunks, cur = [], []
+    for wd in words:
+        if cur and (len(cur) >= 3 or len(' '.join(cur + [wd])) > 16):
+            chunks.append(' '.join(cur)); cur = []
+        cur.append(wd)
+        if wd[-1] in '.?!…,' and len(cur) >= 1:
+            chunks.append(' '.join(cur)); cur = []
+    if cur: chunks.append(' '.join(cur))
+    voiced = [i for i, e in enumerate(env) if e > 0.12] or list(range(len(env)))
+    total_c = sum(len(c) + 1 for c in chunks)
+    acc, outc = 0, []
+    for c in chunks:
+        fi = voiced[min(len(voiced) - 1, int(acc / total_c * len(voiced)))]
+        outc.append({'t': round(fi / FPS, 3), 'w': c}); acc += len(c) + 1
+    outc[0]['t'] = 0.0
+    ln['chunks'] = outc
     clips.append((t, a))
     t += dur + GAP + ln.get('pause_after', 0)
 end_dialog = t
@@ -43,10 +61,20 @@ ep['outro_start'] = round(end_dialog + 0.2, 3)
 ep['total'] = round(total, 3)
 ep['fps'] = FPS
 ep['intro'] = INTRO
+ep['hook_dur'] = 3.2
 
 mix = np.zeros(int(total * SR) + SR, dtype=np.float32)
 for st, a in clips:
     i = int(st * SR); mix[i:i + len(a)] += a
+rng = np.random.default_rng(1)
+prev = None
+for ln in ep['lines']:
+    if ln.get('shot') != prev:
+        n = int(0.25 * SR); noise = rng.standard_normal(n).astype(np.float32)
+        noise = np.convolve(noise, np.ones(24) / 24, mode='same')
+        envw = np.sin(np.linspace(0, np.pi, n)) ** 2
+        i = max(0, int((ln['start'] - 0.12) * SR)); mix[i:i + n] += noise * envw * 0.12
+    prev = ln.get('shot')
 mix = np.clip(mix * 0.98, -1, 1)
 (np.int16(mix * 32767)).tofile(os.path.join(out, 'voice.raw'))
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 's16le', '-ar', str(SR), '-ac', '1', '-i', os.path.join(out, 'voice.raw'),

@@ -33,7 +33,7 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
 ```json
 {
  "title": "…", "episode": NNN,
- "hook": "Phrase d'accroche affichée 2,6 s au début (≤ 9 mots, intrigante)",
+ "hook": "Accroche affichée en gros sur bandeau jaune pendant les 3 premières secondes (≤ 8 mots)",
  "outro_q": "Question au spectateur pour les commentaires",
  "holo": {"title": "≤ 22 car.", "sub": "≤ 12 car.", "rows": [["✔|⚠|✖", "libellé ≤ 22 car.", "valeur courte", "#6ee7a0|#ffb74d|#ff6b6b"], …3 ou 4 lignes]},
  "caption": "Légende TikTok + 5-7 hashtags (#ia #claude …)",
@@ -41,13 +41,17 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
  "lines": [ {"f":"01.mp3","who":"claude|boss","text":"sous-titre exact","say":"texte envoyé à ElevenLabs (peut contenir des tags d'émotion entre crochets)","shot":"wide|bot|boss|holo","emo":"…","act":"wave|jump","holo":{"show":true,"visible":2,"hi":-1},"pause_after":0.5} ]
 }
 ```
-Règles d'écriture :
-- 14 à 20 répliques, **900 à 1 150 caractères au total** (≈ 55-60 s de voix ; la vidéo est complétée à ≥ 62 s par l'outro). Phrases courtes, langage oral naturel, humour pince-sans-rire de Claude, patron un peu dépassé et de mauvaise foi. Une vraie chute à la fin.
-- Claude est calme, honnête, avoue ses limites. Le patron pose les questions du spectateur.
-- `text` = ce qui s'affiche (pas de tags, pas de crochets). `say` = même phrase avec éventuellement 1 tag en tête : `[surpris]`, `[choqué]`, `[agacé]`, `[pensif]`, `[touché]`, `[gêné]`, `[triomphant]`, `[doucement]`, `[il crie, outré]`. Écrire les nombres en lettres dans `say` si > 100.
-- `shot` : alterner ; `holo` au moment où Claude montre des chiffres ; `bot` / `boss` pour les répliques ; `wide` 2-3 fois.
-- `emo` (boss uniquement) ∈ surprised, shocked, triumph, awkward, sad, touched, rage. `act` : `wave` (Claude salue, 1re réplique) ; `jump` (boss explose, rare).
-- `holo` sur une réplique : `{"visible": n, "hi": index}` révèle n lignes et fait clignoter la ligne `hi` (-1 = aucune). La 1re apparition met `"show": true`.
+Règles d'écriture (le plus important : retenir le spectateur dès la 1re seconde) :
+- **Hook** (champ `hook`) : ≤ 8 mots, qui pose un PROBLÈME ou une promesse concrète que le spectateur vit lui-même, ou une phrase choc/intrigante. Exemples : « Tu perds 2 h par jour dans tes mails ? », « Mon IA a refusé de bosser pour moi », « Personne ne connaît ce réglage de Claude », « J'ai viré mon assistante… enfin presque ». Jamais de titre plat (« Le rapport du lundi » ❌).
+- **Réplique 1 = le problème, tout de suite** : pas de « Bonjour », pas de mise en place. Le patron (ou Claude) attaque direct sur la galère (« Claude, j'ai 200 mails non lus et un client qui hurle ! »). En 5 secondes, on doit avoir compris le problème et avoir envie de voir la solution.
+- Structure : problème (0-5 s) → tension / mauvaise idée du patron → solution concrète de Claude (ce que fait vraiment l'IA, l'astuce, le connecteur) → rebondissement → chute drôle (réplique finale courte et punchy).
+- **Rythme** : répliques COURTES (5 à 14 mots, jamais plus de 18), ping-pong rapide, beaucoup de réactions du patron. 18 à 24 répliques, **1 000 à 1 250 caractères au total** de `text` (≈ 55-60 s de voix ; la vidéo fait ≥ 61 s avec l'outro).
+- Claude : calme, précis, pince-sans-rire, honnête sur ses limites. Patron : expressif, de mauvaise foi, dépassé, il ne se rend pas compte de tout ce qu'il automatise déjà.
+- `text` = ce qui s'affiche en sous-titres (découpé automatiquement en petits groupes de 1 à 3 mots synchronisés). Pas de crochets. `say` = même phrase, éventuellement 1 tag d'émotion en tête : `[surpris]`, `[choqué]`, `[agacé]`, `[paniqué]`, `[pensif]`, `[touché]`, `[gêné]`, `[triomphant]`, `[doucement]`, `[il crie, outré]`. Nombres > 100 en lettres dans `say`.
+- `shot` : changer de plan presque à chaque réplique (chaque changement = zoom « snap » + whoosh automatique). `boss` / `bot` pour les répliques, `holo` quand Claude montre des chiffres ou une démo, `wide` 2-3 fois max.
+- `emo` (boss) ∈ surprised, shocked, triumph, awkward, sad, touched, rage. Utiliser beaucoup les émotions. `act` : `jump` (boss explose, pour la chute) ; `wave` seulement si Claude salue (rare).
+- `holo` : `{"show": true, "visible": n, "hi": index}` révèle n lignes et fait clignoter la ligne `hi`. L'hologramme doit illustrer le problème ou la solution (ex. « Mails non lus 214 » → « Mails triés 214 ✔ »).
+- `outro_q` : question qui pousse à commenter (« Et toi, combien de mails non lus ? »).
 
 ## 4. Voix (connecteur ElevenLabs, modèle `eleven_v4`)
 - Claude : `SFB33nwu9KAKT7Dy3QNg` (Lucien). Patron : `3Tp5mYhT9wrfnry9pzvV` (Hugo).
