@@ -15,7 +15,7 @@ nohup python3 -m http.server 8765 >/tmp/http.log 2>&1 &
 Outils requis : node, google-chrome (/usr/bin/google-chrome), ffmpeg, python3 + numpy. Réseau : `elevenlabsusercontent.com` doit répondre (sinon voir Arrêts).
 
 ## 1. Crédits ElevenLabs
-`account_get_usage` (connecteur ElevenLabs). Il faut **≥ 2 200 caractères restants** (character_limit − character_count). Sinon : Arrêt.
+`account_get_usage` (connecteur ElevenLabs). Il faut **≥ 1 300 caractères restants** (character_limit − character_count). Sinon : Arrêt.
 
 ## 2. Choisir le sujet
 1. Lire `episodes.log` : ne pas refaire un sujet/une chute déjà utilisés dans les 30 dernières entrées.
@@ -51,8 +51,8 @@ Règles d'écriture :
 
 ## 4. Voix (connecteur ElevenLabs, modèle `eleven_v4`)
 - Claude : `SFB33nwu9KAKT7Dy3QNg` (Lucien). Patron : `3Tp5mYhT9wrfnry9pzvV` (Hugo).
-- `creative_create_flow` (nom = titre), puis `creative_generate_speech` une fois par réplique avec `prompt = say` (ne jamais relancer une génération réussie).
-- `creative_get_flow_run_status` avec la 1re session_id de chaque réplique → `content_url` de la 1re prise.
+- `creative_create_flow` (nom = titre), puis `creative_generate_speech` une fois par réplique avec `prompt = say` et **`generations_count: 1`** (une seule prise par réplique : choix explicite de Victor pour économiser les crédits ; ne jamais relancer une génération réussie).
+- `creative_get_flow_run_status` avec la 1re session_id de chaque réplique → `content_url` de la prise.
 - Télécharger dans l'ordre : `curl -sS -o audio/NN.mp3 "<content_url>"` (dossier `kit/audio_epNNN/`).
 
 ## 5. Rendu
