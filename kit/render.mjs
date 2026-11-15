@@ -26,12 +26,15 @@ if (process.argv[3] === '--stills') {
   await browser.close(); process.exit(0);
 }
 
-const N = Math.ceil(tl.total * fps);
+const ss = process.argv[3] && process.argv[3] !== '--stills' ? parseFloat(process.argv[3]) : 0;
+const se = process.argv[4] ? parseFloat(process.argv[4]) : tl.total;
+const F0 = Math.round(ss * fps), N = Math.ceil(se * fps);
+const out = process.argv[3] ? `${dir}/clip_${ss}_${se}.mp4` : `${dir}/video_tmp.mp4`;
 const ff = spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'mjpeg', '-i', '-',
-  '-i', `${dir}/voice.wav`, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
-  '-c:a', 'aac', '-b:a', '160k', '-shortest', '-movflags', '+faststart', `${dir}/video_tmp.mp4`], { stdio: ['pipe', 'inherit', 'inherit'] });
+  '-ss', String(ss), '-t', String(se - ss), '-i', `${dir}/voice.wav`, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
+  '-c:a', 'aac', '-b:a', '160k', '-shortest', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
-for (let i = 0; i < N; i++) {
+for (let i = F0; i < N; i++) {
   const url = await page.evaluate((k) => window.renderFrame(k), i);
   const buf = Buffer.from(url.split(',')[1], 'base64');
   if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once('drain', r));
