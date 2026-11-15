@@ -76,7 +76,7 @@ export async function setup(timelineUrl) {
     cx.restore();
 
     // intro hook
-    if (t < (tl.hook_dur || 3.2)) {
+    if (tl.hook_banner && t < (tl.hook_dur || 3.2)) {
       const hd = tl.hook_dur || 3.2; const a = ease(t / 0.2) * (1 - ease((t - hd + 0.3) / 0.3));
       const s = 0.7 + 0.3 * ease(t / 0.25) + 0.03 * Math.sin(t * 8);
       cx.save(); cx.globalAlpha = a; cx.translate(W / 2, 400); cx.scale(s, s);

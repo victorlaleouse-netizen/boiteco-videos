@@ -33,7 +33,7 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
 ```json
 {
  "title": "…", "episode": NNN,
- "hook": "Accroche affichée en gros sur bandeau jaune pendant les 3 premières secondes (≤ 8 mots)",
+ "hook": "copie exacte du text de la réplique 1 (pour le journal ; rien n'est affiché à l'écran)",
  "outro_q": "Question au spectateur pour les commentaires",
  "holo": {"title": "≤ 22 car.", "sub": "≤ 12 car.", "rows": [["✔|⚠|✖", "libellé ≤ 22 car.", "valeur courte", "#6ee7a0|#ffb74d|#ff6b6b"], …3 ou 4 lignes]},
  "caption": "Légende TikTok + 5-7 hashtags (#ia #claude …)",
@@ -42,8 +42,8 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
 }
 ```
 Règles d'écriture (le plus important : retenir le spectateur dès la 1re seconde) :
-- **Hook** (champ `hook`) : ≤ 8 mots, qui pose un PROBLÈME ou une promesse concrète que le spectateur vit lui-même, ou une phrase choc/intrigante. Exemples : « Tu perds 2 h par jour dans tes mails ? », « Mon IA a refusé de bosser pour moi », « Personne ne connaît ce réglage de Claude », « J'ai viré mon assistante… enfin presque ». Jamais de titre plat (« Le rapport du lundi » ❌).
-- **Réplique 1 = le problème, tout de suite** : pas de « Bonjour », pas de mise en place. Le patron (ou Claude) attaque direct sur la galère (« Claude, j'ai 200 mails non lus et un client qui hurle ! »). En 5 secondes, on doit avoir compris le problème et avoir envie de voir la solution.
+- **Le hook = la toute première phrase prononcée** (réplique 1, pas de bandeau à l'écran) : ≤ 10 mots, dite avec émotion, qui pose un PROBLÈME concret que le spectateur vit lui-même, ou une phrase choc/intrigante. Exemples : « Claude, j'ai 214 mails non lus et un client qui hurle ! », « Pourquoi t'as refusé de faire mon devis ?! », « Attends… tu peux lire mon agenda, toi ?! », « Qui a annulé ma réunion de 8 h ?! ». Jamais de « Bonjour », jamais de mise en place.
+- En 5 secondes, on doit avoir compris le problème et avoir envie de voir la solution. Réplique 1 souvent au patron, en plan `boss`, avec une `emo` forte (shocked, rage, surprised).
 - Structure : problème (0-5 s) → tension / mauvaise idée du patron → solution concrète de Claude (ce que fait vraiment l'IA, l'astuce, le connecteur) → rebondissement → chute drôle (réplique finale courte et punchy).
 - **Rythme** : répliques COURTES (5 à 14 mots, jamais plus de 18), ping-pong rapide, beaucoup de réactions du patron. 18 à 24 répliques, **1 000 à 1 250 caractères au total** de `text` (≈ 55-60 s de voix ; la vidéo fait ≥ 61 s avec l'outro).
 - Claude : calme, précis, pince-sans-rire, honnête sur ses limites. Patron : expressif, de mauvaise foi, dépassé, il ne se rend pas compte de tout ce qu'il automatise déjà.
