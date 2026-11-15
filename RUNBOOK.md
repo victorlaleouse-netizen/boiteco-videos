@@ -64,6 +64,20 @@ Inspirations narratives (référence : compte @system_ia, analysé le 15/11) :
 - **Rythme lent → rapide → lent** (leçon motion design @troiscoups) : poser la situation calmement, accélérer pendant l'escalade (répliques de 2-4 mots, plans qui s'enchaînent), ralentir pour la chute (une pause `pause_after` de 0,6 à 0,9 s juste avant la dernière réplique).
 - **Moins de cris** : ton plus posé, chuchoté, pince-sans-rire ; `[il crie, outré]` au plus une fois par épisode, souvent zéro. Répliques encore plus courtes quand c'est possible (2 à 8 mots).
 
+### Banque de contextes et d'histoires (s'en servir, varier, ne jamais reprendre telle quelle une histoire de @system_ia)
+Chaque histoire = un **contexte** (moment + enjeu humain) + **un vrai usage de l'IA** + **une chute humaine**. Toujours vérifier que la fonction existe vraiment avant de l'utiliser.
+- **Minuit au bureau** : le patron s'acharne sur un devis ; Claude a déjà programmé les relances pour 8 h et le renvoie chez lui. (tâches planifiées)
+- **Le patron part en vacances** : il prépare 3 pages de consignes ; Claude a déjà trié les mails, préparé les réponses, il ne reste qu'à valider. Chute : il revient, rien n'a brûlé… sauf sa plante. (connecteurs mail/agenda)
+- **Le stagiaire qui en sait plus que le patron** : le patron découvre que le stagiaire a monté ses propres assistants pour ses tâches répétitives ; au lieu de s'énerver, il lui demande de le faire pour toute la boîte. (agents / projets)
+- **La réunion de trop** : le patron veut une réunion d'une heure pour un sujet ; Claude a déjà lu tous les échanges et résume en trois lignes ce qui est décidé. (lecture des fils de mails / documents)
+- **Le client qui hurle** : 40 messages en colère ; Claude retrouve la commande, la facture et la livraison avant que le patron ait fini de paniquer ; c'est l'humain qui appelle le client pour s'excuser. (connecteurs)
+- **Le salon / la tournée terrain** : le patron est dans sa voiture entre deux clients ; Claude lui prépare chaque rendez-vous (historique, dernier devis) avant qu'il sorte de la voiture.
+- **L'erreur de l'IA** : Claude se trompe (un chiffre, un nom) ; l'employée qui relit l'attrape ; leçon : on vérifie toujours, et le patron découvre que c'est elle la vraie garantie de qualité.
+- **L'anniversaire de la boîte** (ou d'un salarié) : tout le monde a oublié sauf Claude… qui n'a pas le droit de commander un gâteau sans validation. Chute tendre.
+- **La nouveauté de la semaine** (actu du jour) : vécue dans une scène concrète, jamais expliquée comme une fiche produit.
+- **Le patron qui ne se rend pas compte** : il se plaint de « tout faire tout seul » ; Claude lui montre la liste de tout ce qui tourne déjà sans lui.
+Contraintes du kit actuel : seuls le patron et Claude sont à l'écran ; les autres (stagiaire, employée, conjoint, client) existent par ce qu'en disent les personnages, par un message affiché sur l'hologramme (ex. « Sandrine : 3 erreurs corrigées »), ou ne sont pas montrés.
+
 ## 4. Voix (connecteur ElevenLabs, modèle `eleven_v4`)
 - Claude : `SFB33nwu9KAKT7Dy3QNg` (Lucien). Patron : `3Tp5mYhT9wrfnry9pzvV` (Hugo).
 - `creative_create_flow` (nom = titre), puis `creative_generate_speech` une fois par réplique avec `prompt = say` et **`generations_count: 1`** (une seule prise par réplique : choix explicite de Victor pour économiser les crédits ; ne jamais relancer une génération réussie).
