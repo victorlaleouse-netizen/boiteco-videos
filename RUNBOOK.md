@@ -54,6 +54,7 @@ Règles d'écriture (le plus important : retenir le spectateur dès la 1re secon
 - `outro_q` : question qui pousse à commenter (« Et toi, combien de mails non lus ? »).
 
 Inspirations narratives (référence : compte @system_ia, analysé le 15/11) :
+- **Le fond de chaque épisode : ce que donne l'IA quand quelqu'un la pousse bien.** Un humain de la boîte (le patron ou un employé) l'utilise intelligemment : il délègue une tâche entière, crée ses propres agents, branche un connecteur, planifie une tâche, et surtout **vérifie** ce que fait l'IA. Le spectateur doit repartir avec UNE façon concrète de mieux s'en servir (réutilisable chez lui), montrée dans l'histoire et pas expliquée comme un tuto. Uniquement des usages qui existent vraiment (vérifiés dans les sources du jour ou documentés).
 - **Hook = un ordre donné à Claude, suivi d'une réponse inattendue dans les 2 s.** Ex. « Claude, remplace Thomas. » → « C'est déjà fait. » / « Claude, fais la réunion à ma place. » / « Claude, un client me commande dix fois plus pour lundi. » La surprise de la 2e réplique tient le spectateur.
 - **Montrer l'actu en scène, sans l'expliquer** : la nouveauté de la semaine est vécue dans une situation (Claude rejoint un appel vidéo, Claude lance cent agents pour tenir un délai), jamais présentée comme une fiche produit.
 - **Escalade par paliers** : « Et de deux… Et de trois… Sept. » L'hologramme se remplit à chaque palier (une ligne de plus par réplique `holo`).
