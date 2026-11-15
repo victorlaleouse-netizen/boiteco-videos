@@ -96,7 +96,7 @@ export async function setup(timelineUrl) {
         let ci = 0; for (let i = 0; i < ln.chunks.length; i++) if (k >= ln.chunks[i].t) ci = i;
         const ch = ln.chunks[ci];
         const pop = 1 + 0.18 * (1 - ease((k - ch.t) / 0.12));
-        cx.save(); cx.textAlign = 'center'; cx.translate(W / 2, 1330); cx.scale(pop, pop);
+        cx.save(); cx.textAlign = 'center'; cx.translate(W / 2, 1430); cx.scale(pop, pop);
         cx.font = 'bold 76px "DejaVu Sans", sans-serif';
         const tw = cx.measureText(ch.w).width;
         cx.fillStyle = 'rgba(10,10,16,0.82)'; rr(-tw / 2 - 26, -66, tw + 52, 92, 22); cx.fill();
