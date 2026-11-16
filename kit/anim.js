@@ -49,8 +49,8 @@ export async function setup(timelineUrl) {
   }
   // holo state accumulates over lines
   function holoState(li) {
-    let st = { show: false, visible: 0, hi: -1 };
-    for (let i = 0; i <= li; i++) if (lines[i].holo) st = { ...st, ...lines[i].holo, show: true };
+    let st = { show: false, visible: 0, hi: -1, card: 0 };
+    for (let i = 0; i <= li; i++) if (lines[i].holo) { const h = lines[i].holo; if (h.card != null && h.card !== st.card && h.visible == null) st.visible = 0; st = { ...st, ...h, show: h.show === false ? false : true }; }
     return st;
   }
   function holoShowTime() {
@@ -212,7 +212,7 @@ export async function setup(timelineUrl) {
     holo.scale.set(holoScale.x * hs, holoScale.y * hs, 1); holo.visible = hs > 0.01;
     beam.visible = hs > 0.01; beam.material.opacity = 0.12 * hs;
     holo.position.y = 2.62 + Math.sin(t * 2) * 0.01;
-    holoApi.draw({ visible: st.visible, hi: st.hi, blink: (Math.sin(t * 9) > 0 ? 1 : 0) });
+    holoApi.draw({ card: st.card, visible: st.visible, hi: st.hi, blink: (Math.sin(t * 9) > 0 ? 1 : 0) });
 
     // ---- camera ----
     let shot = 'wide';

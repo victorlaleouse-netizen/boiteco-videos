@@ -19,13 +19,8 @@ Outils requis : node, google-chrome (/usr/bin/google-chrome), ffmpeg, python3 + 
 
 ## 2. Choisir le sujet
 1. Lire `episodes.log` : ne pas refaire un sujet/une chute déjà utilisés dans les 30 dernières entrées.
-2. Faire 2 à 4 WebSearch sur l'actu IA des 7 derniers jours (nouveaux modèles, nouvelles fonctions de Claude/ChatGPT/Gemini, connecteurs, agents, régulation, usages en entreprise).
-3. Choisir UN angle parmi (en alternant d'un épisode à l'autre) :
-   - **Actu** : une vraie nouveauté expliquée simplement et testée « dans la boîte ».
-   - **Galère du quotidien** que tout le monde a (mails, réunions, devis, planning, compta, SAV) et comment l'IA l'automatise.
-   - **Connecteurs / astuces peu connues** qui changent l'usage (agenda, mails, Drive, CRM, tâches planifiées…).
-   - **Le patron ne se rend pas compte** de tout ce qu'il a déjà automatisé et qu'il est devenu plus productif.
-   - **Mini-débat** (travail, emploi, confiance, erreurs de l'IA, ce qui reste humain) avec une chute drôle.
+2. **Partir d'une vraie mise en situation de boulot, pas d'une nouveauté** (demande de Victor du 16/11). Choisir d'abord une galère concrète et universelle que le spectateur a déjà vécue (un client furieux, 200 mails non lus, un devis à rendre ce soir, une réunion qui part en vrille, un planning d'équipe impossible, une facture impayée, un fournisseur en retard, un recrutement, un salon demain, la compta de fin de mois…). Puis montrer comment l'IA, bien utilisée, la règle concrètement.
+3. L'actu IA (2 ou 3 WebSearch sur les 7 derniers jours) ne sert qu'à **un épisode sur trois au maximum**, et toujours vécue dans une situation de ce type, jamais comme sujet en soi. Les autres épisodes utilisent des usages établis et vérifiés (rédiger/répondre à des mails, résumer, tableaux, agenda, connecteurs, tâches planifiées, projets, relire un contrat…).
 4. Exactitude : n'affirmer que des faits trouvés dans les sources du jour ; rien d'inventé sur des produits réels ; pas de chiffres non sourcés (les chiffres « internes » de la boîte fictive sont libres). Pas de politique, pas de personnes réelles, pas de marques autres que les noms d'IA cités factuellement.
 
 ## 3. Écrire l'épisode → `episodes/epNNN_slug.json`
@@ -35,10 +30,10 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
  "title": "…", "episode": NNN,
  "hook": "copie exacte du text de la réplique 1 (pour le journal ; rien n'est affiché à l'écran)",
  "outro_q": "Question au spectateur pour les commentaires",
- "holo": {"title": "≤ 22 car.", "sub": "≤ 12 car.", "rows": [["✔|⚠|✖", "libellé ≤ 22 car.", "valeur courte", "#6ee7a0|#ffb74d|#ff6b6b"], …3 ou 4 lignes]},
+ "holo": {"cards": [ …1 à 3 écrans d'exemples concrets, voir « Hologramme » ci-dessous… ]},
  "caption": "Légende TikTok + 5-7 hashtags (#ia #claude …)",
  "tiktok_title": "≤ 60 car.",
- "lines": [ {"f":"01.mp3","who":"claude|boss","text":"sous-titre exact","say":"texte envoyé à ElevenLabs (peut contenir des tags d'émotion entre crochets)","shot":"wide|bot|boss|holo","emo":"…","act":"wave|jump","holo":{"show":true,"visible":2,"hi":-1},"pause_after":0.5} ]
+ "lines": [ {"f":"01.mp3","who":"claude|boss","text":"sous-titre exact","say":"texte envoyé à ElevenLabs (peut contenir des tags d'émotion entre crochets)","shot":"wide|bot|boss|holo","emo":"…","act":"wave|jump","holo":{"show":true,"card":0,"visible":2,"hi":-1},"pause_after":0.5} ]
 }
 ```
 Règles d'écriture (le plus important : retenir le spectateur dès la 1re seconde) :
@@ -50,7 +45,18 @@ Règles d'écriture (le plus important : retenir le spectateur dès la 1re secon
 - `text` = ce qui s'affiche en sous-titres (découpé automatiquement en petits groupes de 1 à 3 mots synchronisés). Pas de crochets. `say` = même phrase, éventuellement 1 tag d'émotion en tête : `[surpris]`, `[choqué]`, `[agacé]`, `[paniqué]`, `[pensif]`, `[touché]`, `[gêné]`, `[triomphant]`, `[doucement]`, `[il crie, outré]`. Nombres > 100 en lettres dans `say`.
 - `shot` : changer de plan presque à chaque réplique (chaque changement = zoom « snap » + whoosh automatique). `boss` / `bot` pour les répliques, `holo` quand Claude montre des chiffres ou une démo, `wide` 2-3 fois max. Les plans sont volontairement larges (on voit le décor et les deux persos) et le décor est un bureau de nuit sombre et feutré : ne pas revenir à des gros plans serrés ni à un décor clair et coloré (demande de Victor du 15/11).
 - `emo` (boss) ∈ surprised, shocked, triumph, awkward, sad, touched, rage. Utiliser beaucoup les émotions. `act` : `jump` (boss explose, pour la chute) ; `wave` seulement si Claude salue (rare).
-- `holo` : `{"show": true, "visible": n, "hi": index}` révèle n lignes et fait clignoter la ligne `hi`. L'hologramme doit illustrer le problème ou la solution (ex. « Mails non lus 214 » → « Mails triés 214 ✔ »).
+- **Compréhensible par tout le monde** : le spectateur doit comprendre sans rien connaître à l'IA. Pas de jargon ni de nom de fonction lâché sans montrer ce que ça fait (« Claude Meetings bêta » ❌ → « Claude, va à la réunion à ma place et note qui fait quoi » ✔). Chaque réplique fait avancer l'histoire ; on doit pouvoir la raconter en une phrase à un ami.
+
+### Hologramme = un VRAI exemple à l'écran, pas une liste (demande de Victor du 16/11)
+L'écran du milieu montre concrètement ce que fait l'IA : le message tapé à Claude et sa réponse, le mail qu'elle a rédigé, l'agenda réorganisé, le tableau corrigé, le compte rendu. 1 à 3 écrans par épisode (`cards`), qui s'enchaînent au fil de l'histoire. Types disponibles :
+- `chat` : la conversation avec Claude. `{"type":"chat","title":"Claude","sub":"chat","items":[{"from":"me","text":"Réponds au client furieux, poli mais ferme."},{"from":"ai","text":"Voici la réponse : on reconnaît le retard et on offre 10 %…"}]}` (4 bulles max visibles, textes courts ≤ 120 car.)
+- `email` : le mail rédigé. `{"type":"email","title":"Brouillon prêt","sub":"Gmail","items":["m.garnier@client.fr","Votre commande n°4512","Bonjour Madame Garnier,","Nous sommes désolés pour ce retard…","Bien cordialement,"],"status":"✔ Prêt à envoyer"}` (items = destinataire, objet, puis lignes du corps)
+- `calendar` : l'agenda de la semaine. `{"type":"calendar","title":"Semaine du patron","sub":"Agenda","h0":8,"items":[[jour 0-4, heure début, heure fin, "libellé court", "#couleur"], …]}` (événements d'au moins 1 h 30 pour que le texte tienne)
+- `table` : un tableau. `{"type":"table","title":"Devis en retard","sub":"Sheets","cols":["Client","Montant","Retard"],"items":[["Dupuis","4 200 €","6 j"], …]}` (≤ 7 lignes, 2 à 4 colonnes)
+- `compare` : avant / après. `{"type":"compare","title":"Avant / Après","left":{"label":"Avant","items":["2 h de mails par jour", …]},"right":{"label":"Avec Claude","items":["15 min de tri", …]}}`
+- `doc` : un document, un compte rendu, un contrat relu. `{"type":"doc","title":"Compte rendu","sub":"Réunion","items":["• Décision : …","• Sandrine gère …"]}`
+- `list` : uniquement pour un compteur qui grimpe (escalade par paliers). Mêmes champs qu'avant : `{"type":"list","title":"…","sub":"…","items":[["✔","libellé","valeur","#6ee7a0"], …]}`
+Dans `lines`, une réplique `holo` choisit l'écran et ce qui est révélé : `{"show": true, "card": 0, "visible": n, "hi": i}` → affiche l'écran n° `card`, révèle ses `n` premiers éléments (bulles, lignes de mail, événements, lignes de tableau…) et fait clignoter l'élément `i` (-1 = aucun). Révéler progressivement sur 2 ou 3 répliques (ex. la question du patron, puis la réponse de Claude). Les textes de l'hologramme sont lisibles à l'écran : phrases courtes, chiffres et prénoms précis, cohérents avec le dialogue. `"show": false` cache l'hologramme.
 - `outro_q` : question qui pousse à commenter (« Et toi, combien de mails non lus ? »).
 
 Inspirations narratives (référence : compte @system_ia, analysé le 15/11) :

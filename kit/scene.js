@@ -161,39 +161,109 @@ export const HOLO_ROWS = [
   ['⚠', 'Devis en retard', '3', '#ffb74d'],
   ['✖', 'Café commandé', '0', '#ff6b6b'],
 ];
-export function makeHolo(rows = HOLO_ROWS, title = 'Rapport du lundi', sub = 'Semaine 46') {
-  const c = document.createElement('canvas');
-  c.width = 1024; c.height = 680;
+// ---------- hologram: "cards" showing concrete examples ----------
+// card types: list | chat | email | calendar | table | compare | doc
+// each card: {type, title, sub?, items:[...]}; state: {card, visible, hi, blink}
+export function makeHolo(cfgOrRows = HOLO_ROWS, title = 'Rapport du lundi', sub = 'Semaine 46') {
+  let cards;
+  if (Array.isArray(cfgOrRows)) cards = [{ type: 'list', title, sub, items: cfgOrRows }];
+  else if (cfgOrRows && cfgOrRows.cards) cards = cfgOrRows.cards;
+  else if (cfgOrRows && cfgOrRows.rows) cards = [{ type: 'list', title: cfgOrRows.title, sub: cfgOrRows.sub, items: cfgOrRows.rows }];
+  else cards = [{ type: 'list', title, sub, items: HOLO_ROWS }];
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 680;
   const x = c.getContext('2d');
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const F = (w, s) => `${w} ${s}px "DejaVu Sans", sans-serif`;
+  const CYAN = '#5fe3ff', ORANGE = '#f2701e';
+  function wrapT(text, maxW) { const ws = String(text).split(' '); const out = []; let cur = '';
+    for (const w of ws) { const t2 = cur ? cur + ' ' + w : w; if (x.measureText(t2).width > maxW && cur) { out.push(cur); cur = w; } else cur = t2; }
+    if (cur) out.push(cur); return out; }
+  function frame(card) {
+    x.clearRect(0, 0, 1024, 680);
+    x.fillStyle = 'rgba(8,18,40,0.92)'; roundRect(x, 10, 10, 1004, 660, 36); x.fill();
+    x.strokeStyle = CYAN; x.lineWidth = 8; roundRect(x, 10, 10, 1004, 660, 36); x.stroke();
+    x.fillStyle = ORANGE; x.beginPath(); x.arc(64, 70, 18, 0, Math.PI * 2); x.fill();
+    x.fillStyle = '#fff'; x.font = F('bold', 40); x.fillText(card.title || '', 96, 84);
+    if (card.sub) { x.fillStyle = '#8fb3d9'; x.font = F('', 28); const w = x.measureText(card.sub).width; x.fillText(card.sub, 984 - w, 82); }
+  }
+  const draws = {
+    list(card, vis, hi, on) {
+      let y = 175;
+      card.items.forEach(([icon, label, val, col], i) => { if (i >= vis) return;
+        const lit = i === hi && on;
+        x.fillStyle = lit ? col + '55' : 'rgba(255,255,255,0.06)'; roundRect(x, 46, y - 50, 932, 82, 18); x.fill();
+        if (i === hi) { x.strokeStyle = col; x.lineWidth = 5; roundRect(x, 46, y - 50, 932, 82, 18); x.stroke(); }
+        x.fillStyle = col; x.font = F('bold', 38); x.fillText(icon, 70, y + 4);
+        x.fillStyle = '#fff'; x.font = F('', 34); x.fillText(label, 130, y + 2);
+        x.fillStyle = col; x.font = F('bold', 36); const w = x.measureText(val).width; x.fillText(val, 950 - w, y + 2);
+        y += 104; });
+    },
+    chat(card, vis, hi, on) {   // items: [{from:'me'|'ai', text}]
+      let y = 128;
+      card.items.slice(0, vis).slice(-4).forEach((m, i, arr) => {
+        x.font = F(m.from === 'ai' ? '' : 'bold', 30);
+        const lines = wrapT(m.text, 640).slice(0, 4); const h = lines.length * 40 + 30;
+        const me = m.from !== 'ai'; const bx = me ? 984 - 700 : 46;
+        x.fillStyle = me ? '#2f6fb5' : 'rgba(255,255,255,0.10)'; roundRect(x, bx, y, 700, h, 22); x.fill();
+        if (!me) { x.fillStyle = ORANGE; x.beginPath(); x.arc(bx + 26, y + 28, 10, 0, 7); x.fill(); }
+        x.fillStyle = '#fff'; lines.forEach((l, k) => x.fillText(l, bx + (me ? 26 : 48), y + 44 + k * 40));
+        y += h + 16; });
+    },
+    email(card, vis, hi, on) {  // items: [to, subject, line1, line2, ...]; last can be status
+      const [to, subj, ...body] = card.items;
+      x.font = F('', 28); x.fillStyle = '#8fb3d9'; x.fillText('À :', 50, 150); x.fillStyle = '#fff'; x.fillText(to || '', 110, 150);
+      x.fillStyle = '#8fb3d9'; x.fillText('Objet :', 50, 196); x.fillStyle = '#fff'; x.font = F('bold', 28); x.fillText(subj || '', 160, 196);
+      x.fillStyle = 'rgba(255,255,255,0.15)'; x.fillRect(46, 218, 932, 3);
+      x.font = F('', 30); x.fillStyle = '#e8eef8'; let y = 270;
+      body.slice(0, Math.max(0, vis - 2)).forEach((l) => { wrapT(l, 900).forEach((w) => { if (y < 600) { x.fillText(w, 50, y); y += 42; } }); y += 6; });
+      if (vis >= card.items.length && card.status) { x.fillStyle = '#6ee7a0'; roundRect(x, 690, 596, 290, 56, 28); x.fill(); x.fillStyle = '#082'; x.font = F('bold', 28); x.fillText(card.status, 714, 634); }
+    },
+    calendar(card, vis, hi, on) { // items: [[day, start, end, label, color], ...] days 0..4
+      const days = card.days || ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven']; const x0 = 120, cw = 170, y0 = 150, hh = 52, h0 = card.h0 || 8;
+      x.font = F('bold', 28); days.forEach((d, i) => { x.fillStyle = '#8fb3d9'; x.fillText(d, x0 + i * cw + 50, y0 - 12); });
+      x.font = F('', 22); for (let h = 0; h < 9; h++) { x.fillStyle = 'rgba(255,255,255,0.08)'; x.fillRect(x0, y0 + h * hh, cw * 5, 2); x.fillStyle = '#6b84ad'; x.fillText((h0 + h) + 'h', 50, y0 + h * hh + 8); }
+      card.items.slice(0, vis).forEach(([d, s, e, label, col], i) => {
+        const lit = i === hi && on; x.fillStyle = (col || CYAN) + (lit ? 'ff' : 'cc');
+        roundRect(x, x0 + d * cw + 6, y0 + (s - h0) * hh + 4, cw - 12, (e - s) * hh - 8, 10); x.fill();
+        x.fillStyle = '#081a2e'; x.font = F('bold', 20); wrapT(label, cw - 28).slice(0, 2).forEach((l, k) => x.fillText(l, x0 + d * cw + 16, y0 + (s - h0) * hh + 30 + k * 24)); });
+    },
+    table(card, vis, hi, on) { // card.cols: [..], items: rows [[..],[..]]
+      const cols = card.cols || []; const n = cols.length || (card.items[0] || []).length; const cw = 932 / n;
+      x.fillStyle = 'rgba(95,227,255,0.18)'; x.fillRect(46, 120, 932, 54);
+      x.font = F('bold', 26); x.fillStyle = '#fff'; cols.forEach((h, i) => x.fillText(h, 60 + i * cw, 156));
+      card.items.slice(0, vis).forEach((r, j) => { const y = 174 + j * 60; const lit = j === hi && on;
+        x.fillStyle = lit ? 'rgba(255,183,77,0.35)' : (j % 2 ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.09)'); x.fillRect(46, y, 932, 60);
+        if (j === hi) { x.strokeStyle = '#ffb74d'; x.lineWidth = 4; x.strokeRect(46, y, 932, 60); }
+        x.font = F('', 26); r.forEach((v, i) => { x.fillStyle = String(v).startsWith('-') || String(v).includes('❌') ? '#ff8a8a' : '#e8eef8'; x.fillText(String(v), 60 + i * cw, y + 40); }); });
+    },
+    compare(card, vis, hi, on) { // card.left {label, items}, card.right {label, items}
+      const sides = [card.left, card.right]; const cols = ['#ff6b6b', '#6ee7a0'];
+      sides.forEach((sd, k) => { if (!sd) return; const bx = 46 + k * 476;
+        if (k === 1 && vis < 1) return;
+        x.fillStyle = cols[k] + '33'; roundRect(x, bx, 120, 456, 520, 22); x.fill();
+        x.fillStyle = cols[k]; x.font = F('bold', 32); x.fillText(sd.label, bx + 24, 170);
+        x.font = F('', 28); x.fillStyle = '#fff'; let y = 225; sd.items.forEach((l) => wrapT(l, 410).forEach((w) => { if (y < 620) { x.fillText(w, bx + 24, y); y += 40; } }));
+      });
+    },
+    doc(card, vis, hi, on) { // items: paragraphs/bullets shown progressively
+      x.font = F('', 30); let y = 160;
+      card.items.slice(0, vis).forEach((p, i) => { const lit = i === hi && on;
+        if (lit) { x.fillStyle = 'rgba(255,210,63,0.25)'; x.fillRect(40, y - 34, 944, 46 * Math.max(1, wrapT(p, 900).length)); }
+        x.fillStyle = '#e8eef8'; wrapT(p, 900).forEach((w) => { if (y < 640) { x.fillText(w, 50, y); y += 46; } }); y += 10; });
+    },
+  };
   let last = '';
   function draw(state = {}) {
-    const { visible = rows.length, hi = -1, blink = 0 } = state;
-    const key = visible + ':' + hi + ':' + (blink > 0.5 ? 1 : 0);
+    const ci = Math.min(state.card || 0, cards.length - 1); const card = cards[ci];
+    const n = (card.items || []).length; const vis = state.visible == null ? n : state.visible;
+    const on = (state.blink || 0) > 0.5; const hi = state.hi == null ? -1 : state.hi;
+    const key = ci + ':' + vis + ':' + hi + ':' + (on ? 1 : 0);
     if (key === last) return; last = key;
-    x.clearRect(0, 0, 1024, 680);
-    x.fillStyle = 'rgba(8,18,40,0.9)'; roundRect(x, 10, 10, 1004, 660, 36); x.fill();
-    x.strokeStyle = '#5fe3ff'; x.lineWidth = 8; roundRect(x, 10, 10, 1004, 660, 36); x.stroke();
-    x.fillStyle = '#f2701e'; x.beginPath(); x.arc(70, 78, 20, 0, Math.PI * 2); x.fill();
-    x.fillStyle = '#ffffff'; x.font = 'bold 46px "DejaVu Sans", sans-serif'; x.fillText(title, 106, 94);
-    x.fillStyle = '#8fb3d9'; x.font = '30px "DejaVu Sans", sans-serif'; x.fillText(sub, 760, 92);
-    let y = 180;
-    rows.forEach(([icon, label, val, col], i) => {
-      if (i >= visible) return;
-      const on = i === hi && blink > 0.5;
-      x.fillStyle = on ? col + '55' : 'rgba(255,255,255,0.06)'; roundRect(x, 50, y - 52, 924, 86, 18); x.fill();
-      if (i === hi) { x.strokeStyle = col; x.lineWidth = 5; roundRect(x, 50, y - 52, 924, 86, 18); x.stroke(); }
-      x.fillStyle = col; x.font = 'bold 40px "DejaVu Sans", sans-serif'; x.fillText(icon, 75, y + 4);
-      x.fillStyle = '#ffffff'; x.font = '36px "DejaVu Sans", sans-serif'; x.fillText(label, 140, y + 2);
-      x.fillStyle = col; x.font = 'bold 38px "DejaVu Sans", sans-serif';
-      const w = x.measureText(val).width; x.fillText(val, 950 - w, y + 2);
-      y += 108;
-    });
+    frame(card); (draws[card.type] || draws.list)(card, vis, hi, on);
     t.needsUpdate = true;
   }
   draw();
-  return { tex: t, draw };
+  return { tex: t, draw, cards };
 }
 function roundRect(x, a, b, w, h, r) {
   x.beginPath(); x.moveTo(a + r, b); x.arcTo(a + w, b, a + w, b + h, r); x.arcTo(a + w, b + h, a, b + h, r);
@@ -372,7 +442,7 @@ export function buildWorld(renderer, holoCfg, cast = []) {
   scene.add(bot);
 
   // hologram
-  const holoApi = holoCfg ? makeHolo(holoCfg.rows, holoCfg.title, holoCfg.sub) : makeHolo();
+  const holoApi = holoCfg ? makeHolo(holoCfg) : makeHolo();
   const holo = mesh(new THREE.PlaneGeometry(1.15, 0.76), new THREE.MeshBasicMaterial({ map: holoApi.tex, transparent: true, side: THREE.DoubleSide }),
     { x: -0.05, y: 2.62, z: -0.55, ry: 0.1, cast: false, receive: false });
   scene.add(holo);
