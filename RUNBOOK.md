@@ -29,9 +29,9 @@ NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_r
 {
  "title": "…", "episode": NNN,
  "hook": "copie exacte du text de la réplique 1 (pour le journal ; rien n'est affiché à l'écran)",
- "outro_q": "Question au spectateur pour les commentaires",
+ "outro_q": "Phrase finale affichée sur l'écran de fin : une punchline ou une phrase culte de l'épisode, JAMAIS une question au spectateur",
  "holo": {"cards": [ …1 à 3 écrans d'exemples concrets, voir « Hologramme » ci-dessous… ]},
- "caption": "Légende TikTok + 5-7 hashtags (#ia #claude …)",
+ "caption": "Légende TikTok : une phrase intrigante ou la situation en une ligne (pas de question au spectateur, pas de « commente/partage »), puis 5-7 hashtags (#ia #claude …)",
  "tiktok_title": "≤ 60 car.",
  "lines": [ {"f":"01.mp3","who":"claude|boss","text":"sous-titre exact","say":"texte envoyé à ElevenLabs (peut contenir des tags d'émotion entre crochets)","shot":"wide|bot|boss|holo","emo":"…","act":"wave|jump","holo":{"show":true,"card":0,"visible":2,"hi":-1},"pause_after":0.5} ]
 }
@@ -57,7 +57,18 @@ L'écran du milieu montre concrètement ce que fait l'IA : le message tapé à C
 - `doc` : un document, un compte rendu, un contrat relu. `{"type":"doc","title":"Compte rendu","sub":"Réunion","items":["• Décision : …","• Sandrine gère …"]}`
 - `list` : uniquement pour un compteur qui grimpe (escalade par paliers). Mêmes champs qu'avant : `{"type":"list","title":"…","sub":"…","items":[["✔","libellé","valeur","#6ee7a0"], …]}`
 Dans `lines`, une réplique `holo` choisit l'écran et ce qui est révélé : `{"show": true, "card": 0, "visible": n, "hi": i}` → affiche l'écran n° `card`, révèle ses `n` premiers éléments (bulles, lignes de mail, événements, lignes de tableau…) et fait clignoter l'élément `i` (-1 = aucun). Révéler progressivement sur 2 ou 3 répliques (ex. la question du patron, puis la réponse de Claude). Les textes de l'hologramme sont lisibles à l'écran : phrases courtes, chiffres et prénoms précis, cohérents avec le dialogue. `"show": false` cache l'hologramme.
-- `outro_q` : question qui pousse à commenter (« Et toi, combien de mails non lus ? »).
+- `outro_q` : la punchline de l'épisode, affichée sur l'écran de fin (ex. « Le café n'est pas une dépense inutile. »). **Jamais de question posée au spectateur**, ni à l'écran, ni dans la légende, ni dans les dialogues (« Et toi… ? », « Dis-moi en commentaire » ❌).
+
+### Faire réagir sans demander (commentaires et partages) — demande de Victor du 16/11
+On ne demande jamais de commenter ou de partager : c'est l'histoire elle-même qui doit donner envie. Chaque épisode contient au moins DEUX de ces déclencheurs :
+- **Identification « c'est trop mon boss / mon collègue »** : un comportement de bureau ultra reconnaissable (le patron qui répond « vu » à 23 h, la réunion qui aurait pu être un mail, le collègue qui met tout le monde en copie, la relance « comme convenu »). Les gens identifient quelqu'un et partagent la vidéo.
+- **Un débat qui divise, sans réponse donnée** : la fin laisse deux camps possibles (« L'IA a eu raison de refuser ? », « Le patron a-t-il triché ? ») sans trancher : les gens viennent donner leur avis d'eux-mêmes.
+- **Le « je savais pas que ça existait »** : une astuce ou un usage concret, vrai et vérifiable, que la plupart des gens ignorent (montré à l'hologramme). Les gens enregistrent et envoient à un collègue.
+- **Une réplique culte** courte et répétable (la punchline de fin, qu'on a envie de citer en commentaire).
+- **Un détail à repérer** : un élément drôle glissé à l'hologramme (une ligne du tableau, un événement de l'agenda, une phrase du mail) que les plus attentifs remarquent.
+- **Une décision discutable du patron ou de Claude** (moralement limite mais inoffensive), qui fait réagir.
+- **Une fin un peu ouverte ou un retournement** qu'on a envie de commenter (« attends, c'est Sandrine qui avait tout prévu ? »).
+Interdits : pousser à l'engagement de façon artificielle (« like si… », « partage à… », « commente… »), fausses informations ou erreurs volontaires pour provoquer, sujets politiques, moqueries d'un groupe de personnes.
 
 Inspirations narratives (référence : compte @system_ia, analysé le 15/11) :
 - **Le fond de chaque épisode : ce que donne l'IA quand quelqu'un la pousse bien.** Un humain de la boîte (le patron ou un employé) l'utilise intelligemment : il délègue une tâche entière, crée ses propres agents, branche un connecteur, planifie une tâche, et surtout **vérifie** ce que fait l'IA. Le spectateur doit repartir avec UNE façon concrète de mieux s'en servir (réutilisable chez lui), montrée dans l'histoire et pas expliquée comme un tuto. Uniquement des usages qui existent vraiment (vérifiés dans les sources du jour ou documentés).
