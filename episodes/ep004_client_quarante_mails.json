@@ -1,0 +1,279 @@
+{
+ "title": "Le client aux 42 mails",
+ "episode": 4,
+ "hook": "Claude, un client m'a envoyé quarante mails en majuscules !",
+ "outro_q": "Il ne voulait pas un mail. Il voulait qu'on décroche.",
+ "holo": {
+  "cards": [
+   {
+    "type": "table",
+    "title": "Dossier Garnier",
+    "sub": "Gmail + factures",
+    "cols": [
+     "Quoi",
+     "Détail",
+     "État"
+    ],
+    "items": [
+     [
+      "Commande",
+      "n°4512",
+      "livrée hier"
+     ],
+     [
+      "Livraison",
+      "8 cartons sur 10",
+      "incomplète"
+     ],
+     [
+      "Facture",
+      "3 870 €",
+      "payée"
+     ],
+     [
+      "Ses mails",
+      "42 (dont 38 en MAJ.)",
+      "en colère"
+     ]
+    ]
+   },
+   {
+    "type": "email",
+    "title": "Brouillon prêt",
+    "sub": "Gmail",
+    "items": [
+     "m.garnier@garnier-deco.fr  (cc : 11 personnes)",
+     "Votre commande n°4512",
+     "Bonjour Monsieur Garnier,",
+     "Il manque deux cartons, c'est notre erreur.",
+     "Ils partent ce soir, livrés demain avant 10 h.",
+     "Offert : 10 % sur votre prochaine commande.",
+     "Bien cordialement,"
+    ],
+    "status": "✎ Brouillon : à valider"
+   }
+  ]
+ },
+ "caption": "42 mails en majuscules, 11 personnes en copie… et la meilleure réponse n'était pas un mail. #ia #claude #client #pme #entrepreneur #bureau #humour",
+ "tiktok_title": "Le client qui m'a envoyé 42 mails",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude, un client m'a envoyé quarante mails en majuscules !",
+   "say": "[paniqué] Claude, un client m'a envoyé quarante mails en majuscules !",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Quarante-deux. Et j'ai déjà retrouvé sa commande.",
+   "say": "[doucement] Quarante-deux. Et j'ai déjà retrouvé sa commande.",
+   "shot": "bot"
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Attends… tu lis mes mails, toi ?!",
+   "say": "[surpris] Attends… tu lis mes mails, toi ?!",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Vous m'avez branché sur votre messagerie en mars. Pour les factures.",
+   "say": "Vous m'avez branché sur votre messagerie en mars. Pour les factures.",
+   "shot": "wide"
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "Ah. Oui. J'avais oublié.",
+   "say": "[gêné] Ah. Oui. J'avais oublié.",
+   "shot": "boss",
+   "emo": "awkward"
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "Commande 4512, livrée hier.",
+   "say": "Commande quarante-cinq douze, livrée hier.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 1,
+    "hi": 0
+   }
+  },
+  {
+   "f": "07.mp3",
+   "who": "claude",
+   "text": "Mais huit cartons sur dix. Il en manque deux.",
+   "say": "Mais huit cartons sur dix. Il en manque deux.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "08.mp3",
+   "who": "claude",
+   "text": "Et il a déjà payé. Rubis sur l'ongle.",
+   "say": "[pensif] Et il a déjà payé. Rubis sur l'ongle.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 4,
+    "hi": 3
+   }
+  },
+  {
+   "f": "09.mp3",
+   "who": "boss",
+   "text": "Bon. Réponds-lui. Sèchement.",
+   "say": "[agacé] Bon. Réponds-lui. Sèchement.",
+   "shot": "boss",
+   "emo": "rage"
+  },
+  {
+   "f": "10.mp3",
+   "who": "boss",
+   "text": "Commence par « Comme convenu dans mon précédent mail ».",
+   "say": "[triomphant] Commence par : comme convenu dans mon précédent mail.",
+   "shot": "boss",
+   "emo": "triumph"
+  },
+  {
+   "f": "11.mp3",
+   "who": "claude",
+   "text": "Non. Ça déclare la guerre en six mots.",
+   "say": "Non. Ça déclare la guerre en six mots.",
+   "shot": "bot"
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Voilà mon brouillon. On reconnaît l'erreur.",
+   "say": "Voilà mon brouillon. On reconnaît l'erreur.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 4,
+    "hi": 3
+   }
+  },
+  {
+   "f": "13.mp3",
+   "who": "claude",
+   "text": "Les cartons partent ce soir. Et dix pour cent offerts.",
+   "say": "Les cartons partent ce soir. Et dix pour cent offerts.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 7,
+    "hi": 5
+   }
+  },
+  {
+   "f": "14.mp3",
+   "who": "boss",
+   "text": "Dix pour cent ?! C'est toi qui paies ?",
+   "say": "[choqué] Dix pour cent ?! C'est toi qui paies ?",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "15.mp3",
+   "who": "claude",
+   "text": "C'est un brouillon. Rien ne part sans vous.",
+   "say": "C'est un brouillon. Rien ne part sans vous.",
+   "shot": "bot"
+  },
+  {
+   "f": "16.mp3",
+   "who": "boss",
+   "text": "Et tu l'envoies pas tout seul ?",
+   "say": "[pensif] Et tu l'envoies pas tout seul ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "17.mp3",
+   "who": "claude",
+   "text": "Je prépare. Vous décidez. C'est votre nom en bas.",
+   "say": "Je prépare. Vous décidez. C'est votre nom en bas.",
+   "shot": "bot"
+  },
+  {
+   "f": "18.mp3",
+   "who": "boss",
+   "text": "Bon… alors j'envoie ?",
+   "say": "[gêné] Bon… alors j'envoie ?",
+   "shot": "boss",
+   "emo": "awkward"
+  },
+  {
+   "f": "19.mp3",
+   "who": "claude",
+   "text": "Non. D'abord, vous l'appelez.",
+   "say": "Non. D'abord, vous l'appelez.",
+   "shot": "wide"
+  },
+  {
+   "f": "20.mp3",
+   "who": "boss",
+   "text": "Moi ? Au téléphone ? À dix-huit heures ?!",
+   "say": "[paniqué] Moi ? Au téléphone ? À dix-huit heures ?!",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "21.mp3",
+   "who": "claude",
+   "text": "Son numéro est dans sa signature. Le mail partira après.",
+   "say": "Son numéro est dans sa signature. Le mail partira après.",
+   "shot": "bot",
+   "pause_after": 0.8
+  },
+  {
+   "f": "22.mp3",
+   "who": "boss",
+   "text": "Il m'a remercié. Et il recommande le double.",
+   "say": "[touché] Il m'a remercié. Et il recommande le double.",
+   "shot": "boss",
+   "emo": "touched"
+  },
+  {
+   "f": "23.mp3",
+   "who": "claude",
+   "text": "Il ne voulait pas un mail. Il voulait qu'on décroche.",
+   "say": "[doucement] Il ne voulait pas un mail. Il voulait qu'on décroche.",
+   "shot": "bot",
+   "pause_after": 0.4
+  },
+  {
+   "f": "24.mp3",
+   "who": "boss",
+   "text": "Et les onze personnes en copie ?",
+   "say": "[pensif] Et les onze personnes en copie ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "25.mp3",
+   "who": "claude",
+   "text": "Elles ont toutes reçu le mail d'excuses. Même sa mère.",
+   "say": "Elles ont toutes reçu le mail d'excuses. Même sa mère.",
+   "shot": "wide"
+  }
+ ]
+}
