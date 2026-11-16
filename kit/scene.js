@@ -190,76 +190,99 @@ export function makeHolo(cfgOrRows = HOLO_ROWS, title = 'Rapport du lundi', sub 
     list(card, vis, hi, on) {
       let y = 175;
       card.items.forEach(([icon, label, val, col], i) => { if (i >= vis) return;
+        x.save(); if (i === vis - 1) { x.globalAlpha = A.ap; x.translate(40 * (1 - A.ap), 0); }
         const lit = i === hi && on;
         x.fillStyle = lit ? col + '55' : 'rgba(255,255,255,0.06)'; roundRect(x, 46, y - 50, 932, 82, 18); x.fill();
         if (i === hi) { x.strokeStyle = col; x.lineWidth = 5; roundRect(x, 46, y - 50, 932, 82, 18); x.stroke(); }
         x.fillStyle = col; x.font = F('bold', 38); x.fillText(icon, 70, y + 4);
         x.fillStyle = '#fff'; x.font = F('', 34); x.fillText(label, 130, y + 2);
         x.fillStyle = col; x.font = F('bold', 36); const w = x.measureText(val).width; x.fillText(val, 950 - w, y + 2);
-        y += 104; });
+        x.restore(); y += 104; });
     },
     chat(card, vis, hi, on) {   // items: [{from:'me'|'ai', text}]
       let y = 128;
-      card.items.slice(0, vis).slice(-4).forEach((m, i, arr) => {
+      const shown = card.items.slice(0, vis); const off = Math.max(0, shown.length - 4);
+      shown.slice(-4).forEach((m, i, arr) => {
+        const newest = off + i === vis - 1;
         x.font = F(m.from === 'ai' ? '' : 'bold', 30);
-        const lines = wrapT(m.text, 640).slice(0, 4); const h = lines.length * 40 + 30;
+        const full = wrapT(m.text, 640).slice(0, 4); const h = full.length * 40 + 30;
+        let lines = full;
+        if (newest) { let left = Math.floor(A.chars * (m.from === 'ai' ? 1 : 2.2)); lines = full.map((l) => { const r = l.slice(0, Math.max(0, left)); left -= l.length + 1; return r; }); }
+        x.save(); if (newest) { x.globalAlpha = Math.min(1, A.ap * 1.5); x.translate(0, 24 * (1 - A.ap)); }
         const me = m.from !== 'ai'; const bx = me ? 984 - 700 : 46;
         x.fillStyle = me ? '#2f6fb5' : 'rgba(255,255,255,0.10)'; roundRect(x, bx, y, 700, h, 22); x.fill();
         if (!me) { x.fillStyle = ORANGE; x.beginPath(); x.arc(bx + 26, y + 28, 10, 0, 7); x.fill(); }
         x.fillStyle = '#fff'; lines.forEach((l, k) => x.fillText(l, bx + (me ? 26 : 48), y + 44 + k * 40));
-        y += h + 16; });
+        if (newest && m.from === 'ai' && A.chars < m.text.length && Math.floor(A.age * 4) % 2 === 0) { x.fillStyle = ORANGE; x.fillRect(bx + 48 + x.measureText(lines.filter(Boolean).slice(-1)[0] || '').width + 4, y + 18 + (lines.filter(Boolean).length - 1) * 40, 14, 30); }
+        x.restore(); y += h + 16; });
     },
     email(card, vis, hi, on) {  // items: [to, subject, line1, line2, ...]; last can be status
       const [to, subj, ...body] = card.items;
       x.font = F('', 28); x.fillStyle = '#8fb3d9'; x.fillText('À :', 50, 150); x.fillStyle = '#fff'; x.fillText(to || '', 110, 150);
       x.fillStyle = '#8fb3d9'; x.fillText('Objet :', 50, 196); x.fillStyle = '#fff'; x.font = F('bold', 28); x.fillText(subj || '', 160, 196);
       x.fillStyle = 'rgba(255,255,255,0.15)'; x.fillRect(46, 218, 932, 3);
-      x.font = F('', 30); x.fillStyle = '#e8eef8'; let y = 270;
-      body.slice(0, Math.max(0, vis - 2)).forEach((l) => { wrapT(l, 900).forEach((w) => { if (y < 600) { x.fillText(w, 50, y); y += 42; } }); y += 6; });
-      if (vis >= card.items.length && card.status) { x.fillStyle = '#6ee7a0'; roundRect(x, 690, 596, 290, 56, 28); x.fill(); x.fillStyle = '#082'; x.font = F('bold', 28); x.fillText(card.status, 714, 634); }
+      x.font = F('', 30); x.fillStyle = '#e8eef8'; let y = 270; let left = Math.floor(A.chars * 1.6);
+      const shownB = body.slice(0, Math.max(0, vis - 2)); const prevN = Math.max(0, shownB.length - 1);
+      shownB.forEach((l, bi) => { wrapT(l, 900).forEach((w) => { if (y < 600) { let ww = w; if (bi >= prevN && A.anim) { ww = w.slice(0, Math.max(0, left)); left -= w.length + 1; } x.fillText(ww, 50, y); y += 42; } }); y += 6; });
+      if (vis >= card.items.length && card.status && (!A.anim || left > 0)) { x.fillStyle = '#6ee7a0'; roundRect(x, 690, 596, 290, 56, 28); x.fill(); x.fillStyle = '#082'; x.font = F('bold', 28); x.fillText(card.status, 714, 634); }
     },
     calendar(card, vis, hi, on) { // items: [[day, start, end, label, color], ...] days 0..4
       const days = card.days || ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven']; const x0 = 120, cw = 170, y0 = 150, hh = 52, h0 = card.h0 || 8;
       x.font = F('bold', 28); days.forEach((d, i) => { x.fillStyle = '#8fb3d9'; x.fillText(d, x0 + i * cw + 50, y0 - 12); });
       x.font = F('', 22); for (let h = 0; h < 9; h++) { x.fillStyle = 'rgba(255,255,255,0.08)'; x.fillRect(x0, y0 + h * hh, cw * 5, 2); x.fillStyle = '#6b84ad'; x.fillText((h0 + h) + 'h', 50, y0 + h * hh + 8); }
       card.items.slice(0, vis).forEach(([d, s, e, label, col], i) => {
+        x.save(); if (i === vis - 1) { const sc = 0.6 + 0.4 * A.back; const cxp = x0 + d * cw + cw / 2, cyp = y0 + ((s + e) / 2 - h0) * hh; x.translate(cxp, cyp); x.scale(sc, sc); x.translate(-cxp, -cyp); x.globalAlpha = A.ap; }
         const lit = i === hi && on; x.fillStyle = (col || CYAN) + (lit ? 'ff' : 'cc');
         roundRect(x, x0 + d * cw + 6, y0 + (s - h0) * hh + 4, cw - 12, (e - s) * hh - 8, 10); x.fill();
-        x.fillStyle = '#081a2e'; x.font = F('bold', 20); wrapT(label, cw - 28).slice(0, 2).forEach((l, k) => x.fillText(l, x0 + d * cw + 16, y0 + (s - h0) * hh + 30 + k * 24)); });
+        x.fillStyle = '#081a2e'; x.font = F('bold', 20); wrapT(label, cw - 28).slice(0, Math.max(1, Math.floor(((e - s) * hh - 14) / 24))).forEach((l, k) => x.fillText(l, x0 + d * cw + 16, y0 + (s - h0) * hh + 30 + k * 24)); x.restore(); });
     },
     table(card, vis, hi, on) { // card.cols: [..], items: rows [[..],[..]]
       const cols = card.cols || []; const n = cols.length || (card.items[0] || []).length; const cw = 932 / n;
       x.fillStyle = 'rgba(95,227,255,0.18)'; x.fillRect(46, 120, 932, 54);
       x.font = F('bold', 26); x.fillStyle = '#fff'; cols.forEach((h, i) => x.fillText(h, 60 + i * cw, 156));
       card.items.slice(0, vis).forEach((r, j) => { const y = 174 + j * 60; const lit = j === hi && on;
+        x.save(); if (j === vis - 1) { x.globalAlpha = A.ap; x.translate(-60 * (1 - A.ap), 0); }
         x.fillStyle = lit ? 'rgba(255,183,77,0.35)' : (j % 2 ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.09)'); x.fillRect(46, y, 932, 60);
         if (j === hi) { x.strokeStyle = '#ffb74d'; x.lineWidth = 4; x.strokeRect(46, y, 932, 60); }
-        x.font = F('', 26); r.forEach((v, i) => { x.fillStyle = String(v).startsWith('-') || String(v).includes('❌') ? '#ff8a8a' : '#e8eef8'; x.fillText(String(v), 60 + i * cw, y + 40); }); });
+        x.font = F('', 26); r.forEach((v, i) => { x.fillStyle = String(v).startsWith('-') || String(v).includes('❌') ? '#ff8a8a' : '#e8eef8'; x.fillText(String(v), 60 + i * cw, y + 40); }); x.restore(); });
     },
     compare(card, vis, hi, on) { // card.left {label, items}, card.right {label, items}
       const sides = [card.left, card.right]; const cols = ['#ff6b6b', '#6ee7a0'];
       sides.forEach((sd, k) => { if (!sd) return; const bx = 46 + k * 476;
         if (k === 1 && vis < 1) return;
+        x.save(); if (k === 1 && vis === 1) { x.globalAlpha = A.ap; x.translate(60 * (1 - A.ap), 0); }
         x.fillStyle = cols[k] + '33'; roundRect(x, bx, 120, 456, 520, 22); x.fill();
         x.fillStyle = cols[k]; x.font = F('bold', 32); x.fillText(sd.label, bx + 24, 170);
         x.font = F('', 28); x.fillStyle = '#fff'; let y = 225; sd.items.forEach((l) => wrapT(l, 410).forEach((w) => { if (y < 620) { x.fillText(w, bx + 24, y); y += 40; } }));
-      });
+        x.restore(); });
     },
     doc(card, vis, hi, on) { // items: paragraphs/bullets shown progressively
       x.font = F('', 30); let y = 160;
-      card.items.slice(0, vis).forEach((p, i) => { const lit = i === hi && on;
+      card.items.slice(0, vis).forEach((p0, i) => { const lit = i === hi && on; const p = i === vis - 1 && A.anim ? p0.slice(0, Math.floor(A.chars * 1.4)) : p0;
         if (lit) { x.fillStyle = 'rgba(255,210,63,0.25)'; x.fillRect(40, y - 34, 944, 46 * Math.max(1, wrapT(p, 900).length)); }
         x.fillStyle = '#e8eef8'; wrapT(p, 900).forEach((w) => { if (y < 640) { x.fillText(w, 50, y); y += 46; } }); y += 10; });
     },
   };
-  let last = '';
+  let last = ''; const A = { age: 9, anim: false, ap: 1, back: 1, chars: 1e9 };
   function draw(state = {}) {
     const ci = Math.min(state.card || 0, cards.length - 1); const card = cards[ci];
-    const n = (card.items || []).length; const vis = state.visible == null ? n : state.visible;
+    const n = (card.items || []).length; const vis = Math.min(n, state.visible == null ? n : state.visible);
     const on = (state.blink || 0) > 0.5; const hi = state.hi == null ? -1 : state.hi;
-    const key = ci + ':' + vis + ':' + hi + ':' + (on ? 1 : 0);
+    const age = state.age == null ? 9 : state.age;
+    const anim = age < 2.4;
+    A.age = age; A.anim = anim; A.ap = Math.min(1, Math.max(0, age / 0.35)); A.ap = 1 - Math.pow(1 - A.ap, 3);
+    const xb = Math.min(1, Math.max(0, age / 0.4)); A.back = 1 + 2.70158 * Math.pow(xb - 1, 3) + 1.70158 * Math.pow(xb - 1, 2);
+    A.chars = anim ? age * 48 : 1e9;
+    const sweep = state.t == null ? 0 : Math.floor(state.t * 15);
+    const key = ci + ':' + vis + ':' + hi + ':' + (on ? 1 : 0) + ':' + (anim ? Math.floor(age * 30) : 'x') + ':' + sweep;
     if (key === last) return; last = key;
     frame(card); (draws[card.type] || draws.list)(card, vis, hi, on);
+    // scanlines + moving sweep band
+    x.save(); roundRect(x, 10, 10, 1004, 660, 36); x.clip();
+    x.fillStyle = 'rgba(95,227,255,0.035)'; for (let yy = 14; yy < 670; yy += 5) x.fillRect(10, yy, 1004, 1);
+    const sy = ((state.t || 0) * 160) % 900 - 120; const gsw = x.createLinearGradient(0, sy, 0, sy + 110);
+    gsw.addColorStop(0, 'rgba(95,227,255,0)'); gsw.addColorStop(0.5, 'rgba(95,227,255,0.07)'); gsw.addColorStop(1, 'rgba(95,227,255,0)');
+    x.fillStyle = gsw; x.fillRect(10, sy, 1004, 110); x.restore();
     t.needsUpdate = true;
   }
   draw();

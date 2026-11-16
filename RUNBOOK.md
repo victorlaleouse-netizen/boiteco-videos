@@ -128,8 +128,8 @@ URL publique : `https://raw.githubusercontent.com/victorlaleouse-netizen/boiteco
 ## 8. Publier (connecteur Metricool, blogId `8124259`, timezone Europe/Paris)
 - `getBrandSettings` : réseaux connectés. Toujours `tiktok` ; ajouter `youtube` si une chaîne YouTube est connectée.
 - `createScheduledPost` : date = créneau du jour (**12:30** pour la tâche de midi, **18:30** pour celle du soir ; si l'heure est déjà passée, maintenant + 5 min), `autoPublish: true`, `media: [url]`, `text: caption`,
-  `tiktokData: {"privacyOption":"PUBLIC_TO_EVERYONE","title": tiktok_title,"isAigc": true, "autoAddMusic": false}`,
-  si YouTube : `youtubeData: {"title": tiktok_title, "type":"short", "privacy":"public", "madeForKids": false, "isAiGeneratedContent": true, "category":"COMEDY"}`.
+  `tiktokData: {"privacyOption":"PUBLIC_TO_EVERYONE","title": tiktok_title,"isAigc": false, "autoAddMusic": false}` (mention IA NON cochée : Victor l'ajoute lui-même à la main, demande du 16/11),
+  si YouTube : `youtubeData: {"title": tiktok_title, "type":"short", "privacy":"public", "madeForKids": false, "isAiGeneratedContent": false, "category":"COMEDY"}` (idem, Victor gère la mention lui-même).
 - Après l'heure de publication, `getScheduledPosts` pour lire le statut / `publicUrl` ; mettre le lien dans `episodes.log` (commit).
 
 ## 9. Compte rendu
@@ -137,3 +137,6 @@ Message final court : titre, sujet, lien TikTok (ou statut), crédits ElevenLabs
 
 ## Arrêts (prévenir l'utilisateur et ne rien publier)
 - Crédits ElevenLabs insuffisants, connecteur ElevenLabs ou Metricool indisponible, `elevenlabsusercontent.com` ou `raw.githubusercontent.com` injoignables, push GitHub refusé, rendu en échec deux fois, vidéo < 60 s.
+
+## Finition motion design (déjà dans le kit, ne pas casser)
+Émotions du patron fondues avec léger dépassement (easeOutBack), anticipation de Claude quand il prend la parole, caméra fluide (push-in, léger travelling latéral, respiration « caméra à l'épaule », zoom + traînée de mouvement sur chaque changement de plan), hologramme qui s'ouvre avec scintillement, éléments qui glissent/apparaissent un par un, texte de Claude et des mails tapé en direct avec curseur, lignes de balayage, sous-titres en « pop » à ressort avec ombre, étalonnage (vignettage + grain léger), écran de fin flouté avec logo, punchline mot à mot et bouton « Abonne-toi ». Pour en profiter, révéler l'hologramme progressivement (une bulle / une ligne / un événement par réplique `holo`) plutôt que tout d'un coup.
