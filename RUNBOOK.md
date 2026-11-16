@@ -1,4 +1,17 @@
-# Boîte & Co : fabriquer et publier UN épisode (mode automatique)
+# Boîte & Co : production nocturne automatique
+
+## Mode nuit (demande de Victor du 16/11) : une seule exécution par jour, à 00:00
+L'exécution de minuit enchaîne les épisodes (étapes 0 à 8 ci-dessous, en boucle) **jusqu'à épuisement de la limite d'utilisation de Claude ou du budget ElevenLabs du jour**, puis s'arrête. Chaque épisode est programmé **dès qu'il est terminé** sur le prochain créneau libre, pour que tout ce qui a été produit soit publié même si la session est coupée en cours de route.
+- **Mise en place une seule fois** (étape 0), puis boucle : sujet → écriture → voix → rendu → contrôle → GitHub → Metricool.
+- **Budget ElevenLabs du jour** (à recalculer avant chaque épisode avec `account_get_usage`) : `restants = character_limit − character_count` ; `jours = jours entiers jusqu'à next_character_count_reset_unix (min 1)` ; `budget_nuit = floor(restants / jours / 1000)` épisodes, au minimum 1 si `restants ≥ 1 300`. Ne pas dépasser ce nombre cette nuit (sinon le quota du mois serait vidé en quelques jours).
+- **Maximum 6 épisodes par nuit** (au-delà, TikTok pénalise la portée).
+- **Créneaux** (heure de Paris, le jour même) dans cet ordre de priorité : 1er épisode **18:30**, 2e **12:30**, 3e **21:00**, 4e **07:45**, 5e **15:30**, 6e **10:00**. Avant de programmer, lire `getScheduledPosts` du jour pour ne pas prendre un créneau déjà occupé.
+- Tenir `episodes.log` à jour après chaque épisode (slot = heure du créneau) et pousser sur GitHub à chaque fois.
+- Si un épisode échoue (rendu raté deux fois, contrôle qualité KO), le sauter et passer au suivant ; ne jamais publier une vidéo défectueuse.
+- Compte rendu final : nombre d'épisodes produits, titres, créneaux programmés, crédits ElevenLabs restants.
+
+---
+# Fabriquer et publier UN épisode
 
 Série TikTok (compte **lebonticket**) en 3D cartoon : un **patron** de PME et **Claude**, l'IA (petit bloc orange) qui gère sa boîte.
 Chaque exécution produit **un épisode indépendant** (pas de suite, jamais « épisode 2 », pas de numéro affiché), le rend en MP4 1080×1920 ≥ 60 s et le publie via Metricool.
@@ -127,10 +140,10 @@ URL publique : `https://raw.githubusercontent.com/victorlaleouse-netizen/boiteco
 
 ## 8. Publier (connecteur Metricool, blogId `8124259`, timezone Europe/Paris)
 - `getBrandSettings` : réseaux connectés. Toujours `tiktok` ; ajouter `youtube` si une chaîne YouTube est connectée.
-- `createScheduledPost` : date = créneau du jour (**12:30** pour la tâche de midi, **18:30** pour celle du soir ; si l'heure est déjà passée, maintenant + 5 min), `autoPublish: true`, `media: [url]`, `text: caption`,
+- `createScheduledPost` : date = créneau attribué à cet épisode (voir « Mode nuit » ; si l'heure est déjà passée, maintenant + 5 min), `autoPublish: true`, `media: [url]`, `text: caption`,
   `tiktokData: {"privacyOption":"PUBLIC_TO_EVERYONE","title": tiktok_title,"isAigc": false, "autoAddMusic": false}` (mention IA NON cochée : Victor l'ajoute lui-même à la main, demande du 16/11),
   si YouTube : `youtubeData: {"title": tiktok_title, "type":"short", "privacy":"public", "madeForKids": false, "isAiGeneratedContent": false, "category":"COMEDY"}` (idem, Victor gère la mention lui-même).
-- Après l'heure de publication, `getScheduledPosts` pour lire le statut / `publicUrl` ; mettre le lien dans `episodes.log` (commit).
+- Le lien public n'existe qu'après publication : noter « programmé HH:MM » dans `episodes.log`. L'exécution suivante (nuit d'après) complète les liens de la veille avec `getScheduledPosts` / statut.
 
 ## 9. Compte rendu
 Message final court : titre, sujet, lien TikTok (ou statut), crédits ElevenLabs restants.
