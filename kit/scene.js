@@ -184,7 +184,8 @@ export function makeHolo(cfgOrRows = HOLO_ROWS, title = 'Rapport du lundi', sub 
     x.strokeStyle = CYAN; x.lineWidth = 8; roundRect(x, 10, 10, 1004, 660, 36); x.stroke();
     x.fillStyle = ORANGE; x.beginPath(); x.arc(64, 70, 18, 0, Math.PI * 2); x.fill();
     x.fillStyle = '#fff'; x.font = F('bold', 40); x.fillText(card.title || '', 96, 84);
-    if (card.sub) { x.fillStyle = '#8fb3d9'; x.font = F('', 28); const w = x.measureText(card.sub).width; x.fillText(card.sub, 984 - w, 82); }
+    const tw = x.measureText(card.title || '').width;
+    if (card.sub) { x.fillStyle = '#8fb3d9'; x.font = F('', 28); const w = x.measureText(card.sub).width; if (96 + tw + 30 < 984 - w) x.fillText(card.sub, 984 - w, 82); }
   }
   const draws = {
     list(card, vis, hi, on) {

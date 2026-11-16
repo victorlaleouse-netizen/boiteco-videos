@@ -23,6 +23,35 @@ Outils requis : node, google-chrome (/usr/bin/google-chrome), ffmpeg, python3 + 
 3. L'actu IA (2 ou 3 WebSearch sur les 7 derniers jours) ne sert qu'à **un épisode sur trois au maximum**, et toujours vécue dans une situation de ce type, jamais comme sujet en soi. Les autres épisodes utilisent des usages établis et vérifiés (rédiger/répondre à des mails, résumer, tableaux, agenda, connecteurs, tâches planifiées, projets, relire un contrat…).
 4. Exactitude : n'affirmer que des faits trouvés dans les sources du jour ; rien d'inventé sur des produits réels ; pas de chiffres non sourcés (les chiffres « internes » de la boîte fictive sont libres). Pas de politique, pas de personnes réelles, pas de marques autres que les noms d'IA cités factuellement.
 
+## 2 bis. Salle d'écriture : trouver une VRAIE histoire (obligatoire, demande de Victor du 16/11)
+Victor veut des épisodes plus réfléchis : de vraies idées, de vraies discussions, de vraies histoires. Pas un enchaînement de répliques autour d'une fonction. Avant d'écrire le JSON :
+
+1. **S'inspirer du réel** : 2 WebSearch sur des situations de bureau vécues (témoignages de salariés, galères de patrons de PME, anecdotes de clients, erreurs coûteuses, conflits d'équipe). On garde le mécanisme humain, jamais l'anecdote telle quelle, jamais de vraie personne ni d'entreprise réelle.
+2. **Écrire 3 pitchs** (brouillon dans /tmp, pas dans le dépôt), chacun en 5 lignes :
+   - la situation en une phrase (lieu, heure, enjeu) ;
+   - ce que le personnage VEUT concrètement, et ce que ça lui coûte s'il échoue ;
+   - l'obstacle, et pourquoi Claude ou un collègue n'est pas d'accord (les deux camps ont un vrai argument) ;
+   - le retournement du milieu : une info qui change le sens de la scène ;
+   - la fin : ce qui a changé pour un humain, et la dernière réplique.
+3. **Noter chaque pitch sur 5** pour : vécu (le spectateur l'a déjà vécu), enjeu, surprise, astuce réelle utile, fin qu'on a envie de citer. Garder le meilleur (au moins 18/25). Sinon, réécrire les pitchs.
+4. **Règles d'histoire** :
+   - un personnage veut quelque chose, quelqu'un s'y oppose ;
+   - l'IA n'est pas magique : elle a une limite, un prix ou un avis contraire ;
+   - un détail posé au début (un prénom, un chiffre, un objet) revient et compte à la fin ;
+   - la fin change quelque chose et ne dit pas la morale à voix haute.
+5. **Règles de dialogue** :
+   - les gens ne s'expliquent pas : sous-entendus, mauvaise foi, silences (`pause_after`) ;
+   - chaque réplique répond à la précédente, aucune réplique « pour informer le spectateur » ;
+   - chaque personnage a sa voix : le patron (images, exagérations, mauvaise foi), Claude (sec, précis, honnête), Sandrine (factuelle, pince-sans-rire), Léo (décontracté, malin) ;
+   - au moins une réplique qu'un vrai patron ou un vrai collègue dirait mot pour mot ;
+   - pas de formules d'IA génériques (« Excellente question », « Je comprends votre frustration ») ;
+   - lire le dialogue à voix haute dans sa tête : s'il sonne écrit, réécrire.
+6. **Relecture critique** avant les voix (les voix coûtent des crédits) :
+   - relire comme un spectateur exigeant : regarderait-il encore à 3 s, à 10 s, à 30 s ?
+   - chaque réplique est-elle nécessaire, et la fin est-elle méritée ?
+   - corriger au moins une fois.
+   Interdits : visite guidée d'une fonction, Claude qui fait la promo d'un produit, patron simplement émerveillé, morale énoncée à la fin.
+
 ## 3. Écrire l'épisode → `episodes/epNNN_slug.json`
 NNN = numéro suivant (regarder le dossier). Même schéma que `episodes/ep001_rapport_du_lundi.json` :
 ```json
