@@ -1,0 +1,290 @@
+{
+ "title": "Claude gratuit pendant un an ?",
+ "episode": 5,
+ "cast": [
+  "leo"
+ ],
+ "hook": "Claude ! Tu es gratuit pendant un an !",
+ "outro_q": "Vérifier, c'est gratuit. Pour toujours.",
+ "holo": {
+  "cards": [
+   {
+    "type": "compare",
+    "title": "La vidéo vs la page officielle",
+    "sub": "claude.com/programs/startups",
+    "items": [
+     "a",
+     "b"
+    ],
+    "left": {
+     "label": "La vidéo",
+     "items": [
+      "1 an de Claude Team offert",
+      "1 000 $ de crédits API",
+      "« Postule en 2 minutes »"
+     ]
+    },
+    "right": {
+     "label": "Page officielle",
+     "items": [
+      "Cohorte actuelle complète",
+      "Candidatures fermées",
+      "Offre en pause depuis le 12/10"
+     ]
+    }
+   },
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "chat",
+    "items": [
+     {
+      "from": "me",
+      "text": "Postule pour la boîte à l'offre Claude gratuit 1 an."
+     },
+     {
+      "from": "ai",
+      "text": "Impossible : la cohorte est complète. Je vous préviens dès que la prochaine ouvre ?"
+     },
+     {
+      "from": "me",
+      "text": "Oui. Et vérifie toujours avant que je m'emballe."
+     }
+    ]
+   }
+  ]
+ },
+ "caption": "Le patron a voulu postuler à « Claude gratuit 1 an ». La page officielle avait un autre avis. #ia #claude #startup #pme #entrepreneur #bureau #humour",
+ "tiktok_title": "Claude gratuit pendant un an ? Pas si vite",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude ! Tu es gratuit pendant un an !",
+   "say": "[triomphant] Claude ! Tu es gratuit pendant un an !",
+   "shot": "boss",
+   "emo": "shocked",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Ah bon ? Première nouvelle.",
+   "say": "[pensif] Ah bon ? Première nouvelle.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "C'est sur TikTok. Le gars avait des étoiles dans les yeux.",
+   "say": "C'est sur TikTok. Le gars avait des étoiles dans les yeux.",
+   "shot": "boss",
+   "emo": "triumph",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Je vérifie sur la page officielle d'abord.",
+   "say": "Je vérifie sur la page officielle d'abord.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "Pas le temps ! Postule avant les concurrents !",
+   "say": "[agacé] Pas le temps ! Postule avant les concurrents !",
+   "shot": "boss",
+   "emo": "rage",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "La vidéo promet un an de Claude Team et 1 000 dollars de crédits.",
+   "say": "La vidéo promet un an de Claude Team et mille dollars de crédits.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 0,
+    "hi": -1
+   }
+  },
+  {
+   "f": "07.mp3",
+   "who": "claude",
+   "text": "La page officielle, elle, dit : cohorte complète.",
+   "say": "La page officielle, elle, dit : cohorte complète.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 1,
+    "hi": -1
+   }
+  },
+  {
+   "f": "08.mp3",
+   "who": "boss",
+   "text": "Complète ?! Depuis quand ?",
+   "say": "[choqué] Complète ?! Depuis quand ?",
+   "shot": "boss",
+   "emo": "shocked",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "09.mp3",
+   "who": "claude",
+   "text": "L'offre est en pause depuis le 12 octobre. Victime de son succès.",
+   "say": "L'offre est en pause depuis le douze octobre. Victime de son succès.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "10.mp3",
+   "who": "boss",
+   "text": "Mais Léo me l'a envoyée ce matin…",
+   "say": "[gêné] Mais Léo me l'a envoyée ce matin…",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "11.mp3",
+   "who": "leo",
+   "text": "Elle tourne encore partout, patron !",
+   "say": "Elle tourne encore partout, patron !",
+   "shot": "leo",
+   "emo": "surprised",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Une vidéo, ça ne se met pas à jour toute seule.",
+   "say": "Une vidéo, ça ne se met pas à jour toute seule.",
+   "shot": "wide",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "13.mp3",
+   "who": "boss",
+   "text": "Donc c'était une arnaque ?",
+   "say": "Donc c'était une arnaque ?",
+   "shot": "boss",
+   "emo": "sad",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "14.mp3",
+   "who": "claude",
+   "text": "Non. C'était vrai. Juste plus maintenant.",
+   "say": "[doucement] Non. C'était vrai. Juste plus maintenant.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "15.mp3",
+   "who": "boss",
+   "text": "Postule quand même. On ne sait jamais.",
+   "say": "Postule quand même. On ne sait jamais.",
+   "shot": "holo",
+   "emo": "triumph",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 1,
+    "hi": -1
+   }
+  },
+  {
+   "f": "16.mp3",
+   "who": "claude",
+   "text": "Fermé, c'est fermé. Mais je peux vous prévenir à la réouverture.",
+   "say": "Fermé, c'est fermé. Mais je peux vous prévenir à la réouverture.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "17.mp3",
+   "who": "boss",
+   "text": "Fais ça. Et vérifie toujours avant que je m'emballe.",
+   "say": "Fais ça. Et vérifie toujours avant que je m'emballe.",
+   "shot": "holo",
+   "emo": "touched",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": 2
+   }
+  },
+  {
+   "f": "18.mp3",
+   "who": "leo",
+   "text": "Moi je l'ai déjà partagée à quinze personnes…",
+   "say": "[gêné] Moi je l'ai déjà partagée à quinze personnes…",
+   "shot": "leo",
+   "emo": "awkward",
+   "pause_after": 0.5,
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "19.mp3",
+   "who": "boss",
+   "text": "Léo ! Tu leur renvoies la correction. Tout de suite.",
+   "say": "[il crie, outré] Léo ! Tu leur renvoies la correction. Tout de suite.",
+   "shot": "wide",
+   "emo": "rage",
+   "act": "jump",
+   "pause_after": 0.8,
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "20.mp3",
+   "who": "claude",
+   "text": "Gratuit pendant un an, non. Vérifier, oui. Ça, c'est gratuit.",
+   "say": "[pince-sans-rire] Gratuit pendant un an, non. Vérifier, oui. Ça, c'est gratuit.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  }
+ ]
+}
