@@ -1,0 +1,238 @@
+{
+ "title": "La réunion ratée",
+ "episode": 3,
+ "hook": "Claude ! J'ai raté la réunion de 9 h ?!",
+ "outro_q": "Et toi, tu enverrais ton IA à ta place en réunion ?",
+ "cast": [
+  "sandrine"
+ ],
+ "holo": {
+  "title": "Réunion de 9 h",
+  "sub": "Meet bêta",
+  "rows": [
+   [
+    "✔",
+    "Notes prises",
+    "OK",
+    "#6ee7a0"
+   ],
+   [
+    "✔",
+    "Plan d'action",
+    "rédigé",
+    "#6ee7a0"
+   ],
+   [
+    "⚠",
+    "Planning relu",
+    "corrigé",
+    "#ffb74d"
+   ],
+   [
+    "✖",
+    "Tâches du patron",
+    "1",
+    "#ff6b6b"
+   ]
+  ]
+ },
+ "caption": "Il a raté la réunion de 9 h… pas son IA. Claude Meetings (bêta, Google Meet) prend les notes, rédige le plan et le planning pendant l'appel. Mais c'est Sandrine qui relit tout. 👀 #ia #claude #reunion #pme #entrepreneur #productivite #humour",
+ "tiktok_title": "Mon IA est allée à la réunion à ma place",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude ! J'ai raté la réunion de 9 h ?!",
+   "say": "[paniqué] Claude ! J'ai raté la réunion de neuf heures ?!",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Non. Vous l'avez ratée. Moi, j'y étais.",
+   "say": "[doucement] Non. Vous l'avez ratée. Moi, j'y étais.",
+   "shot": "bot"
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Attends… tu vas en visio, toi, maintenant ?!",
+   "say": "[surpris] Attends… tu vas en visio, toi, maintenant ?!",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Nouveauté de la semaine : Claude Meetings, en bêta, sur Google Meet.",
+   "say": "Nouveauté de la semaine : Claude Meetings, en bêta, sur Google Meet.",
+   "shot": "bot"
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "Et t'as dit bonjour, au moins ?",
+   "say": "[gêné] Et t'as dit bonjour, au moins ?",
+   "shot": "boss",
+   "emo": "awkward"
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "Je me suis présenté. Et j'ai prévenu dans le chat.",
+   "say": "Je me suis présenté. Et j'ai prévenu dans le chat.",
+   "shot": "wide"
+  },
+  {
+   "f": "07.mp3",
+   "who": "boss",
+   "text": "Bon. Des notes, moi aussi je sais en prendre.",
+   "say": "[triomphant] Bon. Des notes, moi aussi je sais en prendre.",
+   "shot": "boss",
+   "emo": "triumph"
+  },
+  {
+   "f": "08.mp3",
+   "who": "claude",
+   "text": "Notes prises, décisions comprises. Et de un.",
+   "say": "Notes prises, décisions comprises. Et de un.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "visible": 1,
+    "hi": 0
+   }
+  },
+  {
+   "f": "09.mp3",
+   "who": "claude",
+   "text": "Plan d'action rédigé pendant l'appel. Et de deux.",
+   "say": "Plan d'action rédigé pendant l'appel. Et de deux.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "10.mp3",
+   "who": "boss",
+   "text": "Pendant ?!",
+   "say": "[choqué] Pendant ?!",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "11.mp3",
+   "who": "claude",
+   "text": "Planning sur le tableau blanc. Et les chiffres de l'an dernier, tirés de vos outils.",
+   "say": "Planning sur le tableau blanc. Et les chiffres de l'an dernier, tirés de vos outils.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "visible": 3,
+    "hi": 2
+   }
+  },
+  {
+   "f": "12.mp3",
+   "who": "boss",
+   "text": "Et qui t'a posé des questions pendant la réunion ?",
+   "say": "[pensif] Et qui t'a posé des questions pendant la réunion ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "13.mp3",
+   "who": "claude",
+   "text": "Sandrine. Dans le chat. Trois fois.",
+   "say": "Sandrine. Dans le chat. Trois fois.",
+   "shot": "wide",
+   "enter": "sandrine"
+  },
+  {
+   "f": "14.mp3",
+   "who": "sandrine",
+   "text": "Et j'ai tout relu. Il avait mis Thomas en congé en mars.",
+   "say": "Et j'ai tout relu. Il avait mis Thomas en congé en mars.",
+   "shot": "sandrine",
+   "emo": "awkward"
+  },
+  {
+   "f": "15.mp3",
+   "who": "claude",
+   "text": "Elle a raison. C'est corrigé.",
+   "say": "[gêné] Elle a raison. C'est corrigé.",
+   "shot": "bot"
+  },
+  {
+   "f": "16.mp3",
+   "who": "boss",
+   "text": "Et le client Morel ? Il devait se connecter à 9 h 40.",
+   "say": "Et le client Morel ? Il devait se connecter à neuf heures quarante.",
+   "shot": "boss",
+   "emo": "awkward"
+  },
+  {
+   "f": "17.mp3",
+   "who": "claude",
+   "text": "Arrivé à 9 h 41. Je suis sorti tout seul.",
+   "say": "Arrivé à neuf heures quarante et une. Je suis sorti tout seul.",
+   "shot": "bot"
+  },
+  {
+   "f": "18.mp3",
+   "who": "boss",
+   "text": "Pourquoi ?!",
+   "say": "[surpris] Pourquoi ?!",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "19.mp3",
+   "who": "claude",
+   "text": "Invité externe. Je quitte l'appel, sauf si votre admin m'autorise.",
+   "say": "Invité externe. Je quitte l'appel, sauf si votre admin m'autorise.",
+   "shot": "bot"
+  },
+  {
+   "f": "20.mp3",
+   "who": "sandrine",
+   "text": "Du coup, la fin, c'est moi qui l'ai notée. À la main.",
+   "say": "Du coup, la fin, c'est moi qui l'ai notée. À la main.",
+   "shot": "sandrine",
+   "emo": "triumph"
+  },
+  {
+   "f": "21.mp3",
+   "who": "boss",
+   "text": "Et moi, alors ? Il me reste quoi à faire ?",
+   "say": "[touché] Et moi, alors ? Il me reste quoi à faire ?",
+   "shot": "boss",
+   "emo": "sad"
+  },
+  {
+   "f": "22.mp3",
+   "who": "claude",
+   "text": "Une seule tâche : lire le compte rendu.",
+   "say": "Une seule tâche : lire le compte rendu.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "visible": 4,
+    "hi": 3
+   },
+   "pause_after": 0.8
+  },
+  {
+   "f": "23.mp3",
+   "who": "boss",
+   "text": "La meilleure réunion de l'année… et je l'ai ratée.",
+   "say": "[pensif] La meilleure réunion de l'année… et je l'ai ratée.",
+   "shot": "wide",
+   "emo": "awkward"
+  }
+ ]
+}
