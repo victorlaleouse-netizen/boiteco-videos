@@ -40,7 +40,7 @@ PUSH_R = (0.08, 0.16, 0.25)
 SOURCES = [(x, 25) for x in (1, 2, 3, 4)]
 
 
-def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=3.0, max_t=95):
+def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=0.3, max_t=95):
     rnd = random.Random(seed)
     tiles = [list(r) for r in GRID]
     sq = []
@@ -173,9 +173,21 @@ def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=3.
                 for ii in range(len(al)):
                     for jj in range(ii + 1, len(al)):
                         A, B = sq[al[ii]], sq[al[jj]]
-                        if abs(A['x'] - B['x']) < SIZE and abs(A['y'] - B['y']) < SIZE:
-                            A['vx'], B['vx'] = B['vx'], A['vx']; A['vy'], B['vy'] = B['vy'], A['vy']
-                            A['x'], A['y'] = prev[al[ii]]; B['x'], B['y'] = prev[al[jj]]
+                        dx = A['x'] - B['x']; dy = A['y'] - B['y']
+                        px_, py_ = SIZE - abs(dx), SIZE - abs(dy)
+                        if px_ > 0 and py_ > 0:
+                            if px_ < py_:
+                                sgn = 1 if dx >= 0 else -1
+                                if (A['vx'] - B['vx']) * sgn < 0: A['vx'], B['vx'] = B['vx'], A['vx']
+                                for S, k in ((A, 1), (B, -1)):
+                                    ox = S['x']; S['x'] += k * sgn * (px_ / 2 + 0.01)
+                                    if overlap(S): S['x'] = ox
+                            else:
+                                sgn = 1 if dy >= 0 else -1
+                                if (A['vy'] - B['vy']) * sgn < 0: A['vy'], B['vy'] = B['vy'], A['vy']
+                                for S, k in ((A, 1), (B, -1)):
+                                    oy = S['y']; S['y'] += k * sgn * (py_ / 2 + 0.01)
+                                    if overlap(S): S['y'] = oy
                             events.append({'t': t, 'type': 'bounce', 'c': A['c'], 'kind': 'hit'})
             if broke and dist is not None:
                 dist, order, csize = compute_dist(); front = int(wetm.sum())
@@ -196,7 +208,10 @@ def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=3.
                         if best:
                             _, s['x'], s['y'], ang = best
                             if math.cos(ang) * s['vx'] + math.sin(ang) * s['vy'] < 0: s['vx'], s['vy'] = -s['vx'], -s['vy']
-                        else:
+                        still = overlap(s) == ('water', 0, 0) or is_wet(s['x'], s['y'])
+                        s['wet_t'] = s.get('wet_t', 0) + dt if (still or best is None) else 0
+                        if s['wet_t'] < 0.25: continue
+                        if True:
                             s['alive'] = False; s['out_t'] = t; events.append({'t': t, 'type': 'out', 'c': s['c']})
                             alive = [q for q in sq if q['alive']]
                             if len(alive) == 1 and winner is None:

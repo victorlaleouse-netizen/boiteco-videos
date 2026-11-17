@@ -111,7 +111,7 @@ for fi in range(total):
     for i, c in enumerate('gyrb'):
         x, y, vx, vy, alive = fr['sq'][i]
         px, py = OX + x * U, OY + y * U
-        if alive and t >= 3.0:
+        if alive and t >= 0.3:
             trail[c].append((px, py)); trail[c] = trail[c][-10:]
         if alive:
             n = len(trail[c])
@@ -132,10 +132,6 @@ for fi in range(total):
             cx, cy = px + ex, py - 2
             d.ellipse((cx - 8, cy - 8, cx + 8, cy + 8), fill=(255, 255, 255, 255))
             d.ellipse((cx - 4 + vx * 4, cy - 4 + vy * 4, cx + 4 + vx * 4, cy + 4 + vy * 4), fill=(15, 15, 18, 255))
-    # countdown (numbers only)
-    if t < 3.0:
-        n = 3 - int(t); ph = t - int(t); sc = 260 if ph < 0.08 else (230 if ph < 0.16 else 200)
-        d.text((Wv / 2, Hv / 2), str(n), font=F_CD[sc], fill=(255, 255, 255, int(255 * (1 - ph * 0.5))), anchor='mm', stroke_width=12, stroke_fill=(22, 22, 24, 255))
     # win: dim, winner cube big with crown, confetti
     if win and t >= win['t']:
         age = t - win['t']; c = win['c']; a = min(1, age / 0.3)
