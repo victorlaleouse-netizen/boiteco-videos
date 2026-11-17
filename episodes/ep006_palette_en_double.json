@@ -1,0 +1,329 @@
+{
+ "title": "La palette en double",
+ "episode": 6,
+ "hook": "Claude, paie mes factures. Et vire cette palette de mon portail !",
+ "outro_q": "C'était pour être sûr.",
+ "holo": {
+  "cards": [
+   {
+    "type": "table",
+    "title": "Virements à valider",
+    "sub": "Factures fournisseurs",
+    "cols": [
+     "Fournisseur",
+     "Montant",
+     "État"
+    ],
+    "items": [
+     [
+      "Imprimerie Morel",
+      "412 €",
+      "✔ prêt"
+     ],
+     [
+      "Gérard Matériaux n°0412",
+      "2 340 €",
+      "✔ prêt"
+     ],
+     [
+      "Gérard Matériaux n°0419",
+      "2 340 €",
+      "⚠ doublon ?"
+     ],
+     [
+      "Café Grand Arôme",
+      "96 €",
+      "✔ prêt"
+     ],
+     [
+      "Café Grand Arôme",
+      "96 €",
+      "✔ prêt (2e livraison)"
+     ]
+    ]
+   },
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "Mails envoyés",
+    "items": [
+     {
+      "from": "me",
+      "text": "Avant de répondre à Gérard : retrouve tout ce que j'ai commandé chez lui ce mois-ci."
+     },
+     {
+      "from": "ai",
+      "text": "Mardi 10 h 02 : appel à Gérard, 1 palette de ciment (noté dans votre agenda)."
+     },
+     {
+      "from": "ai",
+      "text": "Mercredi 7 h 48, votre mail : « Gérard, 1 palette de ciment stp. Pour être sûr. »"
+     }
+    ]
+   },
+   {
+    "type": "email",
+    "title": "Brouillon prêt",
+    "sub": "Gmail",
+    "items": [
+     "gerard@gerard-materiaux.fr",
+     "Les deux factures",
+     "Salut Gérard,",
+     "Tes deux factures sont justes, c'est moi qui ai commandé deux fois.",
+     "Je les règle aujourd'hui.",
+     "Tu passes reprendre la palette ? J'ai une table à 12 h 45.",
+     "À tout à l'heure,"
+    ],
+    "status": "✎ Brouillon : à valider"
+   }
+  ]
+ },
+ "caption": "Il voulait payer 14 factures avant de déjeuner. La 14e l'attendait devant son portail. #ia #claude #pme #entrepreneur #factures #bureau #humour",
+ "tiktok_title": "La facture en double (c'était lui)",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude, paie mes factures. Et vire cette palette de mon portail !",
+   "say": "[agacé] Claude, paie mes factures. Et vire cette palette de mon portail !",
+   "shot": "boss",
+   "emo": "rage"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Je prépare les virements. Treize. Pas quatorze.",
+   "say": "[doucement] Je prépare les virements. Treize. Pas quatorze.",
+   "shot": "bot"
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Treize ?! J'ai une table à 12 h 45, moi !",
+   "say": "[choqué] Treize ?! J'ai une table à midi quarante-cinq, moi !",
+   "shot": "boss",
+   "emo": "shocked",
+   "pause_after": 0.3
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Deux factures de Gérard. Même montant.",
+   "say": "Deux factures de Gérard. Même montant.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 3,
+    "hi": 2
+   }
+  },
+  {
+   "f": "05.mp3",
+   "who": "claude",
+   "text": "2 340 euros. Deux fois.",
+   "say": "Deux mille trois cent quarante euros. Deux fois.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 5,
+    "hi": 2
+   }
+  },
+  {
+   "f": "06.mp3",
+   "who": "boss",
+   "text": "Gérard ? Quinze ans qu'on bosse ensemble…",
+   "say": "[surpris] Gérard ? Quinze ans qu'on bosse ensemble…",
+   "shot": "boss",
+   "emo": "surprised",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "07.mp3",
+   "who": "boss",
+   "text": "Quinze ans, et il m'arnaque !",
+   "say": "[il crie, outré] Quinze ans, et il m'arnaque !",
+   "shot": "wide",
+   "emo": "rage"
+  },
+  {
+   "f": "08.mp3",
+   "who": "boss",
+   "text": "Écris-lui. Sec. Très sec.",
+   "say": "[agacé] Écris-lui. Sec. Très sec.",
+   "shot": "boss",
+   "emo": "rage"
+  },
+  {
+   "who": "claude",
+   "text": "Je peux. Mais vous allez le regretter.",
+   "say": "[pensif] Je peux. Mais vous allez le regretter.",
+   "shot": "wide",
+   "f": "09.mp3"
+  },
+  {
+   "f": "10.mp3",
+   "who": "claude",
+   "text": "Avant d'écrire sec, j'ai relu vos mails envoyés.",
+   "say": "[pensif] Avant d'écrire sec, j'ai relu vos mails envoyés.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "11.mp3",
+   "who": "boss",
+   "text": "Mes mails à moi ?! Mais c'est pas moi, le suspect !",
+   "say": "[choqué] Mes mails à moi ?! Mais c'est pas moi, le suspect !",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Mardi, vous appelez Gérard. Une palette de ciment.",
+   "say": "Mardi, vous appelez Gérard. Une palette de ciment.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "13.mp3",
+   "who": "claude",
+   "text": "Mercredi, vous lui écrivez. La même palette.",
+   "say": "Mercredi, vous lui écrivez. La même palette.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": 2
+   }
+  },
+  {
+   "f": "14.mp3",
+   "who": "boss",
+   "text": "C'était… pour être sûr.",
+   "say": "[gêné] C'était… pour être sûr.",
+   "shot": "boss",
+   "emo": "awkward",
+   "pause_after": 0.5,
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "15.mp3",
+   "who": "claude",
+   "text": "Il a été sûr. Il en a livré deux.",
+   "say": "Il a été sûr. Il en a livré deux.",
+   "shot": "bot"
+  },
+  {
+   "who": "claude",
+   "text": "Gérard a appelé lundi. Vous étiez en réunion.",
+   "say": "Gérard a appelé lundi. Vous étiez en réunion.",
+   "shot": "bot",
+   "f": "16.mp3"
+  },
+  {
+   "f": "17.mp3",
+   "who": "boss",
+   "text": "Attends… la palette devant mon portail ?",
+   "say": "[surpris] Attends… la palette devant mon portail ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "18.mp3",
+   "who": "claude",
+   "text": "C'est la vôtre. La deuxième.",
+   "say": "C'est la vôtre. La deuxième.",
+   "shot": "bot",
+   "pause_after": 0.6
+  },
+  {
+   "f": "19.mp3",
+   "who": "boss",
+   "text": "J'ai engueulé les voisins toute la semaine.",
+   "say": "[gêné] J'ai engueulé les voisins toute la semaine.",
+   "shot": "wide",
+   "emo": "sad"
+  },
+  {
+   "who": "boss",
+   "text": "Le monsieur du 12, je l'ai traité de saboteur.",
+   "say": "[gêné] Le monsieur du douze, je l'ai traité de saboteur.",
+   "shot": "boss",
+   "emo": "awkward",
+   "f": "20.mp3"
+  },
+  {
+   "f": "21.mp3",
+   "who": "claude",
+   "text": "Je ne paie rien moi-même. Les deux virements sont prêts, vous validez.",
+   "say": "Je ne paie rien moi-même. Les deux virements sont prêts, vous validez.",
+   "shot": "bot"
+  },
+  {
+   "f": "22.mp3",
+   "who": "claude",
+   "text": "Et j'ai un mail pour Gérard. Pas sec.",
+   "say": "Et j'ai un mail pour Gérard. Pas sec.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 4,
+    "hi": 3
+   }
+  },
+  {
+   "f": "23.mp3",
+   "who": "boss",
+   "text": "Ajoute qu'il passe reprendre sa palette.",
+   "say": "[pensif] Ajoute qu'il passe reprendre sa palette.",
+   "shot": "boss",
+   "emo": "touched",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 6,
+    "hi": 5
+   }
+  },
+  {
+   "f": "24.mp3",
+   "who": "claude",
+   "text": "C'est fait. Et votre table de 12 h 45 ?",
+   "say": "C'est fait. Et votre table de midi quarante-cinq ?",
+   "shot": "bot",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 7,
+    "hi": -1
+   },
+   "pause_after": 0.8
+  },
+  {
+   "f": "25.mp3",
+   "who": "boss",
+   "text": "Invite Gérard. C'est lui qui paie. Pour être sûr.",
+   "say": "[triomphant] Invite Gérard. C'est lui qui paie. Pour être sûr.",
+   "shot": "boss",
+   "emo": "triumph",
+   "act": "jump",
+   "holo": {
+    "show": false
+   }
+  }
+ ]
+}
