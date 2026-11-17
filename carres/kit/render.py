@@ -8,7 +8,7 @@ SEED = int(sys.argv[1]); PARAMS = json.loads(sys.argv[2]); OUT = sys.argv[3]
 r = sim.run(SEED, max_t=95, **PARAMS)
 frames, events = r['frames'], r['events']
 FPS = 30; Wv, Hv = 1080, 1920
-T = 80; OX = (Wv - sim.W * T) // 2; OY = 330
+T = 80; OX = (Wv - sim.W * T) // 2; OY = 320
 END_PAD = 4.0
 n_frames = len(frames)
 
@@ -98,8 +98,8 @@ for e in events:
 
 toasts = []  # (t0, text, color)
 for e in events:
-    if e['type'] == 'hammer': toasts.append((e['t'], f"{NAME[e['c']]} prend le marteau", COL[e['c']]))
-    elif e['type'] == 'break' and e['k']: toasts.append((e['t'], f"{NAME[e['c']]} casse un mur", COL[e['c']]))
+    if e['type'] == 'break' and e['k']: toasts.append((e['t'], f"{NAME[e['c']]} casse un bloc", COL[e['c']]))
+    elif e['type'] == 'break' and e['t'] > 6: toasts.append((e['t'], f"{NAME[e['c']]} ouvre sa porte", COL[e['c']]))
     elif e['type'] == 'out': toasts.append((e['t'], f"{NAME[e['c']]} est noyé", COL[e['c']]))
 # de-dup toasts too close
 tt = []
@@ -125,19 +125,28 @@ for fi in range(total):
     key = (tuple(fr['tiles']), tuple(sorted(fr['hp'].items())))
     if key != last_key: base = static_layer(fr['tiles'], fr['hp']); last_key = key
     im = base.copy(); d = ImageDraw.Draw(im, 'RGBA')
-    # water
-    lv = fr['level']
+    # water (follows the path)
+    fl = fr['flood']
     for y in range(sim.H):
         for x in range(sim.W):
-            w = fr['flood'][y][x]
+            w = fl[y][x]
             if w <= 0: continue
             x0, y0, x1, y1 = tile_rect(x, y)
-            top = max(y0, OY + lv * T)
-            if top >= y1 - 1: continue
-            d.rectangle((x0, top, x1 - 1, y1 - 1), fill=WATER + (235,))
-            if top > y0 + 1:  # surface wave
-                pts = [(xx, top + 3 * math.sin(xx / 18 + t * 5)) for xx in range(x0, x1 + 1, 6)]
-                d.line(pts, fill=(170, 240, 250, 255), width=4)
+            if w >= 1:
+                d.rectangle((x0, y0, x1 - 1, y1 - 1), fill=WATER + (240,)); continue
+            # grow from the flooded neighbour side
+            box = None
+            for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < sim.W and 0 <= ny < sim.H and fl[ny][nx] >= 1:
+                    k = w * T
+                    if dy == 1: box = (x0, y1 - k, x1 - 1, y1 - 1); edge = [(xx, y1 - k + 3 * math.sin(xx / 16 + t * 6)) for xx in range(x0, x1 + 1, 6)]
+                    elif dy == -1: box = (x0, y0, x1 - 1, y0 + k); edge = [(xx, y0 + k + 3 * math.sin(xx / 16 + t * 6)) for xx in range(x0, x1 + 1, 6)]
+                    elif dx == 1: box = (x1 - k, y0, x1 - 1, y1 - 1); edge = [(x1 - k + 3 * math.sin(yy / 16 + t * 6), yy) for yy in range(y0, y1 + 1, 6)]
+                    else: box = (x0, y0, x0 + k, y1 - 1); edge = [(x0 + k + 3 * math.sin(yy / 16 + t * 6), yy) for yy in range(y0, y1 + 1, 6)]
+                    break
+            if box and box[2] > box[0] and box[3] > box[1]:
+                d.rectangle(box, fill=WATER + (240,)); d.line(edge, fill=(170, 240, 250, 255), width=4)
     # hammer
     if fr['hammer']:
         hx, hy = fr['hammer']; cx, cy = OX + (hx + .5) * T, OY + (hy + .5) * T + 4 * math.sin(t * 4)
@@ -174,7 +183,7 @@ for fi in range(total):
         if ham: draw_hammer(d, px + s + 6, py - s - 6, 0.55, -0.9)
     # ---- UI
     d.text((Wv / 2, 120), "LA COURSE DES CARRÉS", font=F_TITLE, fill=(255, 255, 255), anchor='mm')
-    d.text((Wv / 2, 196), "Premier au drapeau. L'eau monte.", font=F_SUB, fill=(170, 180, 205), anchor='mm')
+    d.text((Wv / 2, 196), "Chacun casse sa couleur. L'eau arrive.", font=F_SUB, fill=(170, 180, 205), anchor='mm')
     # chips
     cw = 220; gap = 18; x0 = (Wv - (4 * cw + 3 * gap)) / 2; yb = OY + sim.H * T + 110
     for i, c in enumerate('gyrb'):
@@ -207,7 +216,7 @@ for fi in range(total):
         sc = 1 + 0.25 * max(0, 1 - age / 0.35)
         fw = font(FX, int(110 * sc))
         d.text((Wv / 2, Hv / 2 - 80), f"{NAME[c]} GAGNE !", font=fw, fill=COL[c] + (int(255 * a),), anchor='mm', stroke_width=10, stroke_fill=(15, 18, 26, int(255 * a)))
-        sub = "Il a pris le chemin ouvert par un autre." if win.get('how') == 'drapeau' and not any(e['type'] == 'break' and e['k'] and e['c'] == c for e in events) else ("Arrivé au drapeau." if win.get('how') == 'drapeau' else "Dernier survivant.")
+        sub = "Premier au drapeau." if win.get('how') == 'drapeau' else "Dernier survivant."
         d.text((Wv / 2, Hv / 2 + 40), sub, font=F_WIN2, fill=(230, 235, 245, int(255 * a)), anchor='mm')
         for (cx, cy, vx, vy, col, ph) in conf:
             yy = cy + vy * age; xx = cx + vx * age + 20 * math.sin(age * 3 + ph)

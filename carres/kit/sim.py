@@ -3,30 +3,31 @@ import math, random, json, sys
 
 GRID = [
     "#############",
-    "#FFF#.......#",
-    "#FFF#.......#",
-    "#KKK#..#H#..#",
-    "#...K..#.#..#",
-    "#...#.......#",
-    "#...#.......#",
-    "#...##....###",
-    "#...#.......#",
-    "#KKK#.......#",
     "#...........#",
     "#...........#",
-    "#...........#",
-    "#gg#yy#rr#bb#",
-    "#..#..#..#..#",
+    "#...#######.#",
+    "#yyy#..K....#",
+    "#...#.K######",
+    "#rrr#.......#",
+    "#...#######.#",
+    "#ggg#..K....#",
+    "#...#####K###",
+    "#bbb#.......#",
+    "#...#######.#",
+    "#...#.....K.#",
+    "#...#.#######",
+    "#...#...K...#",
+    "#...######FF#",
     "#############",
 ]
 H = len(GRID); W = len(GRID[0])
 COLORS = ['g', 'y', 'r', 'b']
-STARTS = {'g': (1.5, 14.5), 'y': (4.5, 14.5), 'r': (7.5, 14.5), 'b': (10.5, 14.5)}
+STARTS = {'g': (2.0, 9.5), 'y': (2.0, 5.5), 'r': (2.0, 7.5), 'b': (2.0, 13.5)}
 SIZE = 0.56
 FPS = 30
 
 
-def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood_delay=6.0, t_start=3.0, hammer_uses=4, max_t=95):
+def run(seed, speed=5.2, brick_hp=1, k_hp=1, flood0=0.25, flood_acc=0.004, flood_delay=6.0, t_start=3.0, hammer_uses=4, max_t=95):
     rnd = random.Random(seed)
     tiles = [list(r) for r in GRID]
     hp = {}
@@ -35,9 +36,8 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
             c = tiles[y][x]
             if c in COLORS: hp[(x, y)] = brick_hp
             if c == 'K': hp[(x, y)] = k_hp
-    hammer_home = next((x, y) for y in range(H) for x in range(W) if tiles[y][x] == 'H')
-    tiles[hammer_home[1]][hammer_home[0]] = '.'
-    hammer = {'pos': hammer_home, 'owner': None, 'uses': hammer_uses, 'respawn': None}
+    hammer_home = None
+    hammer = {'pos': None, 'owner': None, 'uses': hammer_uses, 'respawn': None}
     sq = []
     for c in COLORS:
         a = rnd.uniform(0, 2 * math.pi)
@@ -51,7 +51,7 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
 
     def solid(tx, ty):
         if tx < 0 or ty < 0 or tx >= W or ty >= H: return True
-        return tiles[ty][tx] in '#K' or tiles[ty][tx] in COLORS
+        return tiles[ty][tx] in '#K' or tiles[ty][tx] in COLORS or flood[ty][tx] >= 1.0
 
     def overlap(s):
         hs = SIZE / 2
@@ -66,23 +66,26 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
         return 0 <= tx < W and 0 <= ty < H and tiles[ty][tx] in '.F'
 
     fi = 0
-    level = 15.0
+    level = 0.0
+    front = 0.0
     while t < max_t:
         moving = t >= t_start and winner is None
-        # flood = rising water level, spreading only through connected open tiles
+        # flood follows the path: BFS distance from the source, front grows over time
         if t >= t_start + flood_delay:
-            level -= (flood0 + flood_acc * (t - t_start - flood_delay)) * dt
-            wet = [[0.0] * W for _ in range(H)]
-            seen = set(); stack = [(x, 14) for x in range(W) if open_for_flood(x, 14)]
-            while stack:
-                x, y = stack.pop()
-                if (x, y) in seen or not open_for_flood(x, y): continue
-                fr = max(0.0, min(1.0, y + 1 - level))
-                if fr <= 0: continue
-                seen.add((x, y)); wet[y][x] = fr
+            front += (flood0 + flood_acc * (t - t_start - flood_delay)) * dt
+            dist = {}; q = [(x, 15) for x in (1, 2, 3) if open_for_flood(x, 15)]
+            for p in q: dist[p] = 0
+            k = 0
+            while k < len(q):
+                x, y = q[k]; k += 1
                 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    stack.append((x + dx, y + dy))
-            flood = wet
+                    n = (x + dx, y + dy)
+                    if n not in dist and open_for_flood(*n): dist[n] = dist[(x, y)] + 1; q.append(n)
+            flood = [[0.0] * W for _ in range(H)]
+            for (x, y), dd in dist.items():
+                fr = max(0.0, min(1.0, front - dd))
+                if fr > 0: flood[y][x] = fr
+            level = front
         if moving:
             for _ in range(sub):
                 h = dt / sub
@@ -98,13 +101,13 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
                             if axis == 0: s['x'] -= mv; s['vx'] = -s['vx']
                             else: s['y'] -= mv; s['vy'] = -s['vy']
                             tx, ty = hit; c = tiles[ty][tx]
-                            kind = 'wall'
-                            if (c == s['c']) or (c == 'K' and s['hammer']):
+                            kind = 'water' if flood[ty][tx] >= 1.0 else 'wall'
+                            if (c == s['c']) or c == 'K':
                                 hp[(tx, ty)] -= 1; kind = 'brick'
                                 if hp[(tx, ty)] <= 0:
                                     tiles[ty][tx] = '.'; kind = 'break'
                                     events.append({'t': t, 'type': 'break', 'c': s['c'], 'tile': [tx, ty], 'k': c == 'K'})
-                                    if c == 'K':
+                                    if c == 'K' and False:
                                         hammer['uses'] -= 1
                                         if hammer['uses'] <= 0:
                                             s['hammer'] = False; hammer['owner'] = None; hammer['respawn'] = t + 4; hammer['uses'] = hammer_uses
@@ -117,22 +120,30 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
                             if axis == 0 and (nvx > 0) != (s['vx'] > 0): nvx = -nvx
                             if axis == 1 and (nvy > 0) != (s['vy'] > 0): nvy = -nvy
                             s['vx'], s['vy'] = nvx, nvy
-                # water surface: bounce, or drown if no room above
+                # flood: full tiles are walls; a caught square is pushed ahead, drowns only if trapped
                 for s in sq:
                     if not s['alive'] or winner: continue
-                    hs = SIZE / 2
-                    tx = int(s['x']); ty = int(min(H - 1, s['y'] + hs))
-                    if s['y'] + hs > level and (flood[ty][tx] > 0 or flood[int(s['y'])][tx] > 0):
-                        oy = s['y']; s['y'] = level - hs - 1e-4
-                        if overlap(s) or s['y'] < oy - 0.5:
-                            s['y'] = oy; s['alive'] = False; s['out_t'] = t; events.append({'t': t, 'type': 'out', 'c': s['c']})
-                            if s['hammer']:
-                                s['hammer'] = False; hammer['owner'] = None; hammer['respawn'] = t + 3
-                            alive = [q for q in sq if q['alive']]
+                    tx, ty = int(s['x']), int(s['y'])
+                    if flood[ty][tx] >= 1.0:
+                        best = None
+                        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                            nx, ny = tx + dx, ty + dy
+                            if 0 <= nx < W and 0 <= ny < H and tiles[ny][nx] in '.F' and flood[ny][nx] < 1.0:
+                                if best is None or flood[ny][nx] < best[0]: best = (flood[ny][nx], dx, dy)
+                        if best:
+                            _, dx, dy = best
+                            ox, oy = s['x'], s['y']
+                            s['x'] = tx + 0.5 + dx * 0.75 if dx else s['x']; s['y'] = ty + 0.5 + dy * 0.75 if dy else s['y']
+                            if dx: s['vx'] = abs(s['vx']) * dx
+                            if dy: s['vy'] = abs(s['vy']) * dy
+                            if overlap(s):
+                                s['x'] = tx + 0.5 + dx; s['y'] = ty + 0.5 + dy
+                                if overlap(s): best = None; s['x'], s['y'] = ox, oy
+                        if not best:
+                            s['alive'] = False; s['out_t'] = t; events.append({'t': t, 'type': 'out', 'c': s['c']})
+                            alive = [q2 for q2 in sq if q2['alive']]
                             if len(alive) == 1:
                                 winner = alive[0]['c']; t_win = t; events.append({'t': t, 'type': 'win', 'c': winner, 'how': 'survie'})
-                        else:
-                            if s['vy'] > 0: s['vy'] = -s['vy']; events.append({'t': t, 'type': 'bounce', 'c': s['c'], 'kind': 'water'})
                 al = [i for i, s in enumerate(sq) if s['alive']]
                 for ii in range(len(al)):
                     for jj in range(ii + 1, len(al)):
@@ -143,7 +154,7 @@ def run(seed, speed=5.2, brick_hp=2, k_hp=1, flood0=0.25, flood_acc=0.004, flood
                             events.append({'t': t, 'type': 'bounce', 'c': A['c'], 'kind': 'hit'})
             # hammer
             if hammer['owner'] is None and hammer['respawn'] is not None and t >= hammer['respawn']:
-                hammer['pos'] = hammer_home; hammer['respawn'] = None
+                hammer['respawn'] = None
             for s in sq:
                 if not s['alive']: continue
                 if hammer['owner'] is None and hammer['pos'] and int(s['x']) == hammer['pos'][0] and int(s['y']) == hammer['pos'][1]:
