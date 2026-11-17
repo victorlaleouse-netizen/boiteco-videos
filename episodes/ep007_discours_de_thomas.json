@@ -1,0 +1,321 @@
+{
+ "title": "Le discours de Thomas",
+ "episode": 7,
+ "hook": "Claude, le pot de Thomas, c'est dans 20 minutes !",
+ "outro_q": "Ce soir, c'est moi qui m'en occupe.",
+ "holo": {
+  "cards": [
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "chat",
+    "items": [
+     {
+      "from": "me",
+      "text": "Écris mon discours pour le pot de départ de Thomas. Drôle. 3 minutes."
+     },
+     {
+      "from": "ai",
+      "text": "Je peux en écrire un. Pas le vôtre. Je cherche plutôt dans vos 12 ans de mails avec lui ?"
+     }
+    ]
+   },
+   {
+    "type": "table",
+    "title": "Thomas, 12 ans de mails",
+    "sub": "Gmail",
+    "cols": [
+     "Date",
+     "Son mail"
+    ],
+    "items": [
+     [
+      "Mars 2014",
+      "« Désolé pour la photocopieuse. »"
+     ],
+     [
+      "Nov. 2017, dim. 6 h 10",
+      "« L'eau monte au dépôt. J'y suis. »"
+     ],
+     [
+      "Juin 2022",
+      "« Qui a encore pris mon agrafeuse ? » (vous)"
+     ]
+    ]
+   },
+   {
+    "type": "list",
+    "title": "12 ans, en chiffres",
+    "sub": "Mails avec Thomas",
+    "items": [
+     [
+      "✔",
+      "« Pas de souci, je m'en occupe »",
+      "412",
+      "#6ee7a0"
+     ],
+     [
+      "✉",
+      "Vos réponses « Merci »",
+      "3",
+      "#f87171"
+     ]
+    ]
+   },
+   {
+    "type": "doc",
+    "title": "Notes pour ce soir",
+    "sub": "Pas un discours",
+    "items": [
+     "• 2014 : la photocopieuse, premier jour",
+     "• 2017 : le dimanche au dépôt, en chaussons",
+     "• 412 « je m'en occupe »",
+     "• Merci n°4 : ce soir, en vrai"
+    ]
+   }
+  ]
+ },
+ "caption": "Il voulait un discours drôle en 3 minutes. L'IA a trouvé 412 « je m'en occupe » et 3 « merci ». #ia #claude #pme #bureau #collegue #potdedepart #entrepreneur",
+ "tiktok_title": "Le discours de départ que l'IA a refusé d'écrire",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude, le pot de Thomas, c'est dans 20 minutes !",
+   "say": "[paniqué] Claude, le pot de Thomas, c'est dans vingt minutes !",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Je sais. C'est dans votre agenda. Et votre discours ?",
+   "say": "Je sais. C'est dans votre agenda. Et votre discours ?",
+   "shot": "bot"
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Non. Toi, tu l'écris. Drôle. Trois minutes.",
+   "say": "[agacé] Non. Toi, tu l'écris. Drôle. Trois minutes.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 1,
+    "hi": -1
+   }
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Je peux en écrire un. Pas le vôtre.",
+   "say": "Je peux en écrire un. Pas le vôtre.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 2,
+    "hi": 1
+   },
+   "pause_after": 0.3
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "C'est pareil ! Personne ne verra la différence.",
+   "say": "[agacé] C'est pareil ! Personne ne verra la différence.",
+   "shot": "boss",
+   "emo": "rage",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "Thomas, si. Douze ans qu'il lit vos mails.",
+   "say": "[doucement] Thomas, si. Douze ans qu'il lit vos mails.",
+   "shot": "bot",
+   "pause_after": 0.4
+  },
+  {
+   "f": "07.mp3",
+   "who": "boss",
+   "text": "Bon. Tu proposes quoi, monsieur l'artiste ?",
+   "say": "[gêné] Bon. Tu proposes quoi, monsieur l'artiste ?",
+   "shot": "wide",
+   "emo": "awkward"
+  },
+  {
+   "f": "08.mp3",
+   "who": "claude",
+   "text": "Je cherche dans vos mails avec lui. Douze ans.",
+   "say": "Je cherche dans vos mails avec lui. Douze ans.",
+   "shot": "bot"
+  },
+  {
+   "f": "09.mp3",
+   "who": "boss",
+   "text": "Tu as accès à mes mails, toi ?!",
+   "say": "[choqué] Tu as accès à mes mails, toi ?!",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "10.mp3",
+   "who": "claude",
+   "text": "Vous m'avez branché en septembre. Vous aviez dit : « fouille tout ».",
+   "say": "Vous m'avez branché en septembre. Vous aviez dit : fouille tout.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "11.mp3",
+   "who": "claude",
+   "text": "Mars 2014. Premier mail : « Désolé pour la photocopieuse. »",
+   "say": "Mars deux mille quatorze. Premier mail : désolé pour la photocopieuse.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 1,
+    "hi": 0
+   }
+  },
+  {
+   "f": "12.mp3",
+   "who": "boss",
+   "text": "Le stagiaire qui l'avait cassée le premier jour !",
+   "say": "[surpris] Le stagiaire qui l'avait cassée le premier jour !",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "13.mp3",
+   "who": "claude",
+   "text": "Novembre 2017. Un dimanche, 6 h 10. « L'eau monte au dépôt. »",
+   "say": "Novembre deux mille dix-sept. Un dimanche, six heures dix. L'eau monte au dépôt.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": 1
+   }
+  },
+  {
+   "f": "14.mp3",
+   "who": "boss",
+   "text": "Il est venu en chaussons. Je l'avais oublié.",
+   "say": "[touché] Il est venu en chaussons. Je l'avais oublié.",
+   "shot": "boss",
+   "emo": "touched",
+   "pause_after": 0.4
+  },
+  {
+   "f": "15.mp3",
+   "who": "claude",
+   "text": "Ça, ce n'est pas dans les mails. Gardez-le.",
+   "say": "[doucement] Ça, ce n'est pas dans les mails. Gardez-le.",
+   "shot": "bot"
+  },
+  {
+   "f": "16.mp3",
+   "who": "claude",
+   "text": "Il a écrit « je m'en occupe ». 412 fois.",
+   "say": "Il a écrit : je m'en occupe. Quatre cent douze fois.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 1,
+    "hi": 0
+   }
+  },
+  {
+   "f": "17.mp3",
+   "who": "boss",
+   "text": "412 ? Et moi, je lui ai répondu quoi ?",
+   "say": "[surpris] Quatre cent douze ? Et moi, je lui ai répondu quoi ?",
+   "shot": "boss",
+   "emo": "surprised",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "18.mp3",
+   "who": "claude",
+   "text": "« Merci ». Trois fois.",
+   "say": "Merci. Trois fois.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 2,
+    "hi": 1
+   },
+   "pause_after": 0.7
+  },
+  {
+   "f": "19.mp3",
+   "who": "boss",
+   "text": "Trois. En douze ans.",
+   "say": "[pensif] Trois. En douze ans.",
+   "shot": "boss",
+   "emo": "sad",
+   "holo": {
+    "show": false
+   },
+   "pause_after": 0.5
+  },
+  {
+   "f": "20.mp3",
+   "who": "claude",
+   "text": "Voilà vos notes. Pas de discours. Juste ce qui est vrai.",
+   "say": "Voilà vos notes. Pas de discours. Juste ce qui est vrai.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 3,
+    "visible": 4,
+    "hi": -1
+   }
+  },
+  {
+   "f": "21.mp3",
+   "who": "boss",
+   "text": "Et si je pleure devant tout le monde ?",
+   "say": "[gêné] Et si je pleure devant tout le monde ?",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "22.mp3",
+   "who": "claude",
+   "text": "Thomas s'en occupera. Comme d'habitude.",
+   "say": "Thomas s'en occupera. Comme d'habitude.",
+   "shot": "bot",
+   "pause_after": 0.8
+  },
+  {
+   "f": "23.mp3",
+   "who": "boss",
+   "text": "Non. Ce soir, c'est moi qui m'en occupe.",
+   "say": "[touché] Non. Ce soir, c'est moi qui m'en occupe.",
+   "shot": "wide",
+   "emo": "touched"
+  },
+  {
+   "f": "24.mp3",
+   "who": "claude",
+   "text": "Merci numéro quatre. Je note.",
+   "say": "Merci numéro quatre. Je note.",
+   "shot": "bot"
+  }
+ ]
+}
