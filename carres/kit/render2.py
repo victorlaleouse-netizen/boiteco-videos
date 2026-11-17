@@ -6,6 +6,7 @@ import sim2 as sim
 
 SEED = int(sys.argv[1]); PARAMS = json.loads(sys.argv[2]); OUT = sys.argv[3]
 r = sim.run(SEED, max_t=100, **PARAMS)
+T_START = PARAMS.get('t_start', 1.0)
 frames, events = r['frames'], r['events']; SH, SW = r['shape']
 FPS = 30; Wv, Hv = 1080, 1920
 U = 60; OX = (Wv - sim.W * U) // 2; OY = (Hv - sim.H * U) // 2
@@ -111,7 +112,7 @@ for fi in range(total):
     for i, c in enumerate('gyrb'):
         x, y, vx, vy, alive = fr['sq'][i]
         px, py = OX + x * U, OY + y * U
-        if alive and t >= 0.3:
+        if alive and t >= T_START:
             trail[c].append((px, py)); trail[c] = trail[c][-10:]
         if alive:
             n = len(trail[c])

@@ -39,7 +39,7 @@ while b * beat < dur:
     t = b * beat
     bar = b // 4; root = prog[bar % 4]
     inten = min(1.0, t / max(1, t_end))
-    if t >= 3.0:
+    if t >= 0.0:
         add(kick, t, 0.55)
         add(hat, t + beat / 2, 0.10 + 0.08 * inten)
         add(tone(root * 2, beat * 0.9, 'sq', decay=3.5), t, 0.10)
@@ -73,8 +73,7 @@ for e in ev['events']:
         for k, f in enumerate((523, 659, 784)): add(tone(f, 0.25, 'sq', decay=6), t + k * 0.11, 0.3)
         for f in (523, 659, 784, 1047): add(tone(f, 1.8, 'sq', decay=1.6), t + 0.36, 0.16)
         add(noise(1.5, decay=2.5, lp=0.8), t + 0.36, 0.25)
-for k in range(3): add(tone(440, 0.18, 'sq', decay=10), k * 1.0, 0.35)
-add(tone(880, 0.4, 'sq', decay=5), 3.0, 0.4)
+# pas de compte a rebours (demande de Victor)
 
 out = out / max(1e-9, np.max(np.abs(out))) * 0.89
 pcm = (out * 32767).astype(np.int16)

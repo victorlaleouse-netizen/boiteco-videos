@@ -38,15 +38,29 @@ FPS = 30
 SUB = 4  # water sub-cells per cell
 PUSH_R = (0.08, 0.16, 0.25)
 SOURCES = [(x, 25) for x in (1, 2, 3, 4)]
+SAME_ANGLE = False
+# Parcours externe : CARRES_TRACK=chemin.json {"grid":[...], "starts":{"g":[x,y],...}, "sources":[[x,y],...]}
+import os as _os, json as _json
+if _os.environ.get('CARRES_TRACK'):
+    _tr = _json.load(open(_os.environ['CARRES_TRACK']))
+    GRID = _tr['grid']; H = len(GRID); W = len(GRID[0])
+    assert all(len(r) == W for r in GRID), 'lignes de longueurs differentes'
+    STARTS = {k: tuple(v) for k, v in _tr['starts'].items()}
+    SOURCES = [tuple(p) for p in _tr['sources']]
+    SAME_ANGLE = _tr.get('same_angle', True)
 
 
-def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=0.3, max_t=95):
+def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=1.0, max_t=95):
     rnd = random.Random(seed)
     tiles = [list(r) for r in GRID]
     sq = []
+    a0 = rnd.uniform(0, 2 * math.pi)
+    while min(abs(math.cos(a0)), abs(math.sin(a0))) < 0.3: a0 = rnd.uniform(0, 2 * math.pi)
     for c in COLORS:
-        a = rnd.uniform(0, 2 * math.pi)
-        while min(abs(math.cos(a)), abs(math.sin(a))) < 0.3: a = rnd.uniform(0, 2 * math.pi)
+        a = a0
+        if not SAME_ANGLE:
+            a = rnd.uniform(0, 2 * math.pi)
+            while min(abs(math.cos(a)), abs(math.sin(a))) < 0.3: a = rnd.uniform(0, 2 * math.pi)
         x0, y0 = STARTS[c]
         sq.append({'c': c, 'x': x0, 'y': y0, 'vx': math.cos(a), 'vy': math.sin(a), 'alive': True, 'out_t': None})
     SW, SH = W * SUB, H * SUB
