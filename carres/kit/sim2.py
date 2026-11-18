@@ -39,6 +39,7 @@ SUB = 4  # water sub-cells per cell
 PUSH_R = (0.08, 0.16, 0.25)
 SOURCES = [(x, 25) for x in (1, 2, 3, 4)]
 SAME_ANGLE = False
+WATER = 'geo'
 # Parcours externe : CARRES_TRACK=chemin.json {"grid":[...], "starts":{"g":[x,y],...}, "sources":[[x,y],...]}
 import os as _os, json as _json
 if _os.environ.get('CARRES_TRACK'):
@@ -48,6 +49,7 @@ if _os.environ.get('CARRES_TRACK'):
     STARTS = {k: tuple(v) for k, v in _tr['starts'].items()}
     SOURCES = [tuple(p) for p in _tr['sources']]
     SAME_ANGLE = _tr.get('same_angle', True)
+    WATER = _tr.get('water', 'geo')
 
 
 def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=1.0, max_t=95):
@@ -110,6 +112,20 @@ def run(seed, speed=4.6, flood0=1.0, flood_acc=0.01, flood_delay=5.0, t_start=1.
                             if floor_cell(nx, ny):
                                 blk = np.zeros((SH, SW), bool); blk[ny * SUB:(ny + 1) * SUB, nx * SUB:(nx + 1) * SUB] = True
                                 ex |= blk & comp
+        n = int(comp.sum())
+        if WATER == 'geo':
+            # distance geodesique depuis l'eau (marche rapide) : front qui avance regulierement le long du chemin
+            from skimage.graph import MCP_Geometric
+            cost = np.where(comp, 1.0, np.inf)
+            starts = [tuple(p) for p in np.argwhere(src & comp)]
+            cum, _ = MCP_Geometric(cost).find_costs(starts)
+            phi = np.where(comp, cum, 1e9)
+            # leger bruit spatial lisse pour un bord d'eau organique (deterministe)
+            rs = np.random.RandomState(7).rand(SH, SW)
+            from scipy.ndimage import gaussian_filter
+            phi = phi + gaussian_filter(rs, 2.0) * 1.5
+            order = np.argsort(phi, axis=None)[:n]
+            return phi, order, n
         idx = -np.ones((SH, SW), int); cells = np.argwhere(comp); idx[comp] = np.arange(len(cells))
         n = len(cells); A = lil_matrix((n, n)); bvec = np.zeros(n)
         for k, (y, x) in enumerate(cells):
