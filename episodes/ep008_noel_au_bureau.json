@@ -1,0 +1,310 @@
+{
+ "title": "Noël au bureau",
+ "episode": 8,
+ "hook": "Claude, trois salariés veulent la semaine de Noël. Il faut quelqu'un au bureau !",
+ "outro_q": "Je signe de votre nom.",
+ "holo": {
+  "cards": [
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "chat",
+    "items": [
+     {
+      "from": "me",
+      "text": "Retrouve toutes les demandes de congés pour Noël : mails et agenda, avec la date."
+     },
+     {
+      "from": "ai",
+      "text": "4 trouvées. 3 par mail. 1 dans votre agenda : « Ski », du 24 au 31 déc."
+     }
+    ]
+   },
+   {
+    "type": "table",
+    "title": "Congés de Noël",
+    "sub": "Gmail + Agenda",
+    "cols": [
+     "Qui",
+     "Demandé le",
+     "Noël 2025"
+    ],
+    "items": [
+     [
+      "Sandrine",
+      "3 mars",
+      "Au bureau"
+     ],
+     [
+      "Inès",
+      "12 octobre",
+      "En congé"
+     ],
+     [
+      "Léo",
+      "Hier, 23 h 52",
+      "Pas encore là"
+     ],
+     [
+      "Vous",
+      "Jamais",
+      "Au ski"
+     ]
+    ]
+   },
+   {
+    "type": "email",
+    "title": "Brouillon prêt",
+    "sub": "Gmail",
+    "items": [
+     "Sandrine, Inès, Léo",
+     "Congés de Noël",
+     "Bonjour à tous,",
+     "Vos congés du 24 au 31 sont validés.",
+     "Tous les trois.",
+     "Je garde la boutique.",
+     "Joyeux Noël,"
+    ],
+    "status": "⏸ En attente de votre validation"
+   }
+  ]
+ },
+ "caption": "Trois salariés veulent Noël, il faut quelqu'un au bureau… et l'IA a trouvé une quatrième demande. #ia #claude #patron #bureau #conges #noel #pme",
+ "tiktok_title": "Il faut quelqu'un au bureau à Noël",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude, trois salariés veulent la semaine de Noël. Il faut quelqu'un au bureau !",
+   "say": "[paniqué] Claude, trois salariés veulent la semaine de Noël. Il faut quelqu'un au bureau !",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Quatre.",
+   "say": "Quatre.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Comment ça, quatre ?",
+   "say": "[surpris] Comment ça, quatre ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "J'ai cherché « Noël » dans vos mails et dans votre agenda.",
+   "say": "J'ai cherché « Noël » dans vos mails et dans votre agenda.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "Sandrine, Léo, Inès. Ça fait trois. Compte.",
+   "say": "[agacé] Sandrine, Léo, Inès. Ça fait trois. Compte.",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "Le quatrième, c'est vous. « Ski », du 24 au 31.",
+   "say": "Le quatrième, c'est vous. « Ski », du vingt-quatre au trente-et-un.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 4,
+    "hi": 3
+   },
+   "pause_after": 0.4
+  },
+  {
+   "f": "07.mp3",
+   "who": "boss",
+   "text": "Ça, c'est pas une demande de congé. C'est mon agenda.",
+   "say": "[gêné] Ça, c'est pas une demande de congé. C'est mon agenda.",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "08.mp3",
+   "who": "claude",
+   "text": "Eux, ils ont dû demander.",
+   "say": "Eux, ils ont dû demander.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "09.mp3",
+   "who": "boss",
+   "text": "Bon. Tire au sort. Et dis que c'est l'algorithme.",
+   "say": "[pensif] Bon. Tire au sort. Et dis que c'est l'algorithme.",
+   "shot": "boss",
+   "emo": "triumph"
+  },
+  {
+   "f": "10.mp3",
+   "who": "claude",
+   "text": "Non. Je trie. Je ne choisis pas à votre place.",
+   "say": "Non. Je trie. Je ne choisis pas à votre place.",
+   "shot": "bot"
+  },
+  {
+   "f": "11.mp3",
+   "who": "boss",
+   "text": "T'es une IA, ça sert à ça ! Comme ça, c'est pas moi le méchant !",
+   "say": "[agacé] T'es une IA, ça sert à ça ! Comme ça, c'est pas moi le méchant !",
+   "shot": "boss",
+   "emo": "rage"
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Regardez plutôt les dates. Sandrine a demandé le 3 mars.",
+   "say": "Regardez plutôt les dates. Sandrine a demandé le trois mars.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 4,
+    "hi": 0
+   }
+  },
+  {
+   "f": "13.mp3",
+   "who": "boss",
+   "text": "Elle a posé Noël en mars ?!",
+   "say": "[choqué] Elle a posé Noël en mars ?!",
+   "shot": "boss",
+   "emo": "shocked",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "14.mp3",
+   "who": "claude",
+   "text": "Et l'an dernier, c'est elle qui a gardé le bureau.",
+   "say": "[doucement] Et l'an dernier, c'est elle qui a gardé le bureau.",
+   "shot": "bot",
+   "pause_after": 0.4
+  },
+  {
+   "f": "15.mp3",
+   "who": "boss",
+   "text": "Elle m'avait envoyé une photo des bureaux vides. Le 25.",
+   "say": "[gêné] Elle m'avait envoyé une photo des bureaux vides. Le vingt-cinq.",
+   "shot": "boss",
+   "emo": "sad"
+  },
+  {
+   "f": "16.mp3",
+   "who": "claude",
+   "text": "Vous avez répondu un pouce. Depuis les pistes.",
+   "say": "Vous avez répondu un pouce. Depuis les pistes.",
+   "shot": "bot",
+   "pause_after": 0.8
+  },
+  {
+   "f": "17.mp3",
+   "who": "boss",
+   "text": "Et Léo ?",
+   "say": "[gêné] Et Léo ?",
+   "shot": "boss",
+   "emo": "awkward"
+  },
+  {
+   "f": "18.mp3",
+   "who": "claude",
+   "text": "Demande envoyée hier, à 23 h 52. Avec trois sapins.",
+   "say": "Demande envoyée hier, à vingt-trois heures cinquante-deux. Avec trois sapins.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 4,
+    "hi": 2
+   }
+  },
+  {
+   "f": "19.mp3",
+   "who": "boss",
+   "text": "Il faut une seule personne au bureau. Une seule.",
+   "say": "[pensif] Il faut une seule personne au bureau. Une seule.",
+   "shot": "wide",
+   "emo": "sad",
+   "holo": {
+    "show": false
+   },
+   "pause_after": 0.5
+  },
+  {
+   "f": "20.mp3",
+   "who": "claude",
+   "text": "Oui. Ça, je sais compter.",
+   "say": "Oui. Ça, je sais compter.",
+   "shot": "bot",
+   "pause_after": 0.8
+  },
+  {
+   "f": "21.mp3",
+   "who": "boss",
+   "text": "Annule le ski. C'est moi qui garde la boutique.",
+   "say": "[touché] Annule le ski. C'est moi qui garde la boutique.",
+   "shot": "boss",
+   "emo": "touched"
+  },
+  {
+   "f": "22.mp3",
+   "who": "claude",
+   "text": "Brouillon prêt pour les trois. Congés validés. Rien ne part sans vous.",
+   "say": "Brouillon prêt pour les trois. Congés validés. Rien ne part sans vous.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 7,
+    "hi": 4
+   }
+  },
+  {
+   "f": "23.mp3",
+   "who": "boss",
+   "text": "Signe : « l'algorithme ».",
+   "say": "[triomphant] Signe : « l'algorithme ».",
+   "shot": "boss",
+   "emo": "triumph",
+   "holo": {
+    "show": false
+   },
+   "pause_after": 0.8,
+   "act": "jump"
+  },
+  {
+   "f": "24.mp3",
+   "who": "claude",
+   "text": "Je signe de votre nom.",
+   "say": "Je signe de votre nom.",
+   "shot": "bot"
+  }
+ ]
+}
