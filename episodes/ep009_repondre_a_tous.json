@@ -1,0 +1,322 @@
+{
+ "title": "Répondre à tous",
+ "episode": 9,
+ "hook": "Claude, annule mon dernier mail. Tout de suite.",
+ "outro_q": "Elle a répondu à tous.",
+ "holo": {
+  "cards": [
+   {
+    "type": "email",
+    "title": "Envoyé il y a 4 min",
+    "sub": "Gmail",
+    "items": [
+     "Sandrine ; M. Marchal ; +6",
+     "RE: Devis cuisine Marchal",
+     "Sandrine,",
+     "Marchal va encore négocier, ce radin.",
+     "Mets 15 % de plus, il les enlèvera.",
+     "Bisous."
+    ],
+    "status": "✉ Envoyé à 8 personnes"
+   },
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "chat",
+    "items": [
+     {
+      "from": "me",
+      "text": "Lis tout le fil Marchal. Qui a répondu depuis mon mail ?"
+     },
+     {
+      "from": "ai",
+      "text": "M. Marchal, à 17 h 56 : « Bien reçu. Enlevez les 15 %, et on signe ce soir. »"
+     },
+     {
+      "from": "ai",
+      "text": "Sandrine, à 17 h 57, à tous : « Je l'ai toujours dit. »"
+     }
+    ]
+   },
+   {
+    "type": "email",
+    "title": "Brouillon prêt",
+    "sub": "Gmail",
+    "items": [
+     "M. Marchal",
+     "RE: Devis cuisine Marchal",
+     "Bonjour Monsieur Marchal,",
+     "Merci pour votre franchise. Et pardon pour la mienne.",
+     "Devis corrigé ci-joint, sans les 15 %.",
+     "Bien cordialement,"
+    ],
+    "status": "⏸ En attente de votre validation"
+   }
+  ]
+ },
+ "caption": "Il a cliqué sur « Répondre à tous ». Le client était en copie. Et il a répondu en quatre minutes. #ia #claude #patron #bureau #mail #gmail #pme",
+ "tiktok_title": "Il a cliqué sur « Répondre à tous »",
+ "lines": [
+  {
+   "f": "01.mp3",
+   "who": "boss",
+   "text": "Claude, annule mon dernier mail. Tout de suite.",
+   "say": "[paniqué] Claude, annule mon dernier mail. Tout de suite.",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "02.mp3",
+   "who": "claude",
+   "text": "Il est parti il y a quatre minutes. À huit personnes.",
+   "say": "Il est parti il y a quatre minutes. À huit personnes.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 2,
+    "hi": 0
+   },
+   "pause_after": 0.3
+  },
+  {
+   "f": "03.mp3",
+   "who": "boss",
+   "text": "Huit ?! C'était pour Sandrine !",
+   "say": "[choqué] Huit ?! C'était pour Sandrine !",
+   "shot": "boss",
+   "emo": "shocked"
+  },
+  {
+   "f": "04.mp3",
+   "who": "claude",
+   "text": "Vous avez cliqué sur « Répondre à tous ». Monsieur Marchal était en copie.",
+   "say": "Vous avez cliqué sur « Répondre à tous ». Monsieur Marchal était en copie.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 6,
+    "hi": 3
+   }
+  },
+  {
+   "f": "05.mp3",
+   "who": "boss",
+   "text": "« Ce radin. » J'ai écrit « ce radin ».",
+   "say": "[gêné] Ce radin. J'ai écrit ce radin.",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   },
+   "pause_after": 0.4
+  },
+  {
+   "f": "06.mp3",
+   "who": "claude",
+   "text": "Et « Bisous ». À Sandrine, j'espère.",
+   "say": "Et bisous. À Sandrine, j'espère.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "07.mp3",
+   "who": "boss",
+   "text": "T'es une IA. Rappelle-le. Efface-le de sa boîte.",
+   "say": "[agacé] T'es une IA. Rappelle-le. Efface-le de sa boîte.",
+   "shot": "boss",
+   "emo": "rage"
+  },
+  {
+   "f": "08.mp3",
+   "who": "claude",
+   "text": "Un mail envoyé ne revient pas. Même avec moi.",
+   "say": "Un mail envoyé ne revient pas. Même avec moi.",
+   "shot": "bot"
+  },
+  {
+   "who": "boss",
+   "text": "Il y a forcément un bouton. Il y a toujours un bouton.",
+   "say": "[agacé] Il y a forcément un bouton. Il y a toujours un bouton.",
+   "shot": "boss",
+   "emo": "rage",
+   "f": "09.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Il y en avait un. Pendant cinq secondes.",
+   "say": "Il y en avait un. Pendant cinq secondes.",
+   "shot": "bot",
+   "pause_after": 0.4,
+   "f": "10.mp3"
+  },
+  {
+   "f": "11.mp3",
+   "who": "boss",
+   "text": "Alors dis que j'ai été piraté. Un virus. Très méchant.",
+   "say": "[pensif] Alors dis que j'ai été piraté. Un virus. Très méchant.",
+   "shot": "boss",
+   "emo": "triumph"
+  },
+  {
+   "f": "12.mp3",
+   "who": "claude",
+   "text": "Non. Mais j'ai lu la suite du fil.",
+   "say": "Non. Mais j'ai lu la suite du fil.",
+   "shot": "bot",
+   "pause_after": 0.3
+  },
+  {
+   "f": "13.mp3",
+   "who": "boss",
+   "text": "Quelle suite ?",
+   "say": "[surpris] Quelle suite ?",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "14.mp3",
+   "who": "claude",
+   "text": "Monsieur Marchal a répondu. À 17 h 56.",
+   "say": "Monsieur Marchal a répondu. À dix-sept heures cinquante-six.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 1
+   },
+   "pause_after": 0.4
+  },
+  {
+   "f": "15.mp3",
+   "who": "claude",
+   "text": "« Enlevez les 15 %, et on signe ce soir. »",
+   "say": "Enlevez les quinze pour cent, et on signe ce soir.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 1
+   }
+  },
+  {
+   "f": "16.mp3",
+   "who": "boss",
+   "text": "Il signe ?! Mais c'est génial !",
+   "say": "[triomphant] Il signe ?! Mais c'est génial !",
+   "shot": "boss",
+   "emo": "triumph",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "17.mp3",
+   "who": "claude",
+   "text": "Au vrai prix. Sans vos 15 %.",
+   "say": "Au vrai prix. Sans vos quinze pour cent.",
+   "shot": "bot"
+  },
+  {
+   "f": "18.mp3",
+   "who": "boss",
+   "text": "Donc j'ai perdu 15 %.",
+   "say": "[gêné] Donc j'ai perdu quinze pour cent.",
+   "shot": "boss",
+   "emo": "sad",
+   "pause_after": 0.4
+  },
+  {
+   "f": "19.mp3",
+   "who": "claude",
+   "text": "Vous les aviez inventés.",
+   "say": "Vous les aviez inventés.",
+   "shot": "bot",
+   "pause_after": 0.5
+  },
+  {
+   "f": "20.mp3",
+   "who": "claude",
+   "text": "Brouillon prêt. Excuses courtes, devis corrigé. Rien ne part sans vous.",
+   "say": "Brouillon prêt. Excuses courtes, devis corrigé. Rien ne part sans vous.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 6,
+    "hi": 3
+   }
+  },
+  {
+   "f": "21.mp3",
+   "who": "claude",
+   "text": "Et dans Gmail : réglages, « Annuler l'envoi », trente secondes.",
+   "say": "Et dans Gmail : réglages, annuler l'envoi, trente secondes.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   }
+  },
+  {
+   "f": "22.mp3",
+   "who": "boss",
+   "text": "Ça existe, ça ?!",
+   "say": "[surpris] Ça existe, ça ?!",
+   "shot": "boss",
+   "emo": "surprised"
+  },
+  {
+   "f": "23.mp3",
+   "who": "claude",
+   "text": "Depuis des années. Vous étiez à cinq secondes.",
+   "say": "Depuis des années. Vous étiez à cinq secondes.",
+   "shot": "bot"
+  },
+  {
+   "f": "24.mp3",
+   "who": "boss",
+   "text": "Et Sandrine ? Elle l'a lu ?",
+   "say": "[gêné] Et Sandrine ? Elle l'a lu ?",
+   "shot": "wide",
+   "emo": "awkward",
+   "pause_after": 0.5
+  },
+  {
+   "f": "25.mp3",
+   "who": "claude",
+   "text": "Elle a répondu : « Je l'ai toujours dit. »",
+   "say": "Elle a répondu : je l'ai toujours dit.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": 2
+   },
+   "pause_after": 0.4
+  },
+  {
+   "f": "26.mp3",
+   "who": "boss",
+   "text": "À qui ?!",
+   "say": "[choqué] À qui ?!",
+   "shot": "boss",
+   "emo": "shocked",
+   "holo": {
+    "show": false
+   },
+   "act": "jump",
+   "pause_after": 0.8
+  },
+  {
+   "f": "27.mp3",
+   "who": "claude",
+   "text": "À tous.",
+   "say": "À tous.",
+   "shot": "bot"
+  }
+ ]
+}
