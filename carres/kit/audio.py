@@ -28,24 +28,39 @@ def noise(d, decay=20.0, lp=0.3):
     tt = np.arange(len(s)) / SR
     return y * np.exp(-decay * tt)
 
-# ---- music: 118 bpm, A minor loop, intensity grows
-bpm = 118; beat = 60 / bpm
-prog = [55.0, 43.65, 65.41, 49.0]  # A1 F1 C2 G1
-kick = tone(110, 0.25, decay=18, f2=40)
-hat = noise(0.05, decay=90, lp=0.9)
+# ---- musique UNIQUE par video (TikTok coupe le son quand la meme piste revient a chaque post)
+import hashlib, os
+mseed = int(os.environ.get('MUSIC_SEED') or int(hashlib.md5((os.path.basename(base) + str(ev['n'])).encode()).hexdigest()[:8], 16))
+mr = np.random.default_rng(mseed)
+bpm = int(mr.integers(96, 136)); beat = 60 / bpm
+key = 55.0 * 2 ** (int(mr.integers(-5, 7)) / 12)
+SC = [0, 2, 3, 5, 7, 8, 10] if mr.random() < 0.5 else [0, 2, 4, 5, 7, 9, 11]
+deg = [0] + list(mr.choice([1, 2, 3, 4, 5, 6], size=int(mr.choice([3, 5, 7])), replace=True))
+prog = [key * 2 ** (SC[d] / 12) for d in deg]
+bass_kind = 'sq' if mr.random() < 0.5 else 'sine'
+lead_kind = 'sine' if mr.random() < 0.6 else 'sq'
+arp = [int(x) for x in mr.choice([0, 2, 4, 7, 9, 11, 12], size=int(mr.choice([3, 4, 6])), replace=False)]
+hat_on = mr.random() < 0.7; off_kick = mr.random() < 0.4
+mel = [int(x) for x in mr.integers(0, 7, size=16)]
+print('music', mseed, bpm, round(key, 1), deg, arp)
+kick = tone(float(mr.uniform(90, 130)), 0.25, decay=18, f2=40)
+hat = noise(0.05, decay=90, lp=float(mr.uniform(0.7, 0.95)))
 t_end = ev['win']['t'] if ev['win'] else dur
 b = 0
 while b * beat < dur:
     t = b * beat
-    bar = b // 4; root = prog[bar % 4]
+    bar = b // 4; root = prog[bar % len(prog)]
     inten = min(1.0, t / max(1, t_end))
-    if t >= 0.0:
-        add(kick, t, 0.55)
-        add(hat, t + beat / 2, 0.10 + 0.08 * inten)
-        add(tone(root * 2, beat * 0.9, 'sq', decay=3.5), t, 0.10)
-        if inten > 0.45:
-            for k, m in enumerate((1, 1.5, 2, 2.52)):
-                add(tone(root * 4 * m, beat / 4, 'sine', decay=14), t + k * beat / 4, 0.05 * inten)
+    add(kick, t, 0.5)
+    if off_kick and b % 4 == 3: add(kick, t + beat / 2, 0.3)
+    if hat_on: add(hat, t + beat / 2, 0.08 + 0.08 * inten)
+    add(tone(root * 2, beat * 0.9, bass_kind, decay=3.5), t, 0.11)
+    if b % 2 == 0 and inten > 0.2:
+        n = mel[(b // 2) % 16]
+        add(tone(key * 8 * 2 ** (SC[n] / 12), beat * 1.6, lead_kind, decay=4), t, 0.05 + 0.04 * inten)
+    if inten > 0.45:
+        for k, m in enumerate(arp):
+            add(tone(root * 4 * 2 ** (m / 12), beat / len(arp), 'sine', decay=14), t + k * beat / len(arp), 0.05 * inten)
     b += 1
 if ev['win']:
     i = int(ev['win']['t'] * SR); out[i:] *= np.linspace(1, 0.15, N - i) ** 0.3
