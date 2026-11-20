@@ -33,7 +33,7 @@ GRID = [
 H = len(GRID); W = len(GRID[0])
 COLORS = ['g', 'y', 'r', 'b']
 STARTS = {'y': (2.0, 9.0), 'g': (3.3, 10.2), 'r': (2.6, 14.5), 'b': (2.4, 22.5)}
-SIZE = 0.8
+SIZE = 0.85
 FPS = 30
 SUB = 4  # water sub-cells per cell
 PUSH_R = (0.08, 0.16, 0.25)

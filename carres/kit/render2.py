@@ -14,7 +14,7 @@ SUBPX = U // sim.SUB
 total = min(len(frames), int(os.environ.get('LIMIT', len(frames))))
 
 COL = {'g': (22, 128, 74), 'y': (250, 214, 40), 'r': (214, 18, 24), 'b': (24, 104, 232)}
-COLB = {'g': (26, 150, 86), 'y': (252, 222, 64), 'r': (226, 30, 34), 'b': (40, 120, 245)}
+COLB = {'g': (24, 128, 72), 'y': (247, 208, 20), 'r': (214, 10, 16), 'b': (20, 96, 240)}
 WALL = (163, 163, 160); FLOOR = (221, 221, 214); LINE = (22, 22, 24)
 WATER = np.array([60, 49, 139], dtype=np.float32)
 KCOL = (44, 46, 54); KMOR = (78, 82, 94)
@@ -114,37 +114,27 @@ for fi in range(total):
         px, py = OX + x * U, OY + y * U
         if alive and t >= T_START:
             trail[c].append((px, py)); trail[c] = trail[c][-10:]
-        if alive:
-            n = len(trail[c])
-            for k, (tx, ty) in enumerate(trail[c][:-1]):
-                f = (k + 1) / n; a = int(30 + 120 * f); ss = s * (0.35 + 0.55 * f)
-                d.rounded_rectangle((tx - ss, ty - ss, tx + ss, ty + ss), 6, fill=COLB[c] + (a,))
         if not alive:
             oe = next(e for e in events if e['type'] == 'out' and e['c'] == c)
             age = t - oe['t']
-            if age > 1.2: continue
-            k = max(0, 1 - age / 1.2); ss = s * (0.4 + 0.6 * k)
-            d.rounded_rectangle((px - ss, py - ss, px + ss, py + ss), 6, fill=COLB[c] + (int(255 * k),), outline=LINE + (int(255 * k),), width=3)
+            if age > 0.8: continue
+            k = max(0, 1 - age / 0.8); ss = s * (0.3 + 0.7 * k)
+            d.rectangle((px - ss, py - ss, px + ss, py + ss), fill=COLB[c] + (int(255 * k),), outline=LINE + (int(255 * k),), width=2)
             continue
-        # squash on recent bounce is subtle: a small stretch along velocity
-        d.rounded_rectangle((px - s, py - s, px + s, py + s), 7, fill=COLB[c] + (255,), outline=LINE + (255,), width=3)
-        d.rounded_rectangle((px - s + 6, py - s + 5, px + s - 6, py - s + 12), 3, fill=(255, 255, 255, 80))
-        for ex in (-10, 10):
-            cx, cy = px + ex, py - 2
-            d.ellipse((cx - 8, cy - 8, cx + 8, cy + 8), fill=(255, 255, 255, 255))
-            d.ellipse((cx - 4 + vx * 4, cy - 4 + vy * 4, cx + 4 + vx * 4, cy + 4 + vy * 4), fill=(15, 15, 18, 255))
+        # comet trail like the reference: a translucent triangle behind the square, against the motion
+        if t >= T_START:
+            nx_, ny_ = -vy, vx
+            L = s * 3.2
+            tri = [(px + nx_ * s * 0.9, py + ny_ * s * 0.9), (px - nx_ * s * 0.9, py - ny_ * s * 0.9), (px - vx * L, py - vy * L)]
+            d.polygon(tri, fill=COLB[c] + (110,))
+        d.rectangle((px - s, py - s, px + s, py + s), fill=COLB[c] + (255,), outline=LINE + (255,), width=2)
     # win: dim, winner cube big with crown, confetti
     if win and t >= win['t']:
         age = t - win['t']; c = win['c']; a = min(1, age / 0.3)
         d.rectangle((0, 0, Wv, Hv), fill=(18, 18, 22, int(140 * a)))
         sc = 1 + 0.3 * max(0, 1 - age / 0.4); S = 150 * sc * a
         cx, cy = Wv / 2, Hv / 2 + 40 + 10 * math.sin(age * 4)
-        d.rounded_rectangle((cx - S, cy - S, cx + S, cy + S), 28, fill=COLB[c] + (255,), outline=LINE + (255,), width=8)
-        for ex in (-50, 50):
-            ex2 = cx + ex * sc * a; ey = cy - 20 * sc * a; rr = 32 * sc * a
-            d.ellipse((ex2 - rr, ey - rr, ex2 + rr, ey + rr), fill=(255, 255, 255, 255))
-            d.ellipse((ex2 - rr * 0.5, ey - rr * 0.5, ex2 + rr * 0.5, ey + rr * 0.5), fill=(15, 15, 18, 255))
-        d.arc((cx - 60 * sc * a, cy + 10 * sc * a, cx + 60 * sc * a, cy + 90 * sc * a), 20, 160, fill=(15, 15, 18, 255), width=10)
+        d.rectangle((cx - S, cy - S, cx + S, cy + S), fill=COLB[c] + (255,), outline=LINE + (255,), width=6)
         cw = 130 * sc * a; cyt = cy - S - 20
         crown = [(cx - cw, cyt), (cx - cw, cyt - 90 * a), (cx - cw * 0.5, cyt - 40 * a), (cx, cyt - 110 * a), (cx + cw * 0.5, cyt - 40 * a), (cx + cw, cyt - 90 * a), (cx + cw, cyt)]
         d.polygon(crown, fill=(255, 200, 40, 255), outline=(120, 80, 0, 255))
