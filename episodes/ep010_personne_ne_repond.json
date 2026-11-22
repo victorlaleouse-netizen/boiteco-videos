@@ -1,0 +1,331 @@
+{
+ "title": "Personne ne répond",
+ "episode": 10,
+ "hook": "Claude, plus personne ne répond à mes devis !",
+ "outro_q": "Relancer, c'est mendier. Sauf quand c'est elle.",
+ "holo": {
+  "cards": [
+   {
+    "type": "table",
+    "title": "Devis envoyés depuis sept.",
+    "sub": "Gmail",
+    "cols": [
+     "Client",
+     "Montant",
+     "Relancé"
+    ],
+    "items": [
+     [
+      "Ferrand",
+      "18 400 €",
+      "0 fois"
+     ],
+     [
+      "Boulangerie Roux",
+      "6 900 €",
+      "0 fois"
+     ],
+     [
+      "Duval",
+      "3 200 €",
+      "0 fois"
+     ],
+     [
+      "Moreau",
+      "2 480 €",
+      "0 fois"
+     ],
+     [
+      "Belle-maman",
+      "450 €",
+      "0 fois (exprès)"
+     ],
+     [
+      "+ 18 autres",
+      "…",
+      "0 fois"
+     ]
+    ]
+   },
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "chat",
+    "items": [
+     {
+      "from": "me",
+      "text": "Relance les 23. « DERNIER RAPPEL », en majuscules."
+     },
+     {
+      "from": "ai",
+      "text": "23 brouillons prêts, un par client, avec son chantier. Rien ne part sans vous."
+     },
+     {
+      "from": "ai",
+      "text": "Sauf Mme Ferrand : elle a déjà répondu, le 29/10."
+     }
+    ]
+   },
+   {
+    "type": "email",
+    "title": "Ouvert le 29/10 à 23 h 40",
+    "sub": "Gmail",
+    "items": [
+     "Mme Ferrand",
+     "RE: Devis extension – 18 400 €",
+     "Bonjour,",
+     "D'accord pour le devis. On commence quand ?",
+     "Relances : 5/11, puis 17/11. Toujours rien.",
+     "Bien à vous, C. Ferrand"
+    ],
+    "status": "👁 Lu · jamais répondu"
+   }
+  ]
+ },
+ "caption": "23 devis envoyés, zéro relance. Et la plus grosse cliente attendait une réponse depuis trois semaines. #ia #claude #patron #devis #pme #entrepreneur #bureau",
+ "tiktok_title": "Plus personne ne répond à mes devis",
+ "lines": [
+  {
+   "who": "boss",
+   "text": "Claude, plus personne ne répond à mes devis !",
+   "say": "[agacé] Claude, plus personne ne répond à mes devis !",
+   "shot": "boss",
+   "emo": "rage",
+   "f": "01.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Vingt-trois devis depuis septembre. Je les ai tous retrouvés.",
+   "say": "Vingt-trois devis depuis septembre. Je les ai tous retrouvés.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 3,
+    "hi": -1
+   },
+   "f": "02.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Et zéro signature. Même Ferrand. Dix-huit mille euros !",
+   "say": "[choqué] Et zéro signature. Même Ferrand. Dix-huit mille euros !",
+   "shot": "boss",
+   "emo": "shocked",
+   "f": "03.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Vous en avez relancé combien ?",
+   "say": "Vous en avez relancé combien ?",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 6,
+    "hi": 0
+   },
+   "pause_after": 0.5,
+   "f": "04.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Relancer, c'est mendier. Je mendie pas.",
+   "say": "[pensif] Relancer, c'est mendier. Je mendie pas.",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   },
+   "f": "05.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Alors ils pensent que vous avez oublié. Ou que vous êtes cher.",
+   "say": "Alors ils pensent que vous avez oublié. Ou que vous êtes cher.",
+   "shot": "bot",
+   "pause_after": 0.4,
+   "f": "06.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Bon. Envoie à tous : « dernier rappel ». En majuscules.",
+   "say": "[triomphant] Bon. Envoie à tous : dernier rappel. En majuscules.",
+   "shot": "wide",
+   "emo": "triumph",
+   "f": "07.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Non. Un mot par client, avec son chantier. Pas de majuscules.",
+   "say": "Non. Un mot par client, avec son chantier. Pas de majuscules.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 0
+   },
+   "f": "08.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Vingt-trois mails ? J'y passe la journée !",
+   "say": "[agacé] Vingt-trois mails ? J'y passe la journée !",
+   "shot": "boss",
+   "emo": "rage",
+   "f": "09.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Déjà écrits, en brouillon. Rien ne part sans votre clic.",
+   "say": "Déjà écrits, en brouillon. Rien ne part sans votre clic.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 2,
+    "hi": 1
+   },
+   "f": "10.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Ah. Bon. Commence par Ferrand.",
+   "say": "[gêné] Ah. Bon. Commence par Ferrand.",
+   "shot": "boss",
+   "emo": "awkward",
+   "pause_after": 0.4,
+   "f": "11.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Inutile. Madame Ferrand a répondu.",
+   "say": "Inutile. Madame Ferrand a répondu.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": 2
+   },
+   "pause_after": 0.5,
+   "f": "12.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Quoi ? Quand ?",
+   "say": "[surpris] Quoi ? Quand ?",
+   "shot": "boss",
+   "emo": "surprised",
+   "f": "13.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Le 29 octobre. Vous l'avez ouvert. À 23 h 40.",
+   "say": "Le vingt-neuf octobre. Vous l'avez ouvert. À vingt-trois heures quarante.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 4,
+    "hi": 3
+   },
+   "f": "14.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "À 23 h 40, je lis pas. Je survole.",
+   "say": "[gêné] À vingt-trois heures quarante, je lis pas. Je survole.",
+   "shot": "boss",
+   "emo": "awkward",
+   "f": "15.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Elle écrit : « D'accord. On commence quand ? »",
+   "say": "Elle écrit : « D'accord. On commence quand ? »",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 6,
+    "hi": 3
+   },
+   "f": "16.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Vous avez survolé un oui à dix-huit mille euros.",
+   "say": "Vous avez survolé un oui à dix-huit mille euros.",
+   "shot": "bot",
+   "pause_after": 0.4,
+   "f": "17.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Trois semaines qu'elle attend ?!",
+   "say": "[choqué] Trois semaines qu'elle attend ?!",
+   "shot": "boss",
+   "emo": "shocked",
+   "f": "18.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Et elle vous a relancé. Deux fois.",
+   "say": "Et elle vous a relancé. Deux fois.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 6,
+    "hi": 4
+   },
+   "pause_after": 0.4,
+   "f": "19.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "C'est elle qui me relance ?!",
+   "say": "[il crie, outré] C'est elle qui me relance ?!",
+   "shot": "wide",
+   "emo": "rage",
+   "act": "jump",
+   "f": "20.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Désormais, chaque lundi à 9 h, je vous sors les devis sans réponse.",
+   "say": "Désormais, chaque lundi à neuf heures, je vous sors les devis sans réponse.",
+   "shot": "bot",
+   "holo": {
+    "show": false
+   },
+   "f": "21.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Sans réponse de qui ?",
+   "say": "[pensif] Sans réponse de qui ?",
+   "shot": "boss",
+   "emo": "surprised",
+   "f": "22.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Des deux côtés.",
+   "say": "Des deux côtés.",
+   "shot": "bot",
+   "pause_after": 0.8,
+   "f": "23.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Madame Ferrand ? Oui, c'est moi. Je… vous relance.",
+   "say": "[gêné] Madame Ferrand ? Oui, c'est moi. Je... vous relance.",
+   "shot": "boss",
+   "emo": "touched",
+   "f": "24.mp3"
+  }
+ ]
+}
