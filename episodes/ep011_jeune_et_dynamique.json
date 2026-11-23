@@ -1,0 +1,323 @@
+{
+ "title": "Jeune et dynamique",
+ "episode": 11,
+ "hook": "Claude, 140 CV pour un seul commercial !",
+ "outro_q": "L'âge, c'est un critère interdit. Vraiment interdit.",
+ "holo": {
+  "cards": [
+   {
+    "type": "chat",
+    "title": "Claude",
+    "sub": "Projet Recrutement",
+    "items": [
+     {
+      "from": "me",
+      "text": "Trie les 140 CV. Garde les moins de 35 ans."
+     },
+     {
+      "from": "ai",
+      "text": "Non : l'âge est un critère interdit à l'embauche."
+     },
+     {
+      "from": "me",
+      "text": "Bon. Trie comme tu veux."
+     },
+     {
+      "from": "ai",
+      "text": "Noms, âges, photos masqués. Notés sur les 3 critères de votre annonce."
+     }
+    ]
+   },
+   {
+    "type": "table",
+    "title": "Classement · 140 CV",
+    "sub": "Projet Recrutement",
+    "cols": [
+     "Candidat",
+     "Terrain",
+     "Clients",
+     "Dispo"
+    ],
+    "items": [
+     [
+      "n° 87",
+      "27 ans",
+      "212",
+      "janvier"
+     ],
+     [
+      "n° 12",
+      "11 ans",
+      "90",
+      "mars"
+     ],
+     [
+      "n° 41",
+      "9 ans",
+      "64",
+      "janvier"
+     ],
+     [
+      "n° 3",
+      "2 ans",
+      "« motivé »",
+      "demain"
+     ],
+     [
+      "+ 136 autres",
+      "…",
+      "…",
+      "…"
+     ]
+    ]
+   },
+   {
+    "type": "doc",
+    "title": "Candidat n° 87",
+    "sub": "CV + lettre",
+    "items": [
+     "Martine Roche",
+     "27 ans de vente terrain",
+     "1998 : grille tarifaire de la boîte",
+     "1998-2004 : a formé un apprenti",
+     "P.S. : le petit a bien grandi ?"
+    ]
+   }
+  ]
+ },
+ "caption": "140 CV, un patron qui veut « jeune et dynamique », et une candidate qu'il n'attendait pas. #ia #claude #recrutement #patron #pme #entrepreneur #bureau",
+ "tiktok_title": "Jeune et dynamique, 15 ans d'expérience",
+ "lines": [
+  {
+   "who": "boss",
+   "text": "Claude, 140 CV pour un seul commercial !",
+   "say": "[agacé] Claude, cent quarante CV pour un seul commercial !",
+   "shot": "boss",
+   "emo": "rage",
+   "f": "01.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Déjà lus. Neuf tiennent la route.",
+   "say": "Déjà lus. Neuf tiennent la route.",
+   "shot": "bot",
+   "f": "02.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Parfait. Garde ceux qui ont moins de 35 ans.",
+   "say": "[triomphant] Parfait. Garde ceux qui ont moins de trente-cinq ans.",
+   "shot": "boss",
+   "emo": "triumph",
+   "f": "03.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Non. L'âge, c'est un critère interdit. Vraiment interdit.",
+   "say": "Non. L'âge, c'est un critère interdit. Vraiment interdit.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 2,
+    "hi": 1
+   },
+   "pause_after": 0.4,
+   "f": "04.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Je veux juste quelqu'un de jeune et dynamique.",
+   "say": "[gêné] Je veux juste quelqu'un de jeune et dynamique.",
+   "shot": "boss",
+   "emo": "awkward",
+   "holo": {
+    "show": false
+   },
+   "f": "05.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Avec quinze ans de terrain. C'est dans votre annonce.",
+   "say": "Avec quinze ans de terrain. C'est dans votre annonce.",
+   "shot": "bot",
+   "f": "06.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Ben oui. Vingt-cinq ans, quinze ans d'expérience.",
+   "say": "[surpris] Ben oui. Vingt-cinq ans, quinze ans d'expérience.",
+   "shot": "boss",
+   "emo": "surprised",
+   "f": "07.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Il aurait commencé à dix ans.",
+   "say": "Il aurait commencé à dix ans.",
+   "shot": "bot",
+   "pause_after": 0.6,
+   "f": "08.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Bon ! Trie comme tu veux, toi !",
+   "say": "[agacé] Bon ! Trie comme tu veux, toi !",
+   "shot": "wide",
+   "emo": "rage",
+   "f": "09.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Noms, âges, photos : masqués. Je note sur vos critères.",
+   "say": "Noms, âges, photos : masqués. Je note sur vos critères.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 0,
+    "visible": 4,
+    "hi": 3
+   },
+   "f": "10.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Terrain, carnet de clients, dispo en janvier.",
+   "say": "Terrain, carnet de clients, dispo en janvier.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 3,
+    "hi": -1
+   },
+   "f": "11.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Le numéro un a 212 clients dans son carnet ?!",
+   "say": "[choqué] Le numéro un a deux cent douze clients dans son carnet ?!",
+   "shot": "boss",
+   "emo": "shocked",
+   "f": "12.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Et cette personne connaît vos prix. Mieux que vous.",
+   "say": "Et cette personne connaît vos prix. Mieux que vous.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 1,
+    "visible": 5,
+    "hi": 0
+   },
+   "f": "13.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Personne connaît mes prix mieux que moi.",
+   "say": "[agacé] Personne connaît mes prix mieux que moi.",
+   "shot": "boss",
+   "emo": "rage",
+   "holo": {
+    "show": false
+   },
+   "f": "14.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Elle les a fixés. En 1998.",
+   "say": "Elle les a fixés. En mille neuf cent quatre-vingt-dix-huit.",
+   "shot": "bot",
+   "pause_after": 0.5,
+   "f": "15.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Elle s'appelle Martine Roche.",
+   "say": "Elle s'appelle Martine Roche.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 2,
+    "hi": 0
+   },
+   "f": "16.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Martine… C'est elle qui m'a tout appris.",
+   "say": "[touché] Martine… C'est elle qui m'a tout appris.",
+   "shot": "boss",
+   "emo": "touched",
+   "pause_after": 0.5,
+   "f": "17.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Son âge, je l'ai vu après le classement. Pas avant.",
+   "say": "Son âge, je l'ai vu après le classement. Pas avant.",
+   "shot": "bot",
+   "f": "18.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Elle voudra jamais bosser pour son apprenti.",
+   "say": "[pensif] Elle voudra jamais bosser pour son apprenti.",
+   "shot": "boss",
+   "emo": "sad",
+   "f": "19.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Lisez la dernière ligne de sa lettre.",
+   "say": "Lisez la dernière ligne de sa lettre.",
+   "shot": "holo",
+   "holo": {
+    "show": true,
+    "card": 2,
+    "visible": 5,
+    "hi": 4
+   },
+   "f": "20.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "« Le petit a bien grandi ? »",
+   "say": "[touché] Le petit a bien grandi ?",
+   "shot": "boss",
+   "emo": "touched",
+   "holo": {
+    "show": false
+   },
+   "pause_after": 0.6,
+   "f": "21.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Allô, Martine ? Oui… c'est le petit.",
+   "say": "[doucement] Allô, Martine ? Oui… c'est le petit.",
+   "shot": "wide",
+   "emo": "touched",
+   "f": "22.mp3"
+  },
+  {
+   "who": "boss",
+   "text": "Elle demande si je suis toujours jeune et dynamique.",
+   "say": "[gêné] Elle demande si je suis toujours jeune et dynamique.",
+   "shot": "boss",
+   "emo": "awkward",
+   "pause_after": 0.8,
+   "f": "23.mp3"
+  },
+  {
+   "who": "claude",
+   "text": "Dites-lui que c'est un critère interdit.",
+   "say": "Dites-lui que c'est un critère interdit.",
+   "shot": "bot",
+   "f": "24.mp3"
+  }
+ ]
+}
