@@ -23,6 +23,8 @@ def _insert_pauses(W):
 SHIFT, VOICE_LEN = _insert_pauses(W)
 W = [w for w in W if not w['text'].startswith('[') and not w['text'].endswith(']') and re.search(r'\w', w['text'])]
 KEY = set('BAPTISTE LIBÉRAL DOUDOUNE JAMAIS CINQ POSTER CEO BOÎTE SALARIÉ CROISSANTS ABONNEMENT BOULANGERIE L\'ÉTAT PROBLÈME ASSISTÉS SUBVENTION INNOVATION PERSONNE SEUL PAPA CHÈQUE QUATRE-VINGT FERME ÉCHEC LEADERSHIP LIKES PODCAST ABONNE-TOI CLICHÉ DISRUPTER'.split())
+# words highlighted in RED (insults, verdicts, punchlines), e.g. {'CONNARD','FEIGNASSES','ULTIME'}
+KEY_RED = set()
 def clean(t): return re.sub(r'[«»“”"]', '', t).strip()
 groups, cur = [], []
 for i, w in enumerate(W):
@@ -39,7 +41,7 @@ for i, g in enumerate(groups):
     words = []
     for w in g:
         txt = clean(w['text']).upper().rstrip('.,')
-        words.append([txt, 1 if txt.rstrip('?!…:') in KEY else 0])
+        b = txt.rstrip('?!…:'); words.append([txt, 2 if b in KEY_RED else (1 if b in KEY else 0)])
     caps.append(dict(t0=round(t0, 3), t1=round(t1, 3), w=words))
 S = [('hook',0),('doudoune',3.1),('cinqh',7.2),('ceo',11.48),('croissant',16.6),('diner',22.5),('subvention',28.0),('toutseul',31.15),('cheque',34.75),('ferme',39.1),('post',42.1),('podcast',46.68),('fin',49.8)]
 S = [(n, round(SHIFT(a), 3)) for n, a in S]   # scene starts are written in original voice time

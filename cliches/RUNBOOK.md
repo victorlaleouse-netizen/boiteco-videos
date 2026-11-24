@@ -28,11 +28,23 @@ export PATH=~/bin:$PATH LIB=~/lemo-opuscar
 
 ## 3. Écrire le texte (le plus important)
 Ton : trash, mordant, cynique, limite, exactement comme les vidéos de référence que Victor a envoyées : on se moque sans pitié du cliché, de ses contradictions, de sa mauvaise foi, de son train de vie. Escalade absurde, détails ultra précis (prix, marques génériques, chiffres), retournements secs.
-- 160 à 180 mots (≈ 55 à 60 s de voix, ≈ 1 000 à 1 100 crédits ElevenLabs), phrases courtes, présent de narration, voix off à la 3e personne. La durée finale passe au-dessus de 61 s grâce aux pauses comiques (section 5), pas en rallongeant la voix.
+- 170 à 190 mots (≈ 58 à 65 s de voix, ≈ 1 100 à 1 250 crédits ElevenLabs), phrases courtes, présent de narration, voix off à la 3e personne. La durée finale passe au-dessus de 61 s grâce aux pauses comiques (section 5), pas en rallongeant la voix.
 - Structure : accroche « Voici <Prénom>. <Le cliché> » → 2 ou 3 détails qui posent le personnage → 3 ou 4 scènes de sa vie (soirée, repas de famille, boulot, réseaux, manif, vacances…) → la contradiction qui monte → une chute sèche, ironique, qui le retourne contre lui-même → « Abonne-toi. Demain, c'est le tour d'un autre cliché. »
 - Écris les nombres en lettres dans le texte envoyé à ElevenLabs. Tu peux mettre UNE balise d'intention ([amused], [sarcastic], [laughs softly]) au maximum deux fois.
-- Limites qui ne bougent pas (elles protègent le compte et la rémunération) : on se moque des opinions, des postures et des modes de vie, jamais de l'origine, de la couleur de peau, de la religion, de l'orientation sexuelle, du genre ou d'un handicap ; pas d'insultes racistes, homophobes ou sexistes, pas de contenu sexuel, pas d'appel à la violence, pas de fausse information présentée comme vraie, pas de vraie personne. Gros mots légers tolérés (« bordel », « putain » une fois maximum), pas plus.
+- Limites qui ne bougent pas (elles protègent le compte et la rémunération) : on se moque des opinions, des postures et des modes de vie, jamais de l'origine, de la couleur de peau, de la religion, de l'orientation sexuelle, du genre ou d'un handicap ; pas d'insultes racistes, homophobes ou sexistes, pas de contenu sexuel, pas d'appel à la violence, pas de fausse information présentée comme vraie, pas de vraie personne. Gros mots et insultes légères tolérés pour la chute (« connard », « feignasses », « bordel »), deux ou trois maximum par vidéo, jamais visant un groupe protégé.
 - Équilibre : sur toute la série, chaque bord doit en prendre autant.
+
+## 3 bis. Leçons des vidéos de référence (envoyées par Victor le 24/11)
+On reprend les MÉCANIQUES, jamais les blagues, les prénoms ni les dessins de ces créateurs.
+- **Titre-accroche à l'écran pendant toute la vidéo** : `window.EP_TITLE=['<PRÉNOM>, <ÂGE> ANS :','<CLICHÉ> ULTIME ?!']` dans episode.js (bandeau en haut, automatique). Le titre pose le verdict et une question.
+- **La biographie en accéléré** : on suit le personnage à travers les âges (17, 18, 22, 25, 28, 30, 35 ans…) avec `ageBadge()` à chaque étape. Chaque étape = un lieu, un gag, un prix ou un chiffre précis. Le personnage finit par devenir exactement ce qu'il détestait (le militant anti-patrons devient le patron qui traite ses livreurs de feignasses ; l'écolo finit avec une villa et une piscine ; le réac finit en coloc chez sa fille).
+- **Rappels (callbacks)** : un objet du début revient à la fin, retourné contre lui (le même mégaphone, le même tee-shirt, la même phrase).
+- **Rythme** : un nouveau visuel toutes les 2 secondes environ (objet, tampon, étiquette, bulle) ; les scènes elles-mêmes peuvent durer 4 à 6 s, mais quelque chose apparaît sur presque chaque groupe de mots.
+- **Tampons et étiquettes qui claquent** : `stamp(t,t0,x,y,'PAS TOUCHE !')`, étiquettes sur les objets (« sweat du Che », « keffieh de chez Zara », « payé en compliments », « net à payer : 0 € »).
+- **Mots rouges** : les insultes, verdicts et chutes vont dans `KEY_RED` (make_timeline.py) et s'affichent en rouge ; les mots clés neutres restent en jaune (`KEY`).
+- **Variante de format** possible un jour sur trois : série « Aujourd'hui : ce <cliché> qui… » (présentation, puis une liste de travers qui s'enchaînent : crypto à 200 €, appli de signaux, « c'est la faute des baleines », repas de Noël où il explique la vie à mamie), fond clair, gros texte animé en haut.
+- **Durée** : les références font 70 à 90 s. Vise 65 à 75 s avec 170 à 190 mots + pauses (≈ 1 100 à 1 250 crédits), pas plus, à cause du budget ElevenLabs.
+- **Banque d'arcs** (à varier, un bord par jour) : l'ado anar fils de notaire → patron ; l'écolo à vélo → SUV et Bali ; le réac « c'était mieux avant » → appli de rencontre à 60 ans ; le libéral anti-État → subventions ; le militant des réseaux → n'a jamais voté ; le complotiste « fais tes recherches » → vend des compléments alimentaires ; le centriste « en même temps » → incapable de choisir un menu ; le souverainiste → tout acheté sur un site chinois ; le syndicaliste de LinkedIn → coach en « leadership bienveillant ».
 
 ## 4. Voix (ElevenLabs, connecteur)
 1. `creative_create_flow` (nom « Clichés #NNN – Prénom »).

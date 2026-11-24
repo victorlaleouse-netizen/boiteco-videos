@@ -104,8 +104,19 @@ const shadow=(x,w,col)=>`<ellipse cx="${x+10}" cy="1462" rx="${w}" ry="22" fill=
 // ---------- captions ----------
 function captions(t){ let c=null; for(const k of TL.caps) if(t>=k.t0&&t<k.t1) c=k; if(!c) return '';
  const s=back(seg(t,c.t0,c.t0+0.18)); const nch=c.w.reduce((a,[w])=>a+w.length+1,0); const size=Math.min(92,Math.floor(940/(nch*0.6)));
- const parts=c.w.map(([w,h])=>`<tspan fill="${h?C.mustard:C.white}">${w} </tspan>`).join('');
+ const parts=c.w.map(([w,h])=>`<tspan fill="${h===2?C.red:(h?C.mustard:C.white)}">${w} </tspan>`).join('');
  return `<g transform="translate(540 1650) scale(${(0.85+0.15*s).toFixed(3)})"><text x="0" y="0" font-family="Jost" font-weight="700" font-size="${size}" text-anchor="middle" stroke="${INK}" stroke-width="22" stroke-linejoin="round" paint-order="stroke" letter-spacing="1">${parts}</text></g>`; }
+
+
+// ---------- series furniture ----------
+// Title banner kept on screen for the whole film (the hook): set window.EP_TITLE=['KYLIAN, 17 ANS :','GAUCHISTE ULTIME ?!'] in episode.js.
+function titleBanner(t){ const L=window.EP_TITLE; if(!L) return ''; const s=back(seg(t,0,0.3));
+  return `<g transform="translate(540 120) scale(${s.toFixed(3)}) translate(-540 -120)">${cel(Rr(90,40,900,L.length>1?170:100,26),'#2B2F3A',{w:6})}`+T(L[0],540,104,52,C.white,{a:'middle'})+(L[1]?T(L[1],540,176,62,C.mustard,{a:'middle',f:'Slab',wt:400}):'')+`</g>`; }
+// Age / year badge that ticks up between life stages: ageBadge(t, t0, 900, 300, 22, 'ANS')
+function ageBadge(t,t0,x,y,n,label='ANS'){ return pop(t,t0,x,y,cel(Rr(x-90,y-80,180,150,22),'#2B2F3A',{w:6})+T(String(n),x,y+12,84,C.mustard,{a:'middle',f:'Slab',wt:400})+T(label,x,y+56,30,C.white,{a:'middle'})); }
+// Rubber stamp slammed on the picture: stamp(t, t0, 540, 400, 'PAS TOUCHE !', C.red, -8)
+function stamp(t,t0,x,y,txt,col=C.red,rot=-8){ if(t<t0) return ''; const k=seg(t,t0,t0+0.12), s=1.6-0.6*eo(k); const w=Math.max(260,txt.length*42);
+  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s.toFixed(3)})" opacity="${(0.4+0.6*k).toFixed(2)}"><rect x="${-w/2}" y="-60" width="${w}" height="120" rx="14" fill="${C.white}" fill-opacity=".85" stroke="${col}" stroke-width="12"/>${T(txt,0,22,64,col,{a:'middle',f:'Slab',wt:400})}</g>`; }
 
 // ---------- generic character (use for every new cliché) ----------
 // o: hair 'side'|'bob'|'curly'|'bald'|'bun'|'long'|'buzz'|'mohawk', hairCol, top color, topStyle 'puffer'|'shirt'|'hoodie'|'cardigan'|'suit'|'tshirt'|'dress'|'vest',
@@ -167,7 +178,7 @@ window.render=function(t){
   const i=ORDER.indexOf(n); if(i<ORDER.length-1&&t>b-0.22){ const p=eo(seg(t,b-0.22,b)); body+=`<rect x="${-1080+1080*p}" y="0" width="1080" height="1920" fill="${GROUND[ORDER[i+1]]}"/><rect x="${1080*p-8}" y="0" width="10" height="1920" fill="${INK}"/>`; }
   const grain=`<rect width="1080" height="1920" filter="url(#gr)"/>`;
   const vig=`<rect width="1080" height="1920" fill="url(#vg)"/>`;
-  st.innerHTML=`<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"><defs><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${Math.floor(t*12)%7}"/><feColorMatrix values="0 0 0 0 .17 0 0 0 0 .14 0 0 0 0 .12 0 0 0 .09 0"/><feComposite in2="SourceGraphic" operator="in"/></filter><radialGradient id="vg" cx=".5" cy=".5" r=".75"><stop offset=".65" stop-color="#2B2320" stop-opacity="0"/><stop offset="1" stop-color="#2B2320" stop-opacity=".22"/></radialGradient></defs>${body}${grain}${vig}${captions(t)}</svg>`;
+  st.innerHTML=`<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"><defs><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${Math.floor(t*12)%7}"/><feColorMatrix values="0 0 0 0 .17 0 0 0 0 .14 0 0 0 0 .12 0 0 0 .09 0"/><feComposite in2="SourceGraphic" operator="in"/></filter><radialGradient id="vg" cx=".5" cy=".5" r=".75"><stop offset=".65" stop-color="#2B2320" stop-opacity="0"/><stop offset="1" stop-color="#2B2320" stop-opacity=".22"/></radialGradient></defs>${body}${grain}${vig}${titleBanner(t)}${captions(t)}</svg>`;
 };
 // events for the mix: pop-ins come from words used above
 window.EV=[];
