@@ -63,7 +63,7 @@ for k, kind in [('libéral.', 'pop'), ('doudoune', 'pop'), ('jamais.', 'pop'), (
     elif kind == 'stamp': put(fx, sfx.thump(0.9), t0 + 0.1)
     elif kind == 'cash': put(fx, sfx.ding(0.6), t0); put(fx, sfx.ding(0.4), t0 + 0.12)
     elif kind == 'thud': put(fx, sfx.thump(0.8, 55), t0)
-vo, sr = sf.read(f'{H}/voice/vo.wav', dtype='float32')
+vo, sr = sf.read(f'{H}/voice/vo_long.wav' if os.path.exists(f'{H}/voice/vo_long.wav') else f'{H}/voice/vo.wav', dtype='float32')
 if vo.ndim > 1: vo = vo.mean(1)
 v = np.zeros(N, np.float32); v[:min(N, len(vo))] = vo[:N]
 v = sfx.compress(v, thr=0.25, ratio=2.5)

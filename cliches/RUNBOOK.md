@@ -1,6 +1,6 @@
 # Série « Clichés » : runbook d'un épisode
 
-Une vidéo TikTok verticale d'environ 50 à 60 s : « Voici X, le/la <cliché> », une mini-histoire racontée par une voix off, qui finit sur une chute où le personnage est rattrapé par ses contradictions. Style « Mid-century Cartoon » (bibliothèque Lemo-Opuscar, style 55) : personnages géométriques dessinés en code, aplats chauds, sous-titres mot à mot en capitales avec le mot clé en jaune. Référence : `episodes/c001_baptiste/` et `../videos/cliches_001.mp4`.
+Une vidéo TikTok verticale de 62 à 70 s (OBLIGATOIRE : plus d'une minute, sinon pas de rémunération TikTok) : « Voici X, le/la <cliché> », une mini-histoire racontée par une voix off, qui finit sur une chute où le personnage est rattrapé par ses contradictions. Style « Mid-century Cartoon » (bibliothèque Lemo-Opuscar, style 55) : personnages géométriques dessinés en code, aplats chauds, sous-titres mot à mot en capitales avec le mot clé en jaune. Référence : `episodes/c001_baptiste/` et `../videos/cliches_001.mp4`.
 
 ## 0. Garde-fous budget (avant tout)
 - ElevenLabs : `account_get_usage`. Crédits restants = character_limit − character_count. S'il en reste moins de 1 500, ne fais rien et préviens Victor.
@@ -28,7 +28,7 @@ export PATH=~/bin:$PATH LIB=~/lemo-opuscar
 
 ## 3. Écrire le texte (le plus important)
 Ton : trash, mordant, cynique, limite, exactement comme les vidéos de référence que Victor a envoyées : on se moque sans pitié du cliché, de ses contradictions, de sa mauvaise foi, de son train de vie. Escalade absurde, détails ultra précis (prix, marques génériques, chiffres), retournements secs.
-- 130 à 170 mots (≈ 50 à 60 s, ≈ 1 000 crédits ElevenLabs), phrases courtes, présent de narration, voix off à la 3e personne.
+- 160 à 180 mots (≈ 55 à 60 s de voix, ≈ 1 000 à 1 100 crédits ElevenLabs), phrases courtes, présent de narration, voix off à la 3e personne. La durée finale passe au-dessus de 61 s grâce aux pauses comiques (section 5), pas en rallongeant la voix.
 - Structure : accroche « Voici <Prénom>. <Le cliché> » → 2 ou 3 détails qui posent le personnage → 3 ou 4 scènes de sa vie (soirée, repas de famille, boulot, réseaux, manif, vacances…) → la contradiction qui monte → une chute sèche, ironique, qui le retourne contre lui-même → « Abonne-toi. Demain, c'est le tour d'un autre cliché. »
 - Écris les nombres en lettres dans le texte envoyé à ElevenLabs. Tu peux mettre UNE balise d'intention ([amused], [sarcastic], [laughs softly]) au maximum deux fois.
 - Limites qui ne bougent pas (elles protègent le compte et la rémunération) : on se moque des opinions, des postures et des modes de vie, jamais de l'origine, de la couleur de peau, de la religion, de l'orientation sexuelle, du genre ou d'un handicap ; pas d'insultes racistes, homophobes ou sexistes, pas de contenu sexuel, pas d'appel à la violence, pas de fausse information présentée comme vraie, pas de vraie personne. Gros mots légers tolérés (« bordel », « putain » une fois maximum), pas plus.
@@ -42,8 +42,8 @@ Ton : trash, mordant, cynique, limite, exactement comme les vidéos de référen
 
 ## 5. Animation
 - Crée `episodes/cNNN_<slug>/` ; copie `kit/toon.js`, `kit/fonts/`, `kit/make_timeline.py`, `kit/mix.py`, et `episodes/c001_baptiste/index.html` (tel quel : il charge timeline.js, toon.js, episode.js).
-- Édite `make_timeline.py` : la liste `S` (nom de scène, seconde de début ; une scène toutes les 3 à 5 s, calée sur le début d'une phrase dans words.json ; la dernière = la fin « Abonne-toi »), `DUR` = fin de la voix + 1,3 s, et `KEY` (les mots clés surlignés en jaune, en capitales). Lance-le.
-- Écris `episode.js` sur le modèle de `episodes/c001_baptiste/episode.js` : un objet `SC` avec une fonction par scène qui renvoie du SVG, `GROUND` (couleur de fond par scène, on alterne coral, mustard, teal, powder, plum, olive, slate, sand), puis `startFilm(SC,GROUND)`. Outils de `toon.js` : `perso()` (personnage générique : cheveux, haut, lunettes, barbe, casquette, accessoire, bras), `baptiste/papa/maman` (exemples), `cel`, `card`, `tag`, `bubble`, `phone`, `slab`, `script`, `star`, `sparkle`, `sunburst`, `pop(t,t0,cx,cy,svg)` pour faire apparaître un élément sur le mot prononcé (`W('mot')` donne l'instant où le mot est dit). Chaque scène : un fond d'une couleur, le personnage, 1 ou 2 accessoires-gags qui apparaissent sur le bon mot (téléphone, ticket de caisse, pancarte, notification, prix…). Les sous-titres et les transitions sont automatiques.
+- Édite `make_timeline.py` : `PAUSES` (5 à 8 silences de 1 à 1,6 s après les mots qui portent un gag, pour laisser le visuel claquer ; c'est ce qui fait passer le film au-dessus de 61 s : le script affiche DUR et doit dire OK), la liste `S` (nom de scène, seconde de début ; une scène toutes les 3 à 5 s, calée sur le début d'une phrase dans words.json ; la dernière = la fin « Abonne-toi »), et `KEY` (les mots clés surlignés en jaune, en capitales). Lance-le.
+- Écris `episode.js` sur le modèle de `episodes/c001_baptiste/episode.js` : un objet `SC` avec une fonction par scène qui renvoie du SVG, `GROUND` (couleur de fond par scène, on alterne coral, mustard, teal, powder, plum, olive, slate, sand), puis `startFilm(SC,GROUND)`. Outils de `toon.js` : `perso()` (personnage générique : cheveux, haut, lunettes, barbe, casquette, accessoire, bras), `baptiste/papa/maman` (exemples), `cel`, `card`, `tag`, `bubble`, `phone`, `slab`, `script`, `star`, `sparkle`, `sunburst`, `pop(t,t0,cx,cy,svg)` pour faire apparaître un élément sur le mot prononcé (`W('mot')` donne l'instant où le mot est dit). Chaque scène : un fond d'une couleur, le personnage, 1 ou 2 accessoires-gags qui apparaissent sur le bon mot (téléphone, ticket de caisse, pancarte, notification, prix…). Les sous-titres et les transitions sont automatiques. Les bras sont dessinés devant le corps et partent toujours vers l'extérieur : petit angle (≤ 40) = bras le long du corps, grand angle (90 à 170) = bras levé ; vérifie sur la planche que chaque personnage a ses deux bras visibles.
 - Garde la zone des sous-titres libre (y 1560 à 1720) et rien d'important à droite entre y 800 et 1500 (icônes TikTok).
 
 ## 6. Rendu et contrôle
@@ -58,7 +58,7 @@ node core/render/video.mjs $P --size 1080x1920 --fps 24 --workers 4 --out $P/out
 LIB=$LIB .venv/bin/python $P/mix.py      # édite d'abord la liste de mots à bruitages dans mix.py
 sh core/render/mux.sh $P/out/video.mp4 $P/out/mix.wav /home/claude/boiteco-videos/videos/cliches_NNN.mp4 24 0
 ```
-ffprobe : 1080×1920, une piste audio, 40 à 65 s. Supprime `$P/stills` et `$P/out` avant le commit (trop lourds).
+ffprobe : 1080×1920, une piste audio, durée STRICTEMENT supérieure à 61 s (sinon ajoute des pauses et refais le rendu). Supprime `$P/stills` et `$P/out` avant le commit (trop lourds).
 
 ## 7. Héberger et publier
 - Ligne dans `cliches.log` : `AAAA-MM-JJ | cNNN | <Prénom>, <cliché> | <bord> | <chute en une phrase> | (programmé Buffer HH:MM)`.

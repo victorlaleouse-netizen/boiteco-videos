@@ -27,6 +27,8 @@ function bubble(x,y,w,h,tx,ty,lines,size=50){ const d=`M${x+28} ${y} H${x+w-28} 
 function phone(x,y,w,h,inner){ return cel(Rr(x,y,w,h,46),'#262A33',{w:8})+`<rect x="${x+24}" y="${y+40}" width="${w-48}" height="${h-80}" rx="22" fill="${C.white}"/>`+inner; }
 // ---------- characters ----------
 function glove(x,y,s=1,rot=0,flip=false){ return `<g transform="translate(${x},${y}) rotate(${rot}) scale(${flip?-s:s},${s})">${cel(P('M-26 -18 Q-30 22 -6 30 Q22 34 30 10 L40 -6 Q44 -16 34 -16 L24 -6 L26 -30 Q24 -40 14 -36 L10 -22 L4 -38 Q-4 -44 -10 -34 Z'),C.white,{w:6})}<path d="M2 -6 L4 12 M14 -8 L14 10" stroke="${INK}" stroke-width="4" stroke-linecap="round"/></g>`; }
+// arms always swing outward: small angles = resting, large = raised (sign ignored)
+const armL=a=>Math.abs(a)<=40?-Math.max(14,Math.abs(a)):-Math.abs(a), armR=a=>Math.abs(a)<=40?Math.max(14,Math.abs(a)):Math.abs(a);
 function arm(sx,sy,ang,len,col,glv=true){ const a=ang*Math.PI/180, ex=sx+Math.sin(a)*len, ey=sy+Math.cos(a)*len;
   return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${INK}" stroke-width="48" stroke-linecap="round"/><line x1="${sx+4}" y1="${sy+4}" x2="${ex+4}" y2="${ey+4}" stroke="${col}" stroke-width="34" stroke-linecap="round"/>`+(glv?glove(ex,ey+8,1,-ang*0.4,ang<0):''); }
 function face(ey,o){ const g=[];
@@ -51,13 +53,13 @@ function baptiste(x,y,s=1,o={}){ const g=[];
   g.push(cel(P('M14 -46 L8 -20 Q4 0 26 0 L92 0 Q112 -4 96 -30 L80 -46 Z'),C.white,{w:6}));
   const aL=o.aL??12, aR=o.aR??-12;
   if(!o.backArms) {}
-  g.push(arm(-100,-590,aL,230,C.powder,!o.noGloveL));
-  g.push(arm(100,-590,aR,230,C.powder,!o.phone));
+  const ARMS=arm(-104,-594,armL(aL),230,C.powder,!o.noGloveL)+arm(104,-594,armR(aR),230,C.powder,!o.phone);
   g.push(cel(P('M-100 -610 Q-110 -470 -84 -320 L88 -320 Q110 -470 100 -610 Q0 -650 -100 -610Z'),C.powder));
   let q=''; for(let i=0;i<5;i++) q+=`<path d="M-92 ${-570+i*52} Q0 ${-556+i*52} 92 ${-570+i*52}" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
   g.push(cel(P('M-104 -606 Q-112 -470 -90 -322 L92 -322 Q112 -470 104 -606 Q60 -630 30 -626 L0 -520 L-30 -626 Q-60 -630 -104 -606Z'),C.navy)+q+`<path d="M0 -520 L0 -326" stroke="${INK}" stroke-width="5"/>`);
   g.push(cel(P('M-34 -628 L0 -580 L34 -628 L18 -640 L0 -610 L-18 -640 Z'),C.white,{w:5}));
-  if(o.phone){ const a=aR*Math.PI/180, ex=100+Math.sin(a)*230, ey=-590+Math.cos(a)*230; g.push(cel(Rr(ex-26,ey-70,56,100,12),'#262A33',{w:6})+`<rect x="${ex-18}" y="${ey-60}" width="40" height="76" rx="6" fill="${C.powder}"/>`+glove(ex,ey+10,1,0)); }
+  g.push(ARMS);
+  if(o.phone){ const a=armR(aR)*Math.PI/180, ex=104+Math.sin(a)*230, ey=-594+Math.cos(a)*230; g.push(cel(Rr(ex-26,ey-70,56,100,12),'#262A33',{w:6})+`<rect x="${ex-18}" y="${ey-60}" width="40" height="76" rx="6" fill="${C.powder}"/>`+glove(ex,ey+10,1,0)); }
   if(o.chest) g.push(glove(-10,-470,1.05,-20,true));
   g.push(cel(Rr(-26,-676,52,50,10),C.skin,{w:6}));
   g.push(cel(P('M-96 -790 Q-104 -900 -10 -912 Q86 -916 96 -820 Q100 -790 92 -770 Q118 -760 112 -738 Q104 -716 88 -722 Q84 -660 6 -650 Q-90 -654 -96 -790Z'),C.skin));
@@ -70,10 +72,10 @@ function baptiste(x,y,s=1,o={}){ const g=[];
 }
 function papa(x,y,s=1,o={}){ const g=[];
   g.push(cel(P('M-80 -320 L-86 0 L-20 0 L-4 -240 L12 -240 L28 0 L92 0 L84 -320Z'),'#6C6457'));
-  g.push(arm(-120,-580,o.aL??14,220,C.olive)); g.push(arm(120,-580,o.aR??-14,220,C.olive,!o.pen));
   g.push(cel(P('M-120 -600 Q-140 -460 -100 -320 L104 -320 Q140 -460 120 -600 Q0 -650 -120 -600Z'),C.olive));
   g.push(`<path d="M0 -610 L0 -330" stroke="${INK}" stroke-width="5"/>`+[-560,-500,-440,-380].map(yy=>`<circle cx="18" cy="${yy}" r="7" fill="${C.mustard}" stroke="${INK}" stroke-width="3"/>`).join(''));
-  if(o.pen){ const a=(o.aR??-14)*Math.PI/180, ex=120+Math.sin(a)*220, ey=-580+Math.cos(a)*220; g.push(`<line x1="${ex}" y1="${ey}" x2="${ex+40}" y2="${ey+50}" stroke="${INK}" stroke-width="12" stroke-linecap="round"/>`+glove(ex,ey,1,10)); }
+  g.push(arm(-124,-584,armL(o.aL??14),220,C.olive)+arm(124,-584,armR(o.aR??-14),220,C.olive,!o.pen));
+  if(o.pen){ const a=armR(o.aR??-14)*Math.PI/180, ex=124+Math.sin(a)*220, ey=-584+Math.cos(a)*220; g.push(`<line x1="${ex}" y1="${ey}" x2="${ex+40}" y2="${ey+50}" stroke="${INK}" stroke-width="12" stroke-linecap="round"/>`+glove(ex,ey,1,10)); }
   g.push(cel(Rr(-24,-670,48,44,10),C.skin,{w:6}));
   g.push(cel(E(0,-770,104,108),C.skin));
   g.push(cel(P('M-96 -800 Q-90 -880 0 -884 Q-60 -860 -70 -790 Z'),'#B9B2A6',{w:5})+cel(P('M96 -800 Q90 -880 10 -884 Q70 -860 76 -790 Z'),'#B9B2A6',{w:5}));
@@ -86,8 +88,8 @@ function papa(x,y,s=1,o={}){ const g=[];
 function maman(x,y,s=1,o={}){ const g=[];
   g.push(cel(P('M-50 -300 L-56 -40 L-16 -40 L-8 -300Z M50 -300 L56 -40 L16 -40 L8 -300Z'),C.skin,{w:6}));
   g.push(cel(P('M-60 -40 Q-70 0 -20 0 L-12 -40Z M60 -40 Q70 0 20 0 L12 -40Z'),C.red,{w:6}));
-  g.push(arm(-96,-580,o.aL??16,210,C.plum)); g.push(arm(96,-580,o.aR??-16,210,C.plum));
   g.push(cel(P('M-96 -600 Q-110 -480 -150 -280 L150 -280 Q110 -480 96 -600 Q0 -640 -96 -600Z'),C.plum));
+  g.push(arm(-100,-584,armL(o.aL??16),210,C.plum)+arm(100,-584,armR(o.aR??-16),210,C.plum));
   g.push(cel(Rr(-22,-660,44,40,10),C.skin,{w:6}));
   g.push(cel(P('M-120 -700 Q-140 -900 0 -910 Q140 -900 120 -700 Q110 -640 80 -650 L-80 -650 Q-110 -640 -120 -700Z'),'#3A2A2A'));
   g.push(cel(E(0,-766,86,98),C.skin));
@@ -116,7 +118,7 @@ function perso(x,y,s=1,o={}){ const g=[]; const skin=o.skin||C.skin, top=o.top||
   g.push(cel(P('M14 -46 L8 -20 Q4 0 26 0 L92 0 Q112 -4 96 -30 L80 -46 Z'),shoes,{w:6}));
   const sleeve=(o.topStyle==='tshirt'||o.topStyle==='vest'||o.topStyle==='puffer')?(o.sleeve||skin):top;
   const aL=o.aL??12, aR=o.aR??-12; const hasProp=!!o.prop;
-  g.push(arm(-100,-590,aL,230,sleeve)); g.push(arm(100,-590,aR,230,sleeve,!hasProp));
+  const ARMS=arm(-104,-594,armL(aL),230,sleeve)+arm(104,-594,armR(aR),230,sleeve,!hasProp);
   if(o.topStyle==='dress') g.push(cel(P('M-96 -600 Q-110 -480 -150 -280 L150 -280 Q110 -480 96 -600 Q0 -640 -96 -600Z'),top));
   else g.push(cel(P('M-100 -610 Q-110 -470 -84 -320 L88 -320 Q110 -470 100 -610 Q0 -650 -100 -610Z'),top));
   if(o.topStyle==='puffer'||o.topStyle==='vest'){ let q=''; if(o.topStyle==='puffer') for(let i=0;i<5;i++) q+=`<path d="M-92 ${-570+i*52} Q0 ${-556+i*52} 92 ${-570+i*52}" stroke="${INK}" stroke-width="5" fill="none"/>`; g.push(q+`<path d="M0 -600 L0 -326" stroke="${INK}" stroke-width="5"/>`); }
@@ -124,8 +126,9 @@ function perso(x,y,s=1,o={}){ const g=[]; const skin=o.skin||C.skin, top=o.top||
   if(o.topStyle==='hoodie'){ g.push(cel(P('M-70 -640 Q0 -580 70 -640 Q60 -600 0 -590 Q-60 -600 -70 -640Z'),top,{w:5})+`<path d="M-20 -600 L-24 -540 M20 -600 L24 -540" stroke="${INK}" stroke-width="5"/>`+cel(Rr(-60,-450,120,70,20),top,{w:5})); }
   if(o.topStyle==='shirt'||o.topStyle==='cardigan'||o.topStyle==='puffer') g.push(cel(P('M-34 -628 L0 -580 L34 -628 L18 -640 L0 -610 L-18 -640 Z'),t2,{w:5}));
   if(o.topStyle==='cardigan') g.push(`<path d="M0 -600 L0 -330" stroke="${INK}" stroke-width="5"/>`+[-560,-500,-440,-380].map(yy=>`<circle cx="18" cy="${yy}" r="7" fill="${C.mustard}" stroke="${INK}" stroke-width="3"/>`).join(''));
+  g.push(ARMS);
   if(o.badge) g.push(cel(E(-50,-540,34,34),C.white,{w:5})+T(o.badge,-50,-530,20,INK,{a:'middle'}));
-  if(hasProp){ const a=aR*Math.PI/180, ex=100+Math.sin(a)*230, ey=-590+Math.cos(a)*230; const p=o.prop;
+  if(hasProp){ const a=armR(aR)*Math.PI/180, ex=104+Math.sin(a)*230, ey=-594+Math.cos(a)*230; const p=o.prop;
     if(p==='phone') g.push(cel(Rr(ex-26,ey-70,56,100,12),'#262A33',{w:6})+`<rect x="${ex-18}" y="${ey-60}" width="40" height="76" rx="6" fill="${C.powder}"/>`);
     else if(p==='mug') g.push(cel(Rr(ex-30,ey-60,60,70,10),C.white,{w:6})+`<path d="M${ex+30} ${ey-45} q24 0 24 20 q0 20 -24 20" stroke="${INK}" stroke-width="6" fill="none"/>`);
     else if(p==='bag') g.push(cel(Rr(ex-50,ey,100,90,14),C.beige,{w:6}));
