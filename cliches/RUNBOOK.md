@@ -22,7 +22,7 @@ export PATH=~/bin:$PATH LIB=~/lemo-opuscar
 ```
 
 ## 2. Choisir le cliché
-- Lis `cliches.log` : ne reprends jamais un personnage ni une chute déjà faits.
+- Fais d'abord `git pull` (deux épisodes peuvent être produits le même jour). Lis `cliches.log` : ne reprends jamais un personnage ni une chute déjà faits.
 - Fais tourner l'échiquier, dans cet ordre de bords, en reprenant là où le log s'est arrêté : gauche, droite, centre / libéral, écolo, « apolitique », extrême gauche, extrême droite, réac, start-up nation, militant, puis on recommence. Exemples de personnages : l'insoumis en fac de socio qui vit chez ses parents, le néo-réac qui regrette « la France d'avant » depuis sa Tesla, l'écolo qui prend l'avion 6 fois par an, le macroniste de LinkedIn, le « je suis pas raciste mais », le militant qui fait la révolution sur Twitter, le boomer chaînes info, le souverainiste qui achète tout sur Amazon, le coach crypto anti-système, la bobo du 11e qui vote pour la décroissance, l'élu local qui inaugure un rond-point, le lycéen anar qui demande 50 € à papa…
 - Personnages INVENTÉS avec un prénom courant. JAMAIS un vrai politicien, parti nommé de façon diffamatoire, journaliste ou personne réelle.
 
@@ -33,6 +33,13 @@ Ton : trash, mordant, cynique, limite, exactement comme les vidéos de référen
 - Écris les nombres en lettres dans le texte envoyé à ElevenLabs. Tu peux mettre UNE balise d'intention ([amused], [sarcastic], [laughs softly]) au maximum deux fois.
 - Limites qui ne bougent pas (elles protègent le compte et la rémunération) : on se moque des opinions, des postures et des modes de vie, jamais de l'origine, de la couleur de peau, de la religion, de l'orientation sexuelle, du genre ou d'un handicap ; pas d'insultes racistes, homophobes ou sexistes, pas de contenu sexuel, pas d'appel à la violence, pas de fausse information présentée comme vraie, pas de vraie personne. Gros mots et insultes légères tolérés pour la chute (« connard », « feignasses », « bordel »), deux ou trois maximum par vidéo, jamais visant un groupe protégé.
 - Équilibre : sur toute la série, chaque bord doit en prendre autant.
+
+## 3 ter. Accroches plus trash (demande de Victor du 25/11)
+L'accroche (bandeau `EP_TITLE` + première phrase de la voix) doit choquer dans les 2 premières secondes : un verdict insultant sur le cliché, une question, et une promesse de chute.
+- Bandeau : `['<PRÉNOM>, <ÂGE> ANS :','<INSULTE-CLICHÉ> ULTIME ?!']`, ou des variantes plus sales : « … NIVEAU MAX ?! », « … EN PLS ?! », « … PUR JUS ?! », « LE PIRE … DE FRANCE ?! ». Exemples de verdicts : GAUCHIASSE DE CANAPÉ, BEAUF DE DROITE, FACHO DU BARBECUE, BOBO HYPOCRITE, ÉCOLO EN SUV, MACRONISTE DE LINKEDIN, BOOMER AIGRI, COMPLOTISTE EN PLS, CRYPTO-BRO RUINÉ, ANAR FILS DE NOTAIRE, RÉAC DE COMPTOIR, INFLUENCEUSE ENGAGÉE À DUBAÏ.
+- Première phrase de la voix : présentation sèche + un premier détail méchant, par exemple « Voici Kévin, 19 ans, révolutionnaire à plein temps… depuis le canapé de sa mère. » Jamais de mise en route : on est dans le cliché dès le premier mot.
+- Le personnage peut être traité de connard, de feignasse, de beauf, de bouffon, de tocard, d'hypocrite ; c'est son idéologie, son mode de vie et sa mauvaise foi qu'on démonte.
+- Les limites de la section 3 ne bougent pas : pas d'insulte visant une origine, une religion, une orientation sexuelle, un genre ou un handicap, pas de vraie personne.
 
 ## 3 bis. Leçons des vidéos de référence (envoyées par Victor le 24/11)
 On reprend les MÉCANIQUES, jamais les blagues, les prénoms ni les dessins de ces créateurs.
@@ -58,6 +65,14 @@ On reprend les MÉCANIQUES, jamais les blagues, les prénoms ni les dessins de c
 - Écris `episode.js` sur le modèle de `episodes/c001_baptiste/episode.js` : un objet `SC` avec une fonction par scène qui renvoie du SVG, `GROUND` (couleur de fond par scène, on alterne coral, mustard, teal, powder, plum, olive, slate, sand), puis `startFilm(SC,GROUND)`. Outils de `toon.js` : `perso()` (personnage générique : cheveux, haut, lunettes, barbe, casquette, accessoire, bras), `baptiste/papa/maman` (exemples), `cel`, `card`, `tag`, `bubble`, `phone`, `slab`, `script`, `star`, `sparkle`, `sunburst`, `pop(t,t0,cx,cy,svg)` pour faire apparaître un élément sur le mot prononcé (`W('mot')` donne l'instant où le mot est dit). Chaque scène : un fond d'une couleur, le personnage, 1 ou 2 accessoires-gags qui apparaissent sur le bon mot (téléphone, ticket de caisse, pancarte, notification, prix…). Les sous-titres et les transitions sont automatiques. Les bras sont dessinés devant le corps et partent toujours vers l'extérieur : petit angle (≤ 40) = bras le long du corps, grand angle (90 à 170) = bras levé ; vérifie sur la planche que chaque personnage a ses deux bras visibles.
 - Garde la zone des sous-titres libre (y 1560 à 1720) et rien d'important à droite entre y 800 et 1500 (icônes TikTok).
 
+## 5 bis. Cadrage TikTok (OBLIGATOIRE, corrigé le 25/11 après la vidéo de Baptiste)
+Sur téléphone, TikTok recouvre le haut (barre de recherche : y 0 à 250), le bas (légende, pseudo, musique, barre de progression : y 1500 à 1920) et la colonne de droite (j'aime, commentaires, partages : x 940 à 1080 entre y 700 et 1500).
+- Tout texte et tout objet important tient dans x 60 à 920 et y 260 à 1480 (`SAFE` dans toon.js). Les fonds et le sol peuvent déborder, pas le reste.
+- Le bandeau titre (`EP_TITLE`) est placé automatiquement sous la barre de recherche (y 272) : ne mets RIEN d'autre entre y 260 et 460 quand il est présent. Dans la scène d'accroche, pas de second gros titre « Voici X » : le bandeau suffit, le personnage occupe y 480 à 1460.
+- Les sous-titres sont automatiquement à y ≈ 1270, centrés sur x 490 : laisse cette bande lisible (pas de carte ni de texte entre y 1180 et 1320).
+- `slab()` se réduit tout seul au-delà de 820 px de large ; pour `T()` et les cartes, garde des textes courts.
+- Contrôle : sur la planche de contrôle (section 6), vérifie chaque image en imaginant ces trois zones masquées ; si un titre, une bulle ou un visage y tombe, déplace-le.
+
 ## 6. Rendu et contrôle
 ```sh
 cd $LIB && P=/home/claude/boiteco-videos/cliches/episodes/cNNN_slug
@@ -75,4 +90,4 @@ ffprobe : 1080×1920, une piste audio, durée STRICTEMENT supérieure à 61 s (s
 ## 7. Héberger et publier
 - Ligne dans `cliches.log` : `AAAA-MM-JJ | cNNN | <Prénom>, <cliché> | <bord> | <chute en une phrase> | (programmé Buffer HH:MM)`.
 - `git add` épisode + vidéo + log, commit (auteur Claude), `git push origin HEAD:main`. Vérifie que `https://raw.githubusercontent.com/victorlaleouse-netizen/boiteco-videos/main/videos/cliches_NNN.mp4` répond 200.
-- Buffer `create_post` : channelId `6b0550098541f09ecb86c06b`, schedulingType `automatic`, mode `customScheduled`, dueAt aujourd'hui 19:00 heure de Paris (format `AAAA-MM-JJT19:00:00+01:00`, ou maintenant + 10 min si c'est passé), assets `[{"video":{"url":<url raw>}}]`, text = une phrase d'accroche qui donne envie + 1 ou 2 emojis + `#humour #cliché #politique #france #fyp`, metadata `{"tiktok":{"title":"Voici <Prénom>","isAiGenerated":true}}`. Vérifie avec `list_posts`.
+- Buffer `create_post` : channelId `6b0550098541f09ecb86c06b`, schedulingType `automatic`, mode `customScheduled`, dueAt aujourd'hui à l'heure donnée par la tâche planifiée (19:00 ou 21:00) heure de Paris (format `AAAA-MM-JJT19:00:00+01:00`, ou maintenant + 10 min si c'est passé), assets `[{"video":{"url":<url raw>}}]`, text = une phrase d'accroche qui donne envie + 1 ou 2 emojis + `#humour #cliché #politique #france #fyp`, metadata `{"tiktok":{"title":"Voici <Prénom>","isAiGenerated":true}}`. Vérifie avec `list_posts`.

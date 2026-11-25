@@ -1,4 +1,7 @@
 'use strict';
+// TikTok safe zone on a 1080x1920 frame: top 0-250 = search bar / tabs, bottom 1500-1920 = caption, username, music, progress;
+// right 940-1080 between y 700-1500 = like/comment/share column. Keep every text and key object inside x 60-920, y 260-1480.
+const SAFE={x0:60,x1:920,y0:260,y1:1480};
 'use strict';
 const INK='#2B2320', PAPER='#F3E9D2';
 const C={coral:'#E07A5F',coralD:'#C9654B',mustard:'#E9B949',mustardD:'#D29F2F',teal:'#3E9C94',tealD:'#2F7F78',powder:'#A9C9D6',powderD:'#8FB3C2',plum:'#7D5170',plumD:'#664059',olive:'#8C9A57',oliveD:'#76834A',sand:'#E8D5B0',sandD:'#D4BD92',slate:'#6F7F95',slateD:'#5A6A80',skin:'#F2C9A1',hair:'#5A3A2A',navy:'#34476B',beige:'#D8C3A0',white:'#FFFDF6',grey:'#9A948A',red:'#D9544A',green:'#6BA368'};
@@ -19,7 +22,7 @@ function ground(col,colD,h=1300){ return `<rect width="1080" height="1920" fill=
 function sunburst(cx,cy,r,col,rot=0,n=30){ let s=''; for(let i=0;i<n;i+=2){const a0=i/n*Math.PI*2+rot,a1=(i+1)/n*Math.PI*2+rot; s+=`<path d="M${cx} ${cy} L${cx+Math.cos(a0)*r} ${cy+Math.sin(a0)*r} L${cx+Math.cos(a1)*r} ${cy+Math.sin(a1)*r}Z" fill="${col}" opacity=".33"/>`;} return s; }
 function sparkle(x,y,s,col=C.white){ return `<path d="M${x} ${y-s} Q${x} ${y} ${x+s} ${y} Q${x} ${y} ${x} ${y+s} Q${x} ${y} ${x-s} ${y} Q${x} ${y} ${x} ${y-s}Z" fill="${col}" stroke="${INK}" stroke-width="4"/>`; }
 function star(x,y,r,col,n=12){ let d=''; for(let i=0;i<n*2;i++){const a=i/(n*2)*Math.PI*2-Math.PI/2, rr=i%2?r*.62:r; d+=(i?'L':'M')+(x+Math.cos(a)*rr).toFixed(1)+' '+(y+Math.sin(a)*rr).toFixed(1);} return cel(P(d+'Z'),col,{w:6}); }
-function slab(text,x,y,size,col,plate){ return `<text x="${x+8}" y="${y+8}" font-family="Slab" font-size="${size}" text-anchor="middle" fill="${plate}">${text}</text><text x="${x}" y="${y}" font-family="Slab" font-size="${size}" text-anchor="middle" fill="${col}" stroke="${INK}" stroke-width="${size*0.06}" paint-order="stroke">${text}</text>`; }
+function slab(text,x,y,size,col,plate){ size=Math.min(size,Math.floor(820/(String(text).length*0.74))); return `<text x="${x+8}" y="${y+8}" font-family="Slab" font-size="${size}" text-anchor="middle" fill="${plate}">${text}</text><text x="${x}" y="${y}" font-family="Slab" font-size="${size}" text-anchor="middle" fill="${col}" stroke="${INK}" stroke-width="${size*0.06}" paint-order="stroke">${text}</text>`; }
 function script(text,x,y,size,col){ return `<text x="${x+6}" y="${y+6}" font-family="Oleo" font-weight="700" font-size="${size}" text-anchor="middle" fill="${INK}" opacity=".85">${text}</text><text x="${x}" y="${y}" font-family="Oleo" font-weight="700" font-size="${size}" text-anchor="middle" fill="${col}">${text}</text>`; }
 function card(x,y,w,h,col=C.white,r=22){ return cel(Rr(x,y,w,h,r),col,{w:6}); }
 function tag(x,y,w,lines,col=PAPER){ const h=38+lines.length*52; return card(x,y,w,h,col)+lines.map((l,i)=>T(l,x+28,y+60+i*52,i?36:42,INK,{wt:i?500:700})).join('')+sparkle(x+w-8,y+8,18,C.mustard); }
@@ -103,19 +106,20 @@ function maman(x,y,s=1,o={}){ const g=[];
 const shadow=(x,w,col)=>`<ellipse cx="${x+10}" cy="1462" rx="${w}" ry="22" fill="${col}"/>`;
 // ---------- captions ----------
 function captions(t){ let c=null; for(const k of TL.caps) if(t>=k.t0&&t<k.t1) c=k; if(!c) return '';
- const s=back(seg(t,c.t0,c.t0+0.18)); const nch=c.w.reduce((a,[w])=>a+w.length+1,0); const size=Math.min(92,Math.floor(940/(nch*0.6)));
+ const s=back(seg(t,c.t0,c.t0+0.18)); const nch=c.w.reduce((a,[w])=>a+w.length+1,0); const size=Math.min(88,Math.floor(820/(nch*0.6)));
  const parts=c.w.map(([w,h])=>`<tspan fill="${h===2?C.red:(h?C.mustard:C.white)}">${w} </tspan>`).join('');
- return `<g transform="translate(540 1650) scale(${(0.85+0.15*s).toFixed(3)})"><text x="0" y="0" font-family="Jost" font-weight="700" font-size="${size}" text-anchor="middle" stroke="${INK}" stroke-width="22" stroke-linejoin="round" paint-order="stroke" letter-spacing="1">${parts}</text></g>`; }
+ return `<g transform="translate(490 1270) scale(${(0.85+0.15*s).toFixed(3)})"><text x="0" y="0" font-family="Jost" font-weight="700" font-size="${size}" text-anchor="middle" stroke="${INK}" stroke-width="22" stroke-linejoin="round" paint-order="stroke" letter-spacing="1">${parts}</text></g>`; }
 
 
 // ---------- series furniture ----------
 // Title banner kept on screen for the whole film (the hook): set window.EP_TITLE=['KYLIAN, 17 ANS :','GAUCHISTE ULTIME ?!'] in episode.js.
-function titleBanner(t){ const L=window.EP_TITLE; if(!L) return ''; const s=back(seg(t,0,0.3));
-  return `<g transform="translate(540 120) scale(${s.toFixed(3)}) translate(-540 -120)">${cel(Rr(90,40,900,L.length>1?170:100,26),'#2B2F3A',{w:6})}`+T(L[0],540,104,52,C.white,{a:'middle'})+(L[1]?T(L[1],540,176,62,C.mustard,{a:'middle',f:'Slab',wt:400}):'')+`</g>`; }
+function titleBanner(t){ const L=window.EP_TITLE; if(!L) return ''; const s=back(seg(t,0,0.3)); const y=272, h=L.length>1?176:104;
+  const s2=L[1]?Math.min(66,Math.floor(800/(L[1].length*0.72))):0, s1=Math.min(52,Math.floor(820/(L[0].length*0.58)));
+  return `<g transform="translate(540 ${y+h/2}) scale(${s.toFixed(3)}) translate(-540 ${-(y+h/2)})">${cel(Rr(100,y,880,h,26),'#2B2F3A',{w:6})}`+T(L[0],540,y+66,s1,C.white,{a:'middle'})+(L[1]?T(L[1],540,y+142,s2,C.mustard,{a:'middle',f:'Slab',wt:400}):'')+`</g>`; }
 // Age / year badge that ticks up between life stages: ageBadge(t, t0, 900, 300, 22, 'ANS')
 function ageBadge(t,t0,x,y,n,label='ANS'){ return pop(t,t0,x,y,cel(Rr(x-90,y-80,180,150,22),'#2B2F3A',{w:6})+T(String(n),x,y+12,84,C.mustard,{a:'middle',f:'Slab',wt:400})+T(label,x,y+56,30,C.white,{a:'middle'})); }
 // Rubber stamp slammed on the picture: stamp(t, t0, 540, 400, 'PAS TOUCHE !', C.red, -8)
-function stamp(t,t0,x,y,txt,col=C.red,rot=-8){ if(t<t0) return ''; const k=seg(t,t0,t0+0.12), s=1.6-0.6*eo(k); const w=Math.max(260,txt.length*42);
+function stamp(t,t0,x,y,txt,col=C.red,rot=-8){ if(t<t0) return ''; const k=seg(t,t0,t0+0.12), s=1.6-0.6*eo(k); const w=Math.max(280,txt.length*46+50);
   return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s.toFixed(3)})" opacity="${(0.4+0.6*k).toFixed(2)}"><rect x="${-w/2}" y="-60" width="${w}" height="120" rx="14" fill="${C.white}" fill-opacity=".85" stroke="${col}" stroke-width="12"/>${T(txt,0,22,64,col,{a:'middle',f:'Slab',wt:400})}</g>`; }
 
 // ---------- generic character (use for every new cliché) ----------
@@ -182,7 +186,7 @@ window.render=function(t){
 };
 // events for the mix: pop-ins come from words used above
 window.EV=[];
-window.TEXTS=function(t){ let c=null; for(const k of TL.caps) if(t>=k.t0&&t<k.t1) c=k; return c?[{id:'cap',text:c.w.map(x=>x[0]).join(' '),x0:60,y0:1560,x1:1020,y1:1690}]:[]; };
+window.TEXTS=function(t){ let c=null; for(const k of TL.caps) if(t>=k.t0&&t<k.t1) c=k; return c?[{id:'cap',text:c.w.map(x=>x[0]).join(' '),x0:70,y0:1180,x1:910,y1:1300}]:[]; };
 document.fonts.ready.then(()=>{ window.READY=true; });
 if(!/HeadlessChrome/.test(navigator.userAgent)){ const t0=performance.now(); (function loop(){ window.render(((performance.now()-t0)/1000)%TL.dur); requestAnimationFrame(loop); })(); }
 }
