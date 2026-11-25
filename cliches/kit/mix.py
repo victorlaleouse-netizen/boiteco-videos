@@ -63,6 +63,13 @@ for k, kind in [('libéral.', 'pop'), ('doudoune', 'pop'), ('jamais.', 'pop'), (
     elif kind == 'stamp': put(fx, sfx.thump(0.9), t0 + 0.1)
     elif kind == 'cash': put(fx, sfx.ding(0.6), t0); put(fx, sfx.ding(0.4), t0 + 0.12)
     elif kind == 'thud': put(fx, sfx.thump(0.8, 55), t0)
+# GIMMICK: every « chut chut chut » cluster gets a slam + reversed whoosh (series signature)
+_ch = sorted(W.get('chut', [])); _g = []
+for _t in _ch:
+    if not _g or _t - _g[-1] > 1.6: _g.append(_t)
+for _t in _g:
+    _n = int(0.35 * SR); _w = (hp(rng.standard_normal(_n), 800) * np.linspace(0, 1, _n) ** 2 * 0.25).astype(np.float32)
+    put(fx, _w, _t - 0.35); put(fx, sfx.thump(1.0, 50), _t)
 vo, sr = sf.read(f'{H}/voice/vo_long.wav' if os.path.exists(f'{H}/voice/vo_long.wav') else f'{H}/voice/vo.wav', dtype='float32')
 if vo.ndim > 1: vo = vo.mean(1)
 v = np.zeros(N, np.float32); v[:min(N, len(vo))] = vo[:N]

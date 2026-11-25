@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Clichés 3D</title>
+<style>
+@font-face{font-family:'Jost';font-weight:800;src:url(fonts/jost700.woff2)}
+@font-face{font-family:'Jost';font-weight:600;src:url(fonts/jost700.woff2)}
+@font-face{font-family:'Slab';src:url(fonts/slab.woff2)}
+html,body{margin:0;background:#000;overflow:hidden}
+#wrap{position:relative;width:100vw;height:100vh}
+#wrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+#ov{position:absolute;inset:0;pointer-events:none}
+</style></head><body><div id="wrap"><div id="ov"></div></div>
+<script src="timeline.js"></script>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js"}}</script>
+<script type="module" src="episode.js"></script>
+</body></html>

@@ -1,6 +1,6 @@
 # Série « Clichés » : runbook d'un épisode
 
-Une vidéo TikTok verticale de 62 à 70 s (OBLIGATOIRE : plus d'une minute, sinon pas de rémunération TikTok) : « Voici X, le/la <cliché> », une mini-histoire racontée par une voix off, qui finit sur une chute où le personnage est rattrapé par ses contradictions. Style « Mid-century Cartoon » (bibliothèque Lemo-Opuscar, style 55) : personnages géométriques dessinés en code, aplats chauds, sous-titres mot à mot en capitales avec le mot clé en jaune. Référence : `episodes/c001_baptiste/` et `../videos/cliches_001.mp4`.
+Une vidéo TikTok verticale de 62 à 70 s (OBLIGATOIRE : plus d'une minute, sinon pas de rémunération TikTok) : « Voici X, le/la <cliché> », une mini-histoire racontée par une voix off, qui finit sur une chute où le personnage est rattrapé par ses contradictions. Style 3D « jeu de blocs » façon Roblox (depuis le 25/11, section 5), sous-titres mot à mot en capitales avec le mot clé en jaune, gimmick « CHUT CHUT CHUT » (section 5 ter). Référence : `episodes3d/c001_baptiste_3d/`.
 
 ## 0. Garde-fous budget (avant tout)
 - ElevenLabs : `account_get_usage`. Crédits restants = character_limit − character_count. S'il en reste moins de 1 500, ne fais rien et préviens Victor.
@@ -69,11 +69,19 @@ On reprend les MÉCANIQUES, jamais les blagues, les prénoms ni les dessins de c
 3. Attends ~25 s, puis `creative_get_flow_run_status` (flow_id, session_ids) → `media[0].url` ; télécharge-le avec curl en `voice/vo.mp3`, puis `ffmpeg -i voice/vo.mp3 -ar 48000 -ac 1 voice/vo.wav`.
 4. `creative_transcribe_audio` (model_id `eleven_scribe_v1`, flow_id, connect_from [node_id de la voix]) — gratuit. Attends ~15 s, `creative_get_flow_run_status` → `transcripts[0].words_download_url` ; télécharge-le en `voice/words.json`.
 
-## 5. Animation
-- Crée `episodes/cNNN_<slug>/` ; copie `kit/toon.js`, `kit/fonts/`, `kit/make_timeline.py`, `kit/mix.py`, et `episodes/c001_baptiste/index.html` (tel quel : il charge timeline.js, toon.js, episode.js).
-- Édite `make_timeline.py` : `PAUSES` (5 à 8 silences de 1 à 1,6 s après les mots qui portent un gag, pour laisser le visuel claquer ; c'est ce qui fait passer le film au-dessus de 61 s : le script affiche DUR et doit dire OK), la liste `S` (nom de scène, seconde de début ; une scène toutes les 3 à 5 s, calée sur le début d'une phrase dans words.json ; la dernière = la fin « Abonne-toi »), et `KEY` (les mots clés surlignés en jaune, en capitales). Lance-le.
-- Écris `episode.js` sur le modèle de `episodes/c001_baptiste/episode.js` : un objet `SC` avec une fonction par scène qui renvoie du SVG, `GROUND` (couleur de fond par scène, on alterne coral, mustard, teal, powder, plum, olive, slate, sand), puis `startFilm(SC,GROUND)`. Outils de `toon.js` : `perso()` (personnage générique : cheveux, haut, lunettes, barbe, casquette, accessoire, bras), `baptiste/papa/maman` (exemples), `cel`, `card`, `tag`, `bubble`, `phone`, `slab`, `script`, `star`, `sparkle`, `sunburst`, `pop(t,t0,cx,cy,svg)` pour faire apparaître un élément sur le mot prononcé (`W('mot')` donne l'instant où le mot est dit). Chaque scène : un fond d'une couleur, le personnage, 1 ou 2 accessoires-gags qui apparaissent sur le bon mot (téléphone, ticket de caisse, pancarte, notification, prix…). Les sous-titres et les transitions sont automatiques. Les bras sont dessinés devant le corps et partent toujours vers l'extérieur : petit angle (≤ 40) = bras le long du corps, grand angle (90 à 170) = bras levé ; vérifie sur la planche que chaque personnage a ses deux bras visibles.
-- Garde la zone des sous-titres libre (y 1560 à 1720) et rien d'important à droite entre y 800 et 1500 (icônes TikTok).
+## 5. Animation (3D « jeu de blocs », look Roblox, depuis le 25/11)
+La série est passée en 3D : avatars en blocs façon Roblox (tête ronde, corps R6, visages simples), décors de jeu (rue pavillonnaire, salon, open space, fac, villa avec piscine, terrain de basket), couleurs vives, caméra qui bouge. Référence : `episodes3d/c001_baptiste_3d/` (voir `episode.js`). L'ancien kit 2D (`kit/`, `episodes/`) ne sert plus que pour `make_timeline.py` et `mix.py`.
+- Crée `episodes3d/cNNN_<slug>/` ; copie `kit3d/index.html`, `kit3d/toon3d.js`, `kit3d/fonts/`, `kit/make_timeline.py`, `kit/mix.py`.
+- Édite `make_timeline.py` comme avant (`PAUSES`, `S`, `KEY`, `KEY_RED` ; mets `CHUT` dans `KEY_RED`) et lance-le.
+- Écris `episode.js` (module ES) sur le modèle de la référence : `import * as K from './toon3d.js'`, `window.EP_TITLE=[...]`, `K.sky('day'|'dusk'|'night')`, les décors utiles parmi `K.SETS.street(0)`, `room(200)`, `office(400)`, `fac(600)`, `villa(800)`, `court(1000)` (chaque décor est à son abscisse, la caméra saute de l'un à l'autre), les personnages avec `K.avatar({...})` (haut, pantalon, `hat:'hair'|'long'|'bun'|'beanie'|'cap'|'party'|'mohawk'|'bald'|'helmet'`, `glasses`, `beard`, `print:'TEXTE SUR LE T-SHIRT'`, `prop:'megaphone'|'phone'|'sign:TEXTE'|'flag:#hex'|'mug'|'glass'|'money'|'briefcase'`) et des figurants avec `K.crowd(n,x,z)`. Dans chaque scène : place les avatars (`.at(x,z,ry)`), choisis une pose animée (`.pose('idle'|'talk'|'wave'|'point'|'armsUp'|'shrug'|'cross'|'walk'|'run'|'sit'|'shout'|'phone'|'facepalm'|'jump'|'dance', t)`), un visage (`.setFace('smile'|'happy'|'smug'|'angry'|'shout'|'sad'|'shock'|'wink'|'talk'|'flat'|'cry'|'shh')`), la caméra (`K.frame(av,'close'|'mid'|'full'|'wide')` puis `K.shot(de, vers, visée, visée, avancement)` avec un léger travelling), `K.focusShadow(x,z)`, et renvoie la surcouche SVG (`K.card`, `K.stamp`, `K.ageBadge`). Cache les avatars qui ne jouent pas (`hide()`).
+- Le bandeau titre, les sous-titres, les transitions et le gimmick « CHUT CHUT CHUT » (texte géant, flash, monde figé, zoom) sont automatiques.
+- Caméra : en vertical, c'est la largeur qui limite ; reste à au moins `frame(...,'mid')` pour un personnage seul, `full` ou `wide` pour plusieurs. Varie les plans (gros plan sur la chute, plans larges pour situer), un nouveau plan à chaque scène.
+
+## 5 ter. Le gimmick de la série : « CHUT CHUT CHUT »
+Signature de la série (inspirée du « HUSS! » des vidéos 3D qui marchent, en version à nous) : chaque fois que le personnage se contredit, la voix chuchote « chut, chut, chut » et tout se fige. 3 ou 4 fois par vidéo, dont une dans les 6 premières secondes (juste après la chute en flash-forward) et une sur la chute finale.
+- Dans le texte envoyé à ElevenLabs, écris-le exactement ainsi : `[whispers] Chut, chut, chut.` (une phrase à part, juste après la contradiction).
+- Dans `make_timeline.py`, mets `CHUT` dans `KEY_RED` et ajoute une pause de 0,6 s après le troisième « chut » si la phrase suivante démarre trop vite.
+- Le kit détecte les « chut » dans words.json et fait le reste (texte géant, flash, gel de l'image) ; `mix.py` ajoute le souffle et le coup sourd.
 
 ## 5 bis. Cadrage TikTok (OBLIGATOIRE, corrigé le 25/11 après la vidéo de Baptiste)
 Sur téléphone, TikTok recouvre le haut (barre de recherche : y 0 à 250), le bas (légende, pseudo, musique, barre de progression : y 1500 à 1920) et la colonne de droite (j'aime, commentaires, partages : x 940 à 1080 entre y 700 et 1500).
@@ -85,19 +93,19 @@ Sur téléphone, TikTok recouvre le haut (barre de recherche : y 0 à 250), le b
 
 ## 6. Rendu et contrôle
 ```sh
-cd $LIB && P=/home/claude/boiteco-videos/cliches/episodes/cNNN_slug
-node core/render/still.mjs $P <8 à 12 instants> --size 1080x1920
+cd $LIB && P=/home/claude/boiteco-videos/cliches/episodes3d/cNNN_slug
+LEMO_ANGLE=swiftshader node core/render/still.mjs $P <8 à 12 instants> --size 1080x1920
 .venv/bin/python core/render/sheet.py /tmp/sheet.jpg $P/stills/*.jpg --cols 6 --w 280
 ```
-REGARDE la planche : rien qui se chevauche (têtes cachées par une carte), textes lisibles, sous-titres dans le cadre, accessoires au bon moment. Corrige puis :
+REGARDE la planche : personnages entiers et lisibles (pas coupés par le cadre, pas collés à la caméra), rien qui se chevauche (têtes cachées par une carte), décor sans trou (pas de vide au bord d'une pièce), textes lisibles, sous-titres dans le cadre, gimmick visible. Corrige puis :
 ```sh
-node core/render/video.mjs $P --size 1080x1920 --fps 24 --workers 4 --out $P/out/video.mp4
+LEMO_ANGLE=swiftshader node core/render/video.mjs $P --size 1080x1920 --fps 24 --workers 4 --out $P/out/video.mp4   # 3D : ~7 min
 LIB=$LIB .venv/bin/python $P/mix.py      # édite d'abord la liste de mots à bruitages dans mix.py
 sh core/render/mux.sh $P/out/video.mp4 $P/out/mix.wav /home/claude/boiteco-videos/videos/cliches_NNN.mp4 24 0
 ```
 ffprobe : 1080×1920, une piste audio, durée STRICTEMENT supérieure à 61 s (sinon ajoute des pauses et refais le rendu). Supprime `$P/stills` et `$P/out` avant le commit (trop lourds).
 
 ## 7. Héberger et publier
-- Ligne dans `cliches.log` : `AAAA-MM-JJ | cNNN | <Prénom>, <cliché> | <bord> | <chute en une phrase> | (programmé Buffer HH:MM)`.
+- Ligne dans `cliches.log` (mentionne « 3D ») : `AAAA-MM-JJ | cNNN | <Prénom>, <cliché> | <bord> | <chute en une phrase> | (programmé Buffer HH:MM)`.
 - `git add` épisode + vidéo + log, commit (auteur Claude), `git push origin HEAD:main`. Vérifie que `https://raw.githubusercontent.com/victorlaleouse-netizen/boiteco-videos/main/videos/cliches_NNN.mp4` répond 200.
 - Buffer `create_post` : channelId `6b0550098541f09ecb86c06b`, schedulingType `automatic`, mode `customScheduled`, dueAt aujourd'hui à l'heure donnée par la tâche planifiée (19:00 ou 21:00) heure de Paris (format `AAAA-MM-JJT19:00:00+01:00`, ou maintenant + 10 min si c'est passé), assets `[{"video":{"url":<url raw>}}]`, text = une phrase d'accroche qui donne envie + 1 ou 2 emojis + `#humour #cliché #politique #france #fyp`, metadata `{"tiktok":{"title":"Voici <Prénom>","isAiGenerated":true}}`. Vérifie avec `list_posts`.
