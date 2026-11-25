@@ -17,7 +17,7 @@ function cel(geo, fill, o={}){
 }
 const P=d=>`<path d="${d}"/>`, E=(cx,cy,rx,ry)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`, Rr=(x,y,w,h,r=0)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}"/>`;
 const T=(s,x,y,size,col,o={})=>`<text x="${x}" y="${y}" font-family="${o.f||'Jost'}" font-weight="${o.wt||700}" font-size="${size}" fill="${col}" text-anchor="${o.a||'start'}" ${o.extra||''}>${s}</text>`;
-function pop(t,t0,cx,cy,inner,d=0.28){ if(t<t0) return ''; const s=back(seg(t,t0,t0+d)); return `<g transform="translate(${cx},${cy}) scale(${s.toFixed(3)}) translate(${-cx},${-cy})">${inner}</g>`; }
+function pop(t,t0,cx,cy,inner,d=0.28){ if(t0<0.35) return inner; /* frame 0 must be full: nothing pops in during the first instant */ if(t<t0) return ''; const s=back(seg(t,t0,t0+d)); return `<g transform="translate(${cx},${cy}) scale(${s.toFixed(3)}) translate(${-cx},${-cy})">${inner}</g>`; }
 function ground(col,colD,h=1300){ return `<rect width="1080" height="1920" fill="${col}"/><rect y="${h}" width="1080" height="${1920-h}" fill="${colD}"/><path d="M0 ${h} H330 M372 ${h} H760 M796 ${h} H1080" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`; }
 function sunburst(cx,cy,r,col,rot=0,n=30){ let s=''; for(let i=0;i<n;i+=2){const a0=i/n*Math.PI*2+rot,a1=(i+1)/n*Math.PI*2+rot; s+=`<path d="M${cx} ${cy} L${cx+Math.cos(a0)*r} ${cy+Math.sin(a0)*r} L${cx+Math.cos(a1)*r} ${cy+Math.sin(a1)*r}Z" fill="${col}" opacity=".33"/>`;} return s; }
 function sparkle(x,y,s,col=C.white){ return `<path d="M${x} ${y-s} Q${x} ${y} ${x+s} ${y} Q${x} ${y} ${x} ${y+s} Q${x} ${y} ${x-s} ${y} Q${x} ${y} ${x} ${y-s}Z" fill="${col}" stroke="${INK}" stroke-width="4"/>`; }
@@ -113,7 +113,7 @@ function captions(t){ let c=null; for(const k of TL.caps) if(t>=k.t0&&t<k.t1) c=
 
 // ---------- series furniture ----------
 // Title banner kept on screen for the whole film (the hook): set window.EP_TITLE=['KYLIAN, 17 ANS :','GAUCHISTE ULTIME ?!'] in episode.js.
-function titleBanner(t){ const L=window.EP_TITLE; if(!L) return ''; const s=back(seg(t,0,0.3)); const y=272, h=L.length>1?176:104;
+function titleBanner(t){ const L=window.EP_TITLE; if(!L) return ''; const s=1; /* visible from frame 0 */ const y=272, h=L.length>1?176:104;
   const s2=L[1]?Math.min(66,Math.floor(800/(L[1].length*0.72))):0, s1=Math.min(52,Math.floor(820/(L[0].length*0.58)));
   return `<g transform="translate(540 ${y+h/2}) scale(${s.toFixed(3)}) translate(-540 ${-(y+h/2)})">${cel(Rr(100,y,880,h,26),'#2B2F3A',{w:6})}`+T(L[0],540,y+66,s1,C.white,{a:'middle'})+(L[1]?T(L[1],540,y+142,s2,C.mustard,{a:'middle',f:'Slab',wt:400}):'')+`</g>`; }
 // Age / year badge that ticks up between life stages: ageBadge(t, t0, 900, 300, 22, 'ANS')
